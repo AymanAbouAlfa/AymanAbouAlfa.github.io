@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ayman Abou-Alfa · Physics &amp; Biophysics, Cornell University</title>
+<meta name="description" content="Ayman Abou-Alfa studies Physics and Biophysics at Cornell University. Explore an interactive lab bench: click the labelled glassware, plates, notebook and drawers for education, research, teaching and publications.">
+<meta name="theme-color" content="#05080c">
+<style>
+:root{--hand:"Marker Felt","Bradley Hand","Segoe Print","Comic Sans MS",cursive;--note:"Noteworthy","Bradley Hand","Segoe Print","Comic Sans MS",cursive;--sans:"Avenir Next","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--ink:#1d2026;--paper:#faf8f2}
+html{font-size:clamp(11px,min(1.25vw,2.2vh),40px)}
+*{box-sizing:border-box}
+body{margin:0;background:#05080c;color:#e9edf0;font-family:var(--sans);overflow:hidden;-webkit-font-smoothing:antialiased}
+#gl{position:fixed;inset:0;width:100vw;height:100vh;display:block;margin:auto;outline:0;touch-action:none}
+#ui{position:fixed;inset:0;pointer-events:none}
+#ui>*{pointer-events:auto}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+
+#hd{position:absolute;left:2.2rem;top:1.7rem;text-shadow:0 .1rem .8rem rgba(0,0,0,.7);pointer-events:none}
+#hd h1{margin:0;font-size:1.42rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+#hd p{margin:.35rem 0 0;font-size:.82rem;letter-spacing:.09em;color:#b8c4cc}
+#back{position:absolute;left:2.2rem;top:6rem;font-size:.82rem;letter-spacing:.06em;padding:.5rem 1rem;border:1px solid rgba(233,237,240,.45);border-radius:2rem;background:rgba(8,12,17,.55);backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s,background .2s}
+#back.on{opacity:1;visibility:visible}
+#back:hover,#back:focus-visible{background:rgba(233,237,240,.16)}
+#hint{position:absolute;left:50%;bottom:1.7rem;transform:translateX(-50%);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#c9d3da;padding:.5rem 1.1rem;border-radius:2rem;background:rgba(8,12,17,.5);opacity:0;transition:opacity .5s;pointer-events:none;white-space:nowrap}
+#hint.on{opacity:1}
+#ft{position:absolute;right:1.8rem;bottom:1.7rem;font-size:.7rem;letter-spacing:.04em;color:#8e9aa3}
+#ft a,#ft button{color:#b8c4cc;text-decoration:underline;text-underline-offset:.2em}
+#ft a:hover,#ft button:hover{color:#fff}
+body[data-view=intro] #hd,body[data-view=intro] #ft{opacity:0}
+#hd,#ft{transition:opacity 1.2s .6s}
+
+/* floating tape tags */
+.tag{position:absolute;left:0;top:0;width:0;height:0;opacity:0;visibility:hidden;transition:opacity .45s,visibility .45s;will-change:transform}
+.tag.on{opacity:1;visibility:visible}
+.tag i{position:absolute;left:-.42rem;top:-.42rem;width:.84rem;height:.84rem;border-radius:50%;background:var(--c);box-shadow:0 0 0 .14rem rgba(8,12,17,.75),0 0 .9rem var(--c)}
+.tag i::after{content:"";position:absolute;inset:-.5rem;border-radius:50%;border:.1rem solid var(--c);animation:ping 2.4s ease-out infinite}
+.tag::before{content:"";position:absolute;left:-.05rem;bottom:.4rem;width:.1rem;height:1.75rem;background:linear-gradient(var(--c),rgba(255,255,255,.15))}
+.tag span{position:absolute;left:0;bottom:2.1rem;transform:translateX(-50%) rotate(-1.6deg);white-space:nowrap;font:1.02rem/1 var(--hand);color:#17191d;background:linear-gradient(rgba(255,255,255,.22),rgba(255,255,255,0) 45%,rgba(0,0,0,.08)),var(--c);padding:.42rem .85rem .36rem;border-radius:.1rem;box-shadow:0 .3rem 1rem rgba(0,0,0,.5);transition:transform .18s}
+.tag:nth-child(even) span{transform:translateX(-50%) rotate(1.4deg)}
+.tag.dn::before{bottom:auto;top:.4rem;background:linear-gradient(rgba(255,255,255,.15),var(--c))}
+.tag.dn span{bottom:auto;top:2.1rem}
+.tag.hv span,.tag:hover span,.tag:focus-visible span{transform:translateX(-50%) scale(1.1)}
+.tag:focus-visible{outline:0}
+.tag:focus-visible span{outline:.14rem solid #fff;outline-offset:.14rem}
+@keyframes ping{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+
+/* content card */
+#panel{position:absolute;top:50%;right:3.4rem;width:30.5rem;max-height:80vh;overflow:auto;transform:translate(1.2rem,-50%);background:var(--paper);color:var(--ink);border-radius:.3rem;padding:2.9rem 2.2rem 1.9rem;box-shadow:0 1.6rem 4rem rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06);opacity:0;visibility:hidden;transition:opacity .45s,transform .45s,visibility .45s}
+#panel.l{right:auto;left:3.4rem;transform:translate(-1.2rem,-50%)}
+#panel.on{opacity:1;visibility:visible;transform:translate(0,-50%)}
+#ptitle{position:absolute;left:1.6rem;top:-.1rem;margin:0;transform:rotate(-1.4deg);font:400 1.22rem/1 var(--hand);color:#17191d;background:linear-gradient(rgba(255,255,255,.25),rgba(255,255,255,0) 45%,rgba(0,0,0,.08)),var(--c);padding:.55rem 1.3rem .48rem;box-shadow:0 .2rem .6rem rgba(0,0,0,.25)}
+#panel h2{margin:0 0 .35rem;font-size:1.3rem;line-height:1.25;font-weight:700;letter-spacing:-.005em}
+#panel h3{margin:1.25rem 0 .3rem;font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#5c6470}
+#panel h3:first-child{margin-top:0}
+#panel p{margin:.35rem 0;font-size:.95rem;line-height:1.55}
+#panel .meta{font:600 .74rem/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#5c6470}
+#panel .where{color:#3c434d;font-style:italic}
+#panel ul{margin:.9rem 0 0;padding-left:1.15rem}
+#panel li{font-size:.95rem;line-height:1.5;margin:.5rem 0}
+#panel li::marker{color:#9aa1ab}
+#panel ul.plain{list-style:none;padding:0;margin:0}
+#panel ul.plain li{margin:0;padding:.85rem 0;border-top:1px solid #e3ded0}
+#panel ul.plain li:first-child{border-top:0;padding-top:0}
+#panel ul.plain b{display:block;font-size:1rem;line-height:1.35}
+#panel ul.plain span{display:block;margin-top:.2rem;font-size:.86rem;color:#4a515c;line-height:1.45}
+#panel dl{display:grid;grid-template-columns:auto 1fr;gap:.55rem 1.2rem;margin:1.1rem 0 0;padding-top:1rem;border-top:1px solid #e3ded0}
+#panel dt{font:600 .72rem/1.9 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#5c6470}
+#panel dd{margin:0;font-size:.98rem;line-height:1.45}
+#panel .links{margin-top:1.2rem;display:flex;flex-wrap:wrap;gap:.5rem .6rem}
+#panel a{color:#1c4fa0;text-decoration:underline;text-decoration-color:rgba(28,79,160,.35);text-underline-offset:.18em}
+#panel a:hover{text-decoration-color:currentColor}
+#panel .links a,#panel ul.plain a{white-space:nowrap}
+#panel .links a{font-size:.84rem;font-weight:600;text-decoration:none;padding:.42rem .8rem;border:1px solid #c9d3e6;border-radius:2rem;background:#f1f5fb}
+#panel .links a:hover{background:#e3ecf9}
+#panel a[target]::after{content:" ↗";font-size:.85em}
+#panel code{font:.86em var(--mono);background:#ece8dc;padding:.1em .35em;border-radius:.2em}
+#panel .cite{font-size:1rem;line-height:1.6}
+#panel .vial{border-left:.32rem solid var(--v);padding:.1rem 0 .1rem 1rem;margin:1.1rem 0}
+#panel .vial:first-child{margin-top:0}
+#panel .vial h3{margin:0 0 .2rem;color:var(--ink)}
+
+/* text that sits on the notebook pages */
+#nb{position:absolute;left:0;top:0;width:1060px;height:698px;transform-origin:0 0;display:flex;font-family:var(--note);color:#1c2a55;opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s;pointer-events:none}
+#nb.on{opacity:1;visibility:visible}
+#nb>div{width:50%;padding:128px 44px 20px 52px;pointer-events:auto}
+#nb>div+div{padding:58px 50px 20px 46px}
+#nb h2{margin:0 0 2px;font-size:27px;line-height:1.2;font-weight:700}
+#nb h2:not(:first-child){margin-top:26px}
+#nb p{margin:0;font-size:18.5px;line-height:1.35}
+#nb .meta{color:#a8242a;font-weight:700}
+#nb ul{margin:8px 0 0;padding-left:24px}
+#nb li{font-size:19.5px;line-height:1.36;margin:5px 0}
+#nb a{color:inherit;text-decoration:underline;text-decoration-color:rgba(28,42,85,.45);text-underline-offset:3px}
+
+/* loader */
+#ld{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,8,12,.9);transition:opacity .9s,visibility .9s;text-align:center}
+#ld.gone{opacity:0;visibility:hidden}
+#ld h1{margin:0;font-size:2rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase}
+#ld p{margin:.7rem 0 2.4rem;font-size:.92rem;letter-spacing:.12em;color:#b8c4cc}
+#ldw{width:15rem;height:.2rem;background:rgba(255,255,255,.14);border-radius:1rem;overflow:hidden}
+#ldb{width:100%;height:100%;background:#f6d55c;transform:scaleX(0);transform-origin:0 0;transition:transform .3s}
+#lds{margin-top:.9rem;font:.72rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#8e9aa3}
+#start{margin-top:1.6rem;font:1.25rem/1 var(--hand);color:#17191d;background:linear-gradient(rgba(255,255,255,.25),rgba(255,255,255,0) 45%,rgba(0,0,0,.08)),#f6d55c;padding:.75rem 2.2rem .65rem;transform:rotate(-1.5deg);box-shadow:0 .5rem 1.6rem rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .4s,transform .18s}
+#ld.ready #start{opacity:1;visibility:visible}
+#ld.ready #ldw,#ld.ready #lds{opacity:0}
+#start:hover,#start:focus-visible{transform:rotate(-1.5deg) scale(1.07)}
+
+/* plain-text fallback when WebGL2 is unavailable */
+#fb{position:fixed;inset:0;overflow:auto;padding:3rem max(1.5rem,calc(50vw - 22rem));background:var(--paper);color:var(--ink)}
+#fb h4{margin:2.2rem 0 .6rem;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#5c6470}
+body.nogl #gl,body.nogl #ui{display:none}
+body.manual *{transition:none!important;animation:none!important}
+
+@media (max-aspect-ratio:115/100){
+  #panel,#panel.l{left:1rem;right:1rem;top:auto;bottom:1rem;width:auto;max-height:52vh;transform:translateY(1rem)}
+  #panel.on{transform:none}
+  #hd{left:1.2rem;top:1.2rem}#back{left:1.2rem;top:5.4rem}#ft{display:none}
+}
+@media (prefers-reduced-motion:reduce){.tag i::after{animation:none}}
+</style>
+</head>
+<body data-view="intro">
+<canvas id="gl" aria-label="Animated 3D biology lab bench. Use the labelled buttons to open each section."></canvas>
+<div id="ui">
+  <header id="hd"><h1>Ayman Abou-Alfa</h1><p>Physics &amp; Biophysics · Cornell University</p></header>
+  <nav id="tags" aria-label="Sections"></nav>
+  <button id="back">← Back to the bench</button>
+  <div id="hint" role="status"></div>
+  <aside id="panel" aria-live="polite"><h1 id="ptitle"></h1><div id="pbody"></div></aside>
+  <div id="nb"><div id="pgl"></div><div id="pgr"></div></div>
+  <footer id="ft">Inspired by <a href="https://www.jesse-zhou.com/" target="_blank" rel="noopener">Jesse Zhou’s ramen shop</a> · built with Claude · <button id="ftack">Acknowledgments</button></footer>
+</div>
+<div id="ld">
+  <h1>Ayman Abou-Alfa</h1><p>Physics &amp; Biophysics · Cornell University</p>
+  <div id="ldw"><div id="ldb"></div></div><div id="lds">Preparing the bench <span id="ldt">0%</span></div>
+  <button id="start">Enter the lab</button>
+</div>
+<div id="fb" hidden></div>
+<script>/*__JS__*/</script>
+</body>
+</html>

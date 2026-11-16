@@ -1,0 +1,16 @@
+# Private: resume contains street address and phone number
+*_resume.pdf
+*.pdf
+
+# macOS / editor
+.DS_Store
+
+# Local tooling
+__pycache__/
+*.pyc
+venv/
+.venv/
+node_modules/
+
+# Verification scratch output
+verification/renders/

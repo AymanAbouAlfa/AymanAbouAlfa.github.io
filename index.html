@@ -1,0 +1,1908 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ayman Abou-Alfa · Physics &amp; Biophysics, Cornell University</title>
+<meta name="description" content="Ayman Abou-Alfa studies Physics and Biophysics at Cornell University. Explore an interactive lab bench: click the labelled glassware, plates, notebook and drawers for education, research, teaching and publications.">
+<meta name="theme-color" content="#05080c">
+<style>
+:root{--hand:"Marker Felt","Bradley Hand","Segoe Print","Comic Sans MS",cursive;--note:"Noteworthy","Bradley Hand","Segoe Print","Comic Sans MS",cursive;--sans:"Avenir Next","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--ink:#1d2026;--paper:#faf8f2}
+html{font-size:clamp(11px,min(1.25vw,2.2vh),40px)}
+*{box-sizing:border-box}
+body{margin:0;background:#05080c;color:#e9edf0;font-family:var(--sans);overflow:hidden;-webkit-font-smoothing:antialiased}
+#gl{position:fixed;inset:0;width:100vw;height:100vh;display:block;margin:auto;outline:0;touch-action:none}
+#ui{position:fixed;inset:0;pointer-events:none}
+#ui>*{pointer-events:auto}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+
+#hd{position:absolute;left:2.2rem;top:1.7rem;text-shadow:0 .1rem .8rem rgba(0,0,0,.7);pointer-events:none}
+#hd h1{margin:0;font-size:1.42rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+#hd p{margin:.35rem 0 0;font-size:.82rem;letter-spacing:.09em;color:#b8c4cc}
+#back{position:absolute;left:2.2rem;top:6rem;font-size:.82rem;letter-spacing:.06em;padding:.5rem 1rem;border:1px solid rgba(233,237,240,.45);border-radius:2rem;background:rgba(8,12,17,.55);backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s,background .2s}
+#back.on{opacity:1;visibility:visible}
+#back:hover,#back:focus-visible{background:rgba(233,237,240,.16)}
+#hint{position:absolute;left:50%;bottom:1.7rem;transform:translateX(-50%);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#c9d3da;padding:.5rem 1.1rem;border-radius:2rem;background:rgba(8,12,17,.5);opacity:0;transition:opacity .5s;pointer-events:none;white-space:nowrap}
+#hint.on{opacity:1}
+#ft{position:absolute;right:1.8rem;bottom:1.7rem;font-size:.7rem;letter-spacing:.04em;color:#8e9aa3}
+#ft a,#ft button{color:#b8c4cc;text-decoration:underline;text-underline-offset:.2em}
+#ft a:hover,#ft button:hover{color:#fff}
+body[data-view=intro] #hd,body[data-view=intro] #ft{opacity:0}
+#hd,#ft{transition:opacity 1.2s .6s}
+
+/* floating tape tags */
+.tag{position:absolute;left:0;top:0;width:0;height:0;opacity:0;visibility:hidden;transition:opacity .45s,visibility .45s;will-change:transform}
+.tag.on{opacity:1;visibility:visible}
+.tag i{position:absolute;left:-.42rem;top:-.42rem;width:.84rem;height:.84rem;border-radius:50%;background:var(--c);box-shadow:0 0 0 .14rem rgba(8,12,17,.75),0 0 .9rem var(--c)}
+.tag i::after{content:"";position:absolute;inset:-.5rem;border-radius:50%;border:.1rem solid var(--c);animation:ping 2.4s ease-out infinite}
+.tag::before{content:"";position:absolute;left:-.05rem;bottom:.4rem;width:.1rem;height:1.75rem;background:linear-gradient(var(--c),rgba(255,255,255,.15))}
+.tag span{position:absolute;left:0;bottom:2.1rem;transform:translateX(-50%) rotate(-1.6deg);white-space:nowrap;font:1.02rem/1 var(--hand);color:#17191d;background:linear-gradient(rgba(255,255,255,.22),rgba(255,255,255,0) 45%,rgba(0,0,0,.08)),var(--c);padding:.42rem .85rem .36rem;border-radius:.1rem;box-shadow:0 .3rem 1rem rgba(0,0,0,.5);transition:transform .18s}
+.tag:nth-child(even) span{transform:translateX(-50%) rotate(1.4deg)}
+.tag.dn::before{bottom:auto;top:.4rem;background:linear-gradient(rgba(255,255,255,.15),var(--c))}
+.tag.dn span{bottom:auto;top:2.1rem}
+.tag.hv span,.tag:hover span,.tag:focus-visible span{transform:translateX(-50%) scale(1.1)}
+.tag:focus-visible{outline:0}
+.tag:focus-visible span{outline:.14rem solid #fff;outline-offset:.14rem}
+@keyframes ping{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+
+/* content card */
+#panel{position:absolute;top:50%;right:3.4rem;width:30.5rem;max-height:80vh;overflow:auto;transform:translate(1.2rem,-50%);background:var(--paper);color:var(--ink);border-radius:.3rem;padding:2.9rem 2.2rem 1.9rem;box-shadow:0 1.6rem 4rem rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06);opacity:0;visibility:hidden;transition:opacity .45s,transform .45s,visibility .45s}
+#panel.l{right:auto;left:3.4rem;transform:translate(-1.2rem,-50%)}
+#panel.on{opacity:1;visibility:visible;transform:translate(0,-50%)}
+#ptitle{position:absolute;left:1.6rem;top:-.1rem;margin:0;transform:rotate(-1.4deg);font:400 1.22rem/1 var(--hand);color:#17191d;background:linear-gradient(rgba(255,255,255,.25),rgba(255,255,255,0) 45%,rgba(0,0,0,.08)),var(--c);padding:.55rem 1.3rem .48rem;box-shadow:0 .2rem .6rem rgba(0,0,0,.25)}
+#panel h2{margin:0 0 .35rem;font-size:1.3rem;line-height:1.25;font-weight:700;letter-spacing:-.005em}
+#panel h3{margin:1.25rem 0 .3rem;font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#5c6470}
+#panel h3:first-child{margin-top:0}
+#panel p{margin:.35rem 0;font-size:.95rem;line-height:1.55}
+#panel .meta{font:600 .74rem/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#5c6470}
+#panel .where{color:#3c434d;font-style:italic}
+#panel ul{margin:.9rem 0 0;padding-left:1.15rem}
+#panel li{font-size:.95rem;line-height:1.5;margin:.5rem 0}
+#panel li::marker{color:#9aa1ab}
+#panel ul.plain{list-style:none;padding:0;margin:0}
+#panel ul.plain li{margin:0;padding:.85rem 0;border-top:1px solid #e3ded0}
+#panel ul.plain li:first-child{border-top:0;padding-top:0}
+#panel ul.plain b{display:block;font-size:1rem;line-height:1.35}
+#panel ul.plain span{display:block;margin-top:.2rem;font-size:.86rem;color:#4a515c;line-height:1.45}
+#panel dl{display:grid;grid-template-columns:auto 1fr;gap:.55rem 1.2rem;margin:1.1rem 0 0;padding-top:1rem;border-top:1px solid #e3ded0}
+#panel dt{font:600 .72rem/1.9 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#5c6470}
+#panel dd{margin:0;font-size:.98rem;line-height:1.45}
+#panel .links{margin-top:1.2rem;display:flex;flex-wrap:wrap;gap:.5rem .6rem}
+#panel a{color:#1c4fa0;text-decoration:underline;text-decoration-color:rgba(28,79,160,.35);text-underline-offset:.18em}
+#panel a:hover{text-decoration-color:currentColor}
+#panel .links a,#panel ul.plain a{white-space:nowrap}
+#panel .links a{font-size:.84rem;font-weight:600;text-decoration:none;padding:.42rem .8rem;border:1px solid #c9d3e6;border-radius:2rem;background:#f1f5fb}
+#panel .links a:hover{background:#e3ecf9}
+#panel a[target]::after{content:" ↗";font-size:.85em}
+#panel code{font:.86em var(--mono);background:#ece8dc;padding:.1em .35em;border-radius:.2em}
+#panel .cite{font-size:1rem;line-height:1.6}
+#panel .vial{border-left:.32rem solid var(--v);padding:.1rem 0 .1rem 1rem;margin:1.1rem 0}
+#panel .vial:first-child{margin-top:0}
+#panel .vial h3{margin:0 0 .2rem;color:var(--ink)}
+
+/* text that sits on the notebook pages */
+#nb{position:absolute;left:0;top:0;width:1060px;height:698px;transform-origin:0 0;display:flex;font-family:var(--note);color:#1c2a55;opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s;pointer-events:none}
+#nb.on{opacity:1;visibility:visible}
+#nb>div{width:50%;padding:128px 44px 20px 52px;pointer-events:auto}
+#nb>div+div{padding:58px 50px 20px 46px}
+#nb h2{margin:0 0 2px;font-size:27px;line-height:1.2;font-weight:700}
+#nb h2:not(:first-child){margin-top:26px}
+#nb p{margin:0;font-size:18.5px;line-height:1.35}
+#nb .meta{color:#a8242a;font-weight:700}
+#nb ul{margin:8px 0 0;padding-left:24px}
+#nb li{font-size:19.5px;line-height:1.36;margin:5px 0}
+#nb a{color:inherit;text-decoration:underline;text-decoration-color:rgba(28,42,85,.45);text-underline-offset:3px}
+
+/* loader */
+#ld{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,8,12,.9);transition:opacity .9s,visibility .9s;text-align:center}
+#ld.gone{opacity:0;visibility:hidden}
+#ld h1{margin:0;font-size:2rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase}
+#ld p{margin:.7rem 0 2.4rem;font-size:.92rem;letter-spacing:.12em;color:#b8c4cc}
+#ldw{width:15rem;height:.2rem;background:rgba(255,255,255,.14);border-radius:1rem;overflow:hidden}
+#ldb{width:100%;height:100%;background:#f6d55c;transform:scaleX(0);transform-origin:0 0;transition:transform .3s}
+#lds{margin-top:.9rem;font:.72rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#8e9aa3}
+#start{margin-top:1.6rem;font:1.25rem/1 var(--hand);color:#17191d;background:linear-gradient(rgba(255,255,255,.25),rgba(255,255,255,0) 45%,rgba(0,0,0,.08)),#f6d55c;padding:.75rem 2.2rem .65rem;transform:rotate(-1.5deg);box-shadow:0 .5rem 1.6rem rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .4s,transform .18s}
+#ld.ready #start{opacity:1;visibility:visible}
+#ld.ready #ldw,#ld.ready #lds{opacity:0}
+#start:hover,#start:focus-visible{transform:rotate(-1.5deg) scale(1.07)}
+
+/* plain-text fallback when WebGL2 is unavailable */
+#fb{position:fixed;inset:0;overflow:auto;padding:3rem max(1.5rem,calc(50vw - 22rem));background:var(--paper);color:var(--ink)}
+#fb h4{margin:2.2rem 0 .6rem;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#5c6470}
+body.nogl #gl,body.nogl #ui{display:none}
+body.manual *{transition:none!important;animation:none!important}
+
+@media (max-aspect-ratio:115/100){
+  #panel,#panel.l{left:1rem;right:1rem;top:auto;bottom:1rem;width:auto;max-height:52vh;transform:translateY(1rem)}
+  #panel.on{transform:none}
+  #hd{left:1.2rem;top:1.2rem}#back{left:1.2rem;top:5.4rem}#ft{display:none}
+}
+@media (prefers-reduced-motion:reduce){.tag i::after{animation:none}}
+</style>
+</head>
+<body data-view="intro">
+<canvas id="gl" aria-label="Animated 3D biology lab bench. Use the labelled buttons to open each section."></canvas>
+<div id="ui">
+  <header id="hd"><h1>Ayman Abou-Alfa</h1><p>Physics &amp; Biophysics · Cornell University</p></header>
+  <nav id="tags" aria-label="Sections"></nav>
+  <button id="back">← Back to the bench</button>
+  <div id="hint" role="status"></div>
+  <aside id="panel" aria-live="polite"><h1 id="ptitle"></h1><div id="pbody"></div></aside>
+  <div id="nb"><div id="pgl"></div><div id="pgr"></div></div>
+  <footer id="ft">Inspired by <a href="https://www.jesse-zhou.com/" target="_blank" rel="noopener">Jesse Zhou’s ramen shop</a> · built with Claude · <button id="ftack">Acknowledgments</button></footer>
+</div>
+<div id="ld">
+  <h1>Ayman Abou-Alfa</h1><p>Physics &amp; Biophysics · Cornell University</p>
+  <div id="ldw"><div id="ldb"></div></div><div id="lds">Preparing the bench <span id="ldt">0%</span></div>
+  <button id="start">Enter the lab</button>
+</div>
+<div id="fb" hidden></div>
+<script>(()=>{'use strict';
+// ---------------------------------------------------------------------------
+// core: math, procedural geometry, texture atlas, WebGL helpers
+// ---------------------------------------------------------------------------
+const PI = Math.PI, TAU = PI * 2, DEG = PI / 180;
+const clamp = (x, a = 0, b = 1) => (x < a ? a : x > b ? b : x);
+const lerp = (a, b, t) => a + (b - a) * t;
+const sstep = (a, b, x) => { x = clamp((x - a) / (b - a)); return x * x * (3 - 2 * x); };
+const easeIO = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const easeOut = t => 1 - Math.pow(1 - t, 3);
+function rng(seed) {
+  let s = seed >>> 0;
+  return () => {
+    s = (s + 0x6d2b79f5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const vadd = (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
+const vsub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const vmul = (a, s) => [a[0] * s, a[1] * s, a[2] * s];
+const vdot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const vcross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const vlen = a => Math.hypot(a[0], a[1], a[2]);
+const vnorm = a => { const l = vlen(a) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
+const vlerp = (a, b, t) => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
+
+// column-major 4x4 matrices
+const m4 = {
+  I() { const m = new Float32Array(16); m[0] = m[5] = m[10] = m[15] = 1; return m; },
+  mul(a, b, o) { // o = a * b ; o must not alias a or b
+    o = o || new Float32Array(16);
+    for (let c = 0; c < 4; c++) {
+      const b0 = b[c * 4], b1 = b[c * 4 + 1], b2 = b[c * 4 + 2], b3 = b[c * 4 + 3];
+      o[c * 4] = a[0] * b0 + a[4] * b1 + a[8] * b2 + a[12] * b3;
+      o[c * 4 + 1] = a[1] * b0 + a[5] * b1 + a[9] * b2 + a[13] * b3;
+      o[c * 4 + 2] = a[2] * b0 + a[6] * b1 + a[10] * b2 + a[14] * b3;
+      o[c * 4 + 3] = a[3] * b0 + a[7] * b1 + a[11] * b2 + a[15] * b3;
+    }
+    return o;
+  },
+  T(x, y, z) { const m = m4.I(); m[12] = x; m[13] = y; m[14] = z; return m; },
+  S(x, y = x, z = x) { const m = m4.I(); m[0] = x; m[5] = y; m[10] = z; return m; },
+  RX(a) { const m = m4.I(), c = Math.cos(a), s = Math.sin(a); m[5] = c; m[6] = s; m[9] = -s; m[10] = c; return m; },
+  RY(a) { const m = m4.I(), c = Math.cos(a), s = Math.sin(a); m[0] = c; m[2] = -s; m[8] = s; m[10] = c; return m; },
+  RZ(a) { const m = m4.I(), c = Math.cos(a), s = Math.sin(a); m[0] = c; m[1] = s; m[4] = -s; m[5] = c; return m; },
+  X(...ms) { let r = ms[0]; for (let i = 1; i < ms.length; i++) r = m4.mul(r, ms[i]); return r; },
+  persp(fy, asp, n, f, o) {
+    const m = o || new Float32Array(16), t = 1 / Math.tan(fy / 2);
+    m.fill(0); m[0] = t / asp; m[5] = t; m[10] = (f + n) / (n - f); m[11] = -1; m[14] = (2 * f * n) / (n - f);
+    return m;
+  },
+  ortho(l, r, b, t, n, f) {
+    const m = new Float32Array(16);
+    m[0] = 2 / (r - l); m[5] = 2 / (t - b); m[10] = -2 / (f - n);
+    m[12] = -(r + l) / (r - l); m[13] = -(t + b) / (t - b); m[14] = -(f + n) / (f - n); m[15] = 1;
+    return m;
+  },
+  look(e, c, u, o) {
+    const m = o || new Float32Array(16);
+    const z = vnorm(vsub(e, c)), x = vnorm(vcross(u, z)), y = vcross(z, x);
+    m[0] = x[0]; m[1] = y[0]; m[2] = z[0]; m[3] = 0;
+    m[4] = x[1]; m[5] = y[1]; m[6] = z[1]; m[7] = 0;
+    m[8] = x[2]; m[9] = y[2]; m[10] = z[2]; m[11] = 0;
+    m[12] = -vdot(x, e); m[13] = -vdot(y, e); m[14] = -vdot(z, e); m[15] = 1;
+    return m;
+  },
+  inv(m, o) {
+    o = o || new Float32Array(16);
+    const a00 = m[0], a01 = m[1], a02 = m[2], a03 = m[3], a10 = m[4], a11 = m[5], a12 = m[6], a13 = m[7],
+      a20 = m[8], a21 = m[9], a22 = m[10], a23 = m[11], a30 = m[12], a31 = m[13], a32 = m[14], a33 = m[15];
+    const b00 = a00 * a11 - a01 * a10, b01 = a00 * a12 - a02 * a10, b02 = a00 * a13 - a03 * a10,
+      b03 = a01 * a12 - a02 * a11, b04 = a01 * a13 - a03 * a11, b05 = a02 * a13 - a03 * a12,
+      b06 = a20 * a31 - a21 * a30, b07 = a20 * a32 - a22 * a30, b08 = a20 * a33 - a23 * a30,
+      b09 = a21 * a32 - a22 * a31, b10 = a21 * a33 - a23 * a31, b11 = a22 * a33 - a23 * a32;
+    let d = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+    d = 1 / (d || 1e-20);
+    o[0] = (a11 * b11 - a12 * b10 + a13 * b09) * d; o[1] = (a02 * b10 - a01 * b11 - a03 * b09) * d;
+    o[2] = (a31 * b05 - a32 * b04 + a33 * b03) * d; o[3] = (a22 * b04 - a21 * b05 - a23 * b03) * d;
+    o[4] = (a12 * b08 - a10 * b11 - a13 * b07) * d; o[5] = (a00 * b11 - a02 * b08 + a03 * b07) * d;
+    o[6] = (a32 * b02 - a30 * b05 - a33 * b01) * d; o[7] = (a20 * b05 - a22 * b02 + a23 * b01) * d;
+    o[8] = (a10 * b10 - a11 * b08 + a13 * b06) * d; o[9] = (a01 * b08 - a00 * b10 - a03 * b06) * d;
+    o[10] = (a30 * b04 - a31 * b02 + a33 * b00) * d; o[11] = (a21 * b02 - a20 * b04 - a23 * b00) * d;
+    o[12] = (a11 * b07 - a10 * b09 - a12 * b06) * d; o[13] = (a00 * b09 - a01 * b07 + a02 * b06) * d;
+    o[14] = (a31 * b01 - a30 * b03 - a32 * b00) * d; o[15] = (a20 * b03 - a21 * b01 + a22 * b00) * d;
+    return o;
+  },
+  pt(m, p) {
+    return [m[0] * p[0] + m[4] * p[1] + m[8] * p[2] + m[12], m[1] * p[0] + m[5] * p[1] + m[9] * p[2] + m[13],
+      m[2] * p[0] + m[6] * p[1] + m[10] * p[2] + m[14]];
+  },
+  proj(m, p) { // clip-space divide: returns [ndcX, ndcY, ndcZ, w]
+    const w = m[3] * p[0] + m[7] * p[1] + m[11] * p[2] + m[15];
+    return [(m[0] * p[0] + m[4] * p[1] + m[8] * p[2] + m[12]) / w, (m[1] * p[0] + m[5] * p[1] + m[9] * p[2] + m[13]) / w,
+      (m[2] * p[0] + m[6] * p[1] + m[10] * p[2] + m[14]) / w, w];
+  },
+};
+
+// ---------------------------------------------------------------------------
+// materials + geometry accumulation
+// ---------------------------------------------------------------------------
+const hex = h => { const n = parseInt(h.slice(1), 16); return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255]; };
+const EMAX = 12; // emissive is stored /EMAX in a byte
+// c: sRGB colour, r: roughness, m: metallic, e: emissive radiance, k: shader kind, a/b: kind-specific params
+function Mat(c, r = 0.6, o) { return Object.assign({ c: typeof c === 'string' ? hex(c) : c, r, m: 0, e: 0, k: 0, a: 0, b: 0 }, o); }
+
+class Geo {
+  constructor() { this.P = []; this.N = []; this.C = []; this.M = []; this.X = []; this.U = []; this.I = []; this.nv = 0; this.bone = 0; this.obj = 0; }
+  add(pr, M, mt, uv) {
+    const P = pr.p, N = pr.n, U = pr.u, n = P.length / 3, base = this.nv;
+    let flip = false, n00 = 1, n01 = 0, n02 = 0, n10 = 0, n11 = 1, n12 = 0, n20 = 0, n21 = 0, n22 = 1;
+    if (M) { // inverse-transpose of the upper 3x3 for normals
+      const a = M[0], b = M[4], c = M[8], d = M[1], e = M[5], f = M[9], g = M[2], h = M[6], i = M[10];
+      const det = a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g), s = det < 0 ? -1 : 1;
+      flip = det < 0;
+      n00 = (e * i - f * h) * s; n01 = (f * g - d * i) * s; n02 = (d * h - e * g) * s;
+      n10 = (c * h - b * i) * s; n11 = (a * i - c * g) * s; n12 = (b * g - a * h) * s;
+      n20 = (b * f - c * e) * s; n21 = (c * d - a * f) * s; n22 = (a * e - b * d) * s;
+    }
+    const cr = mt.c[0], cg = mt.c[1], cb = mt.c[2];
+    for (let j = 0; j < n; j++) {
+      let x = P[j * 3], y = P[j * 3 + 1], z = P[j * 3 + 2], nx = N[j * 3], ny = N[j * 3 + 1], nz = N[j * 3 + 2];
+      if (M) {
+        const tx = M[0] * x + M[4] * y + M[8] * z + M[12], ty = M[1] * x + M[5] * y + M[9] * z + M[13], tz = M[2] * x + M[6] * y + M[10] * z + M[14];
+        x = tx; y = ty; z = tz;
+        const mx = n00 * nx + n01 * ny + n02 * nz, my = n10 * nx + n11 * ny + n12 * nz, mz = n20 * nx + n21 * ny + n22 * nz, l = Math.hypot(mx, my, mz) || 1;
+        nx = mx / l; ny = my / l; nz = mz / l;
+      }
+      this.P.push(x, y, z); this.N.push(nx, ny, nz);
+      this.C.push(cr, cg, cb, mt.r); this.M.push(mt.m, mt.e / EMAX, mt.a, mt.b); this.X.push(this.bone, mt.k, this.obj);
+      let u = U[j * 2], v = U[j * 2 + 1];
+      if (uv) { u = uv[0] + u * (uv[2] - uv[0]); v = uv[1] + v * (uv[3] - uv[1]); }
+      this.U.push(u, v);
+    }
+    const ix = pr.i;
+    for (let j = 0; j < ix.length; j += 3) {
+      if (flip) this.I.push(base + ix[j], base + ix[j + 2], base + ix[j + 1]);
+      else this.I.push(base + ix[j], base + ix[j + 1], base + ix[j + 2]);
+    }
+    this.nv += n;
+    return this;
+  }
+  // interleaved 36-byte vertex: pos f32x3 | nrm i8x4 | col u8x4 (rgb, rough) | mat u8x4 | idx u8x4 (bone, kind, obj) | uv f32x2
+  pack() {
+    const n = this.nv, buf = new ArrayBuffer(n * 36), f = new Float32Array(buf), u8 = new Uint8Array(buf), i8 = new Int8Array(buf);
+    const { P, N, C, M, X, U } = this, q = v => clamp(Math.round(v * 255), 0, 255);
+    for (let i = 0; i < n; i++) {
+      const o = i * 36, w = i * 9;
+      f[w] = P[i * 3]; f[w + 1] = P[i * 3 + 1]; f[w + 2] = P[i * 3 + 2];
+      i8[o + 12] = Math.round(N[i * 3] * 127); i8[o + 13] = Math.round(N[i * 3 + 1] * 127); i8[o + 14] = Math.round(N[i * 3 + 2] * 127);
+      u8[o + 16] = q(C[i * 4]); u8[o + 17] = q(C[i * 4 + 1]); u8[o + 18] = q(C[i * 4 + 2]); u8[o + 19] = q(C[i * 4 + 3]);
+      u8[o + 20] = q(M[i * 4]); u8[o + 21] = q(M[i * 4 + 1]); u8[o + 22] = q(M[i * 4 + 2]); u8[o + 23] = q(M[i * 4 + 3]);
+      u8[o + 24] = X[i * 3]; u8[o + 25] = X[i * 3 + 1]; u8[o + 26] = X[i * 3 + 2];
+      f[w + 7] = U[i * 2]; f[w + 8] = U[i * 2 + 1];
+    }
+    return { buf, idx: new Uint32Array(this.I), n };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// primitives: each returns {p, n, u, i} in local space
+// ---------------------------------------------------------------------------
+function boxPrim(sx, sy, sz, b = 0) {
+  const h = [sx / 2, sy / 2, sz / 2], p = [], n = [], u = [], ix = [];
+  b = Math.min(b, h[0] * 0.98, h[1] * 0.98, h[2] * 0.98);
+  const V = (pos, nr) => { p.push(pos[0], pos[1], pos[2]); n.push(nr[0], nr[1], nr[2]); u.push(0, 0); return p.length / 3 - 1; };
+  const P3 = i => [p[i * 3], p[i * 3 + 1], p[i * 3 + 2]];
+  const tri = (a, c, d, out) => {
+    const g = vcross(vsub(P3(c), P3(a)), vsub(P3(d), P3(a)));
+    if (vdot(g, out) < 0) ix.push(a, d, c); else ix.push(a, c, d);
+  };
+  for (let a = 0; a < 3; a++) {
+    const ua = (a + 1) % 3, va = (a + 2) % 3;
+    for (const s of [-1, 1]) {
+      const nr = [0, 0, 0]; nr[a] = s; const q = [];
+      for (const [su, sv] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) {
+        const pos = [0, 0, 0]; pos[a] = s * h[a]; pos[ua] = su * (h[ua] - b); pos[va] = sv * (h[va] - b); q.push(V(pos, nr));
+      }
+      tri(q[0], q[1], q[2], nr); tri(q[0], q[2], q[3], nr);
+    }
+  }
+  if (b > 0) {
+    for (let a = 0; a < 3; a++) { // rounded edges: strip between face a and face ua, running along va
+      const ua = (a + 1) % 3, va = (a + 2) % 3;
+      for (const sa of [-1, 1]) for (const su of [-1, 1]) {
+        const na = [0, 0, 0]; na[a] = sa; const nu = [0, 0, 0]; nu[ua] = su; const q = [];
+        for (const sv of [-1, 1]) {
+          const pa = [0, 0, 0]; pa[a] = sa * h[a]; pa[ua] = su * (h[ua] - b); pa[va] = sv * (h[va] - b); q.push(V(pa, na));
+          const pu = [0, 0, 0]; pu[a] = sa * (h[a] - b); pu[ua] = su * h[ua]; pu[va] = sv * (h[va] - b); q.push(V(pu, nu));
+        }
+        const out = vadd(na, nu); tri(q[0], q[1], q[3], out); tri(q[0], q[3], q[2], out);
+      }
+    }
+    for (const cx of [-1, 1]) for (const cy of [-1, 1]) for (const cz of [-1, 1]) { // corners
+      const a = V([cx * h[0], cy * (h[1] - b), cz * (h[2] - b)], [cx, 0, 0]);
+      const c = V([cx * (h[0] - b), cy * h[1], cz * (h[2] - b)], [0, cy, 0]);
+      const d = V([cx * (h[0] - b), cy * (h[1] - b), cz * h[2]], [0, 0, cz]);
+      tri(a, c, d, [cx, cy, cz]);
+    }
+  }
+  return { p, n, u, i: ix };
+}
+
+// surface of revolution about +y. prof: [[r, y, sharp?], ...] listed so the outside is on the right-hand side
+// (bottom centre -> out -> up -> top centre gives a closed solid).
+function lathePrim(prof, seg = 32, o = {}) {
+  const a0 = o.a0 || 0, a1 = o.a1 === undefined ? TAU : o.a1, fl = o.flip ? -1 : 1, p = [], n = [], u = [], ix = [], m = prof.length;
+  const sn = [], L = [0];
+  for (let j = 0; j < m - 1; j++) {
+    const dr = prof[j + 1][0] - prof[j][0], dy = prof[j + 1][1] - prof[j][1], l = Math.hypot(dr, dy) || 1e-9;
+    sn.push([dy / l, -dr / l]); L.push(L[j] + l);
+  }
+  const tot = L[m - 1] || 1;
+  const nrmAt = (j, s) => {
+    const pt = prof[j];
+    if (pt[2] || j === 0 || j === m - 1) {
+      if (pt[0] < 1e-7 && !pt[2]) return [0, Math.sign(sn[s][1]) || 1];
+      return sn[s];
+    }
+    const A = sn[j - 1], B = sn[j], x = A[0] + B[0], y = A[1] + B[1], l = Math.hypot(x, y) || 1;
+    return [x / l, y / l];
+  };
+  for (let j = 0; j < m - 1; j++) {
+    const A = prof[j], B = prof[j + 1];
+    if (A[0] < 1e-7 && B[0] < 1e-7) continue;
+    const nA = nrmAt(j, j), nB = nrmAt(j + 1, j), base = p.length / 3;
+    for (let k = 0; k <= seg; k++) {
+      const t = k / seg, an = a0 + (a1 - a0) * t, c = Math.cos(an), s = Math.sin(an);
+      p.push(A[0] * c, A[1], A[0] * s); n.push(nA[0] * c * fl, nA[1] * fl, nA[0] * s * fl); u.push(t, L[j] / tot);
+      p.push(B[0] * c, B[1], B[0] * s); n.push(nB[0] * c * fl, nB[1] * fl, nB[0] * s * fl); u.push(t, L[j + 1] / tot);
+    }
+    for (let k = 0; k < seg; k++) {
+      const a = base + k * 2, d = a + 1, b = a + 2, c = a + 3;
+      if (fl > 0) { if (B[0] > 1e-7) ix.push(a, d, c); if (A[0] > 1e-7) ix.push(a, c, b); }
+      else { if (B[0] > 1e-7) ix.push(a, c, d); if (A[0] > 1e-7) ix.push(a, b, c); }
+    }
+  }
+  return { p, n, u, i: ix };
+}
+
+// circle swept along a polyline (parallel-transport frames). rad may be a function of t in [0,1].
+function tubePrim(pts, rad, seg = 8, caps = true) {
+  const p = [], n = [], u = [], ix = [], m = pts.length, T = [];
+  for (let i = 0; i < m; i++) T.push(vnorm(vsub(pts[Math.min(i + 1, m - 1)], pts[Math.max(i - 1, 0)])));
+  let nr = Math.abs(T[0][1]) < 0.9 ? vnorm(vcross(T[0], [0, 1, 0])) : vnorm(vcross(T[0], [1, 0, 0]));
+  for (let i = 0; i < m; i++) {
+    nr = vnorm(vsub(nr, vmul(T[i], vdot(nr, T[i]))));
+    const bn = vcross(T[i], nr), r = typeof rad === 'function' ? rad(i / (m - 1)) : rad;
+    for (let k = 0; k <= seg; k++) {
+      const an = (k / seg) * TAU, c = Math.cos(an), s = Math.sin(an), d = [nr[0] * c + bn[0] * s, nr[1] * c + bn[1] * s, nr[2] * c + bn[2] * s];
+      p.push(pts[i][0] + d[0] * r, pts[i][1] + d[1] * r, pts[i][2] + d[2] * r); n.push(d[0], d[1], d[2]); u.push(k / seg, i / (m - 1));
+    }
+  }
+  for (let i = 0; i < m - 1; i++) for (let k = 0; k < seg; k++) {
+    const a = i * (seg + 1) + k, b = a + 1, c = a + seg + 1, d = c + 1;
+    ix.push(a, b, d, a, d, c);
+  }
+  if (caps) for (const e of [0, m - 1]) {
+    const sgn = e ? 1 : -1, nrm = vmul(T[e], sgn), ci = p.length / 3;
+    p.push(pts[e][0], pts[e][1], pts[e][2]); n.push(nrm[0], nrm[1], nrm[2]); u.push(0.5, e ? 1 : 0);
+    const r0 = p.length / 3;
+    for (let k = 0; k <= seg; k++) { const s = (e * (seg + 1) + k) * 3; p.push(p[s], p[s + 1], p[s + 2]); n.push(nrm[0], nrm[1], nrm[2]); u.push(0.5, e ? 1 : 0); }
+    for (let k = 0; k < seg; k++) { if (e) ix.push(ci, r0 + k, r0 + k + 1); else ix.push(ci, r0 + k + 1, r0 + k); }
+  }
+  return { p, n, u, i: ix };
+}
+
+// Catmull-Rom resample of a control polyline
+function spline(c, n) {
+  const out = [], m = c.length, g = i => c[clamp(i, 0, m - 1)];
+  for (let i = 0; i <= n; i++) {
+    const f = (i / n) * (m - 1), k = Math.min(Math.floor(f), m - 2), t = f - k, p0 = g(k - 1), p1 = g(k), p2 = g(k + 1), p3 = g(k + 2), q = [];
+    for (let a = 0; a < 3; a++) {
+      q.push(0.5 * (2 * p1[a] + (-p0[a] + p2[a]) * t + (2 * p0[a] - 5 * p1[a] + 4 * p2[a] - p3[a]) * t * t + (-p0[a] + 3 * p1[a] - 3 * p2[a] + p3[a]) * t * t * t));
+    }
+    out.push(q);
+  }
+  return out;
+}
+
+function spherePrim(r, seg = 16, rings = 10) {
+  const pr = [];
+  for (let i = 0; i <= rings; i++) { const a = (i / rings) * PI; pr.push([Math.max(r * Math.sin(a), 0), -r * Math.cos(a)]); }
+  pr[0][0] = 0; pr[rings][0] = 0;
+  return lathePrim(pr, seg);
+}
+
+// flat quad in the XY plane facing +z; uv (0,0) is the top-left corner so canvas-drawn text reads upright
+function quadPrim(w, h) {
+  const x = w / 2, y = h / 2;
+  return { p: [-x, y, 0, x, y, 0, x, -y, 0, -x, -y, 0], n: [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1], u: [0, 0, 1, 0, 1, 1, 0, 1], i: [0, 3, 2, 0, 2, 1] };
+}
+
+// label wrapped round a cylinder or cone, centred at angle ac (PI/2 faces +z); u runs left->right for an outside viewer
+function arcPrim(rTop, rBot, yc, h, ac, aw, seg = 16) {
+  const p = [], n = [], u = [], ix = [], sl = (rBot - rTop) / h, nl = Math.hypot(1, sl);
+  for (let k = 0; k <= seg; k++) {
+    const t = k / seg, an = ac + aw / 2 - aw * t, c = Math.cos(an), s = Math.sin(an);
+    p.push(rTop * c, yc + h / 2, rTop * s, rBot * c, yc - h / 2, rBot * s);
+    n.push(c / nl, sl / nl, s / nl, c / nl, sl / nl, s / nl); u.push(t, 0, t, 1);
+  }
+  for (let k = 0; k < seg; k++) { const a = k * 2, b = a + 1, c = a + 2, d = a + 3; ix.push(a, b, d, a, d, c); }
+  return { p, n, u, i: ix };
+}
+
+// flat disc facing +y with uv covering the unit square (for circular textures)
+function discPrim(r, seg = 40) {
+  const p = [0, 0, 0], n = [0, 1, 0], u = [0.5, 0.5], ix = [];
+  for (let k = 0; k <= seg; k++) { const a = (k / seg) * TAU, c = Math.cos(a), s = Math.sin(a); p.push(r * c, 0, r * s); n.push(0, 1, 0); u.push(0.5 + c * 0.5, 0.5 + s * 0.5); }
+  for (let k = 0; k < seg; k++) ix.push(0, k + 2, k + 1);
+  return { p, n, u, i: ix };
+}
+
+// ---------------------------------------------------------------------------
+// texture atlas drawn with the 2D canvas API (labels, pages, plates, dials ...)
+// ---------------------------------------------------------------------------
+class Atlas {
+  constructor(size) {
+    this.S = size; this.cv = document.createElement('canvas'); this.cv.width = this.cv.height = size;
+    this.g = this.cv.getContext('2d'); this.used = 0; this.top = 0;
+    this.sky = [{ x: 0, y: 22, w: 22 }, { x: 22, y: 0, w: size - 22 }];   // texel (0..8, 0..8) stays solid white: the default uv
+    this.g.fillStyle = '#fff'; this.g.fillRect(0, 0, 8, 8);
+  }
+  // skyline bottom-left packing: place each rectangle at the lowest position where it fits
+  draw(w, h, fn) {
+    w = Math.ceil(w); h = Math.ceil(h);
+    const pad = 6, S = this.S, W = w + pad, Hh = h + pad, sk = this.sky;
+    let bi = -1, bx = 0, by = 1e9;
+    for (let i = 0; i < sk.length; i++) {
+      const x = sk[i].x; if (x + W > S) break;
+      let y = 0, rem = W, j = i;
+      while (rem > 0 && j < sk.length) { y = Math.max(y, sk[j].y); rem -= sk[j].w; j++; }
+      if (rem <= 0 && y + Hh <= S && y < by) { by = y; bx = x; bi = i; }
+    }
+    if (bi < 0) throw new Error('atlas full: ' + w + 'x' + h);
+    const end = bx + W; let j = bi;
+    while (j < sk.length && sk[j].x + sk[j].w <= end) j++;
+    if (j < sk.length && sk[j].x < end) { sk[j].w = sk[j].x + sk[j].w - end; sk[j].x = end; }
+    sk.splice(bi, j - bi, { x: bx, y: by + Hh, w: W });
+    this.used += w * h; this.top = Math.max(this.top, by + Hh);
+    const g = this.g;
+    g.save(); g.translate(bx, by); g.beginPath(); g.rect(0, 0, w, h); g.clip(); fn(g, w, h); g.restore();
+    return [bx / S, by / S, (bx + w) / S, (by + h) / S];
+  }
+}
+
+// ---------------------------------------------------------------------------
+// WebGL helpers
+// ---------------------------------------------------------------------------
+const glErr = [];
+function mkProg(gl, vs, fs, name) {
+  const p = gl.createProgram();
+  for (const [t, src] of [[gl.VERTEX_SHADER, vs], [gl.FRAGMENT_SHADER, fs]]) {
+    const s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) glErr.push(name + (t === gl.VERTEX_SHADER ? ' VS: ' : ' FS: ') + gl.getShaderInfoLog(s));
+    gl.attachShader(p, s);
+  }
+  gl.linkProgram(p);
+  if (!gl.getProgramParameter(p, gl.LINK_STATUS)) glErr.push(name + ' link: ' + gl.getProgramInfoLog(p));
+  const u = {}, nu = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS) || 0;
+  for (let i = 0; i < nu; i++) { const inf = gl.getActiveUniform(p, i); if (inf) { const nm = inf.name.replace(/\[0\]$/, ''); u[nm] = gl.getUniformLocation(p, nm); } }
+  const bi = gl.getUniformBlockIndex(p, 'Frame');
+  if (bi !== gl.INVALID_INDEX && bi !== -1) gl.uniformBlockBinding(p, bi, 0);
+  return { p, u };
+}
+function mkTex(gl, w, h, ifmt, fmt, type, filt, wrap, data) {
+  const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+  gl.texImage2D(gl.TEXTURE_2D, 0, ifmt, w, h, 0, fmt, type, data || null);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, filt); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, filt === gl.NEAREST ? gl.NEAREST : gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, wrap || gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, wrap || gl.CLAMP_TO_EDGE);
+  return t;
+}
+function mkFbo(gl, color, depth) {
+  const f = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, f);
+  if (color) gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, color, 0);
+  else { gl.drawBuffers([gl.NONE]); gl.readBuffer(gl.NONE); }
+  if (depth) gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, depth, 0);
+  return f;
+}
+function mkMesh(gl, geo, dynamic) {
+  const pk = geo.pack(), vao = gl.createVertexArray(), vb = gl.createBuffer(), ib = gl.createBuffer();
+  gl.bindVertexArray(vao);
+  gl.bindBuffer(gl.ARRAY_BUFFER, vb); gl.bufferData(gl.ARRAY_BUFFER, pk.buf, dynamic ? gl.DYNAMIC_DRAW : gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ib); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, pk.idx, gl.STATIC_DRAW);
+  const st = 36;
+  gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 3, gl.FLOAT, false, st, 0);
+  gl.enableVertexAttribArray(1); gl.vertexAttribPointer(1, 4, gl.BYTE, true, st, 12);
+  gl.enableVertexAttribArray(2); gl.vertexAttribPointer(2, 4, gl.UNSIGNED_BYTE, true, st, 16);
+  gl.enableVertexAttribArray(3); gl.vertexAttribPointer(3, 4, gl.UNSIGNED_BYTE, true, st, 20);
+  gl.enableVertexAttribArray(4); gl.vertexAttribIPointer(4, 4, gl.UNSIGNED_BYTE, st, 24);
+  gl.enableVertexAttribArray(5); gl.vertexAttribPointer(5, 2, gl.FLOAT, false, st, 28);
+  gl.bindVertexArray(null);
+  return { vao, vb, n: pk.idx.length, nv: pk.n };
+}
+
+// ---------------------------------------------------------------------------
+// GLSL. Shared per-frame data lives in one std140 uniform block (binding 0);
+// per-view data (camera, resolution) are ordinary uniforms.
+// ---------------------------------------------------------------------------
+const NB = 24;            // bone matrices
+const SH0_Y = 1.4, SH1_Y = 1.8, CEIL_Y = 2.95;
+const K = { PLAIN: 0, TEX: 1, BENCH: 2, FLOOR: 3, WALL: 4, BRUSH: 5, EMTEX: 6, PAPER: 7, STRIP: 8, AGAR: 9, DIGIT: 10, INK: 11, FOIL: 12, PAD: 13 };
+
+const G_HEAD = `#version 300 es
+precision highp float;
+precision highp int;
+precision highp sampler2DShadow;
+#define PI 3.14159265
+layout(std140) uniform Frame {
+  mat4 uShM0; mat4 uShM1;
+  vec4 uKeyDir; vec4 uKeyCol;
+  vec4 uTA[2]; vec4 uTB[2]; vec4 uTC[2];
+  vec4 uFlame; vec4 uFlameCol;
+  vec4 uAmbSky; vec4 uAmbGnd;
+  vec4 uDigits; vec4 uMisc;
+  mat4 uBones[${NB}];
+};
+`;
+
+const VS_SCENE = G_HEAD + `
+layout(location=0) in vec3 aPos; layout(location=1) in vec4 aNrm; layout(location=2) in vec4 aCol;
+layout(location=3) in vec4 aMat; layout(location=4) in uvec4 aIdx; layout(location=5) in vec2 aUV;
+uniform mat4 uVP;
+out vec3 vW; out vec3 vN; out vec4 vCol; out vec4 vMat; out vec2 vUV; flat out uvec2 vK;
+void main(){
+  mat4 M=uBones[aIdx.x];
+  vec4 w=M*vec4(aPos,1.);
+  vW=w.xyz; vN=mat3(M)*aNrm.xyz;
+  vCol=vec4(pow(aCol.rgb,vec3(2.2)),aCol.a); vMat=aMat; vUV=aUV; vK=aIdx.yz;
+  if(aIdx.y==${K.DIGIT}u) vUV.x+=uDigits[int(aMat.z*255.+.5)]*uMisc.x;
+  gl_Position=uVP*w;
+}`;
+
+const G_LIGHT = `
+in vec3 vW; in vec3 vN; in vec4 vCol; in vec4 vMat; in vec2 vUV; flat in uvec2 vK;
+uniform vec3 uCam; uniform vec4 uRes; uniform mat4 uView;
+uniform sampler2D uAtlas; uniform sampler2D uNoise; uniform sampler2D uAO; uniform sampler2D uRefl; uniform sampler2D uScene;
+uniform sampler2DShadow uSh0; uniform sampler2DShadow uSh1;
+out vec4 o;
+float D_GGX(float nh,float a){float a2=a*a,d=nh*nh*(a2-1.)+1.;return a2/(PI*d*d+1e-6);}
+float V_SJ(float nv,float nl,float a){float k=a*.5+1e-4;return .25/((nv*(1.-k)+k)*(nl*(1.-k)+k));}
+vec3 specL(vec3 N,vec3 V,vec3 L,float rough,vec3 F0){
+  vec3 H=normalize(V+L);float nl=max(dot(N,L),0.),nv=max(dot(N,V),1e-3),nh=max(dot(N,H),0.),vh=max(dot(V,H),0.);
+  float a=max(rough*rough,.003);
+  return min(D_GGX(nh,a)*V_SJ(nv,nl,a),40.)*(F0+(1.-F0)*pow(1.-vh,5.))*nl;
+}
+float shadow0(vec3 w,vec3 n){
+  vec4 p=uShM0*vec4(w+n*.006,1.); vec3 c=p.xyz*.5+.5; c.z-=.0012;
+  if(c.x<0.||c.x>1.||c.y<0.||c.y>1.||c.z>1.) return 1.;
+  float s=0.,tx=uMisc.z;
+#ifdef LOWQ
+  for(int y=0;y<2;y++)for(int x=0;x<2;x++) s+=texture(uSh0,vec3(c.xy+(vec2(x,y)-.5)*tx*2.,c.z)); return s*.25;
+#else
+  for(int y=0;y<4;y++)for(int x=0;x<4;x++) s+=texture(uSh0,vec3(c.xy+(vec2(x,y)-1.5)*tx*1.35,c.z)); return s*.0625;
+#endif
+}
+float shadow1(vec3 w,vec3 n){
+  vec4 p=uShM1*vec4(w+n*.006,1.); vec3 c=p.xyz*.5+.5; c.z-=.002;
+  if(c.x<0.||c.x>1.||c.y<0.||c.y>1.||c.z>1.||c.z<0.) return 1.;
+  float s=0.; vec2 tx=vec2(uMisc.w,uMisc.w*2.);
+#ifdef LOWQ
+  for(int y=0;y<2;y++)for(int x=0;x<2;x++) s+=texture(uSh1,vec3(c.xy+(vec2(x,y)-.5)*tx*3.,c.z)); return s*.25;
+#else
+  for(int y=0;y<4;y++)for(int x=0;x<4;x++) s+=texture(uSh1,vec3(c.xy+(vec2(x,y)-1.5)*tx*vec2(3.,1.6),c.z)); return s*.0625;
+#endif
+}
+// 1 = the path from P along d (d.y>0) is not blocked by the shelf whose top is at ys
+float shelfVis(vec3 P,vec3 d,float ys,float soft){
+  if(d.y<1e-3||P.y>ys-.035) return 1.;
+  float t=(ys-.028-P.y)/d.y; vec2 h=P.xz+d.xz*t; vec2 q=abs(h-vec2(0.,.155))-vec2(1.44,.155);
+  return smoothstep(-soft,soft,max(q.x,q.y));
+}
+// closest point on strip i to the ray (P, r): returns vector from P
+vec3 stripPt(int i,vec3 P,vec3 r){
+  vec3 L0=uTA[i].xyz-P, Ld=uTB[i].xyz-uTA[i].xyz; float rl0=dot(r,L0), rld=dot(r,Ld), l0ld=dot(L0,Ld), ld2=dot(Ld,Ld);
+  float t=clamp((rl0*rld-l0ld)/(ld2-rld*rld+1e-5),0.,1.); return L0+Ld*t;
+}
+vec3 stripNear(int i,vec3 P){
+  vec3 ab=uTB[i].xyz-uTA[i].xyz; float t=clamp(dot(P-uTA[i].xyz,ab)/dot(ab,ab),0.,1.); return uTA[i].xyz+ab*t-P;
+}
+float stripAtt(vec3 Lp){ float d2=dot(Lp,Lp), d=sqrt(d2); return clamp(Lp.y/d*1.6,0.,1.)/(d*(d+.9)+.01); }
+// analytic room: dim gradient, two ceiling panels, the two under-shelf strips; shelves occlude
+vec3 envRad(vec3 P,vec3 R,float rough){
+  vec3 c=mix(uAmbGnd.rgb,uAmbSky.rgb,smoothstep(-.5,.6,R.y))*1.5;
+  float soft=.03+rough*.9;
+  if(R.y>.02){
+    float open=shelfVis(P,R,${SH0_Y.toFixed(3)},soft*.4)*shelfVis(P,R,${SH1_Y.toFixed(3)},soft*.4);
+    float t=(${CEIL_Y.toFixed(2)}-P.y)/R.y; vec2 h=P.xz+R.xz*t;
+    vec2 d=abs(h-vec2(-.75,1.55))-vec2(.62,.31), d2=abs(h-vec2(1.15,1.55))-vec2(.62,.31);
+    float pn=smoothstep(soft,-soft*.4,max(d.x,d.y))+smoothstep(soft,-soft*.4,max(d2.x,d2.y));
+    c=c*mix(.3,1.,open)+uKeyCol.rgb*2.6*pn*open/(1.+rough*5.);
+  }
+  for(int i=0;i<2;i++){
+    vec3 Ls=stripPt(i,P,R); float pr=dot(Ls,R);
+    if(pr>0.&&Ls.y>0.){
+      float ang=length(Ls-R*pr)/pr, w=.014+rough*.45;
+      float vis=i==1?shelfVis(P,normalize(Ls),${SH0_Y.toFixed(3)},.02):1.;
+      c+=uTC[i].rgb*3.2*smoothstep(w,w*.25,ang)*vis/(1.+rough*9.);
+    }
+  }
+  return c;
+}
+// diffuse irradiance (already divided by PI) from all lights, with optional wrap for translucent media
+vec3 irr(vec3 P,vec3 N,float wrap,float ao){
+  vec3 e=mix(uAmbGnd.rgb,uAmbSky.rgb,N.y*.5+.5)*ao;
+  float nl=(dot(N,uKeyDir.xyz)+wrap)/(1.+wrap);
+  if(nl>0.) e+=uKeyCol.rgb*nl*shadow0(P,N)/PI;
+  for(int i=0;i<2;i++){
+    vec3 Lp=stripNear(i,P); vec3 L=normalize(Lp); float n2=(dot(N,L)+wrap)/(1.+wrap);
+    if(n2>0.){ float v=i==0?shadow1(P,N):shelfVis(P,L,${SH0_Y.toFixed(3)},.03); e+=uTC[i].rgb*stripAtt(Lp)*n2*v/PI; }
+  }
+  vec3 Lf=uFlame.xyz-P; float df=dot(Lf,Lf); e+=uFlameCol.rgb*uFlame.w*max((dot(N,normalize(Lf))+wrap)/(1.+wrap),0.)/(df+.004)/PI;
+  return e;
+}
+vec3 specAll(vec3 P,vec3 N,vec3 V,float rough,vec3 F0,float sh){
+  vec3 c=specL(N,V,uKeyDir.xyz,rough,F0)*uKeyCol.rgb*sh;
+  vec3 r=reflect(-V,N);
+  for(int i=0;i<2;i++){
+    vec3 Ls=stripPt(i,P,r); vec3 L=normalize(Ls);
+    float v=i==0?1.:shelfVis(P,L,${SH0_Y.toFixed(3)},.03);
+    c+=specL(N,V,L,max(rough,.09),F0)*uTC[i].rgb*stripAtt(Ls)*v*.35;
+  }
+  return c;
+}
+`;
+
+const FS_OPAQUE = `
+void main(){
+  vec3 N=normalize(vN); vec3 V=normalize(uCam-vW);
+  if(uRes.w>.5&&vW.y<uRes.z) discard;                 // mirrored pass: keep only what is above the bench top
+  vec3 alb=vCol.rgb; float rough=vCol.a, metal=vMat.x, emis=vMat.y*${EMAX}.; uint kind=vK.x;
+  vec3 extra=vec3(0.); float envK=1., wrap=0.;
+  if(kind==${K.TEX}u||kind==${K.PAPER}u){ alb*=texture(uAtlas,vUV).rgb; if(kind==${K.PAPER}u) wrap=.25; }
+  else if(kind==${K.AGAR}u){ alb*=texture(uAtlas,vUV).rgb; wrap=.45; }
+  else if(kind==${K.BENCH}u){
+    float n=texture(uNoise,vW.xz*5.).r, n2=texture(uNoise,vW.xz*31.).g;
+    alb*=.8+.5*n2; rough=clamp(rough+(n-.5)*.16,.05,1.);
+  }
+  else if(kind==${K.FLOOR}u){
+    if(N.y<.5){ alb=vec3(.035,.037,.04); rough=.9; }
+    else { vec2 t=vW.xz/.3048; vec2 f=abs(fract(t)-.5); float ln=smoothstep(.492,.5,max(f.x,f.y));
+      float sp=texture(uNoise,vW.xz*9.).r, sp2=texture(uNoise,vW.xz*37.).b; vec2 id=floor(t);
+      float tv=fract(sin(dot(id,vec2(12.9,78.2)))*43758.5);
+      alb*=(.82+.3*sp2*sp+.1*tv)*(1.-ln*.45); rough=mix(.38,.6,sp); }
+  }
+  else if(kind==${K.WALL}u){
+    if(N.z<.5){ alb=vec3(.035,.037,.04); rough=.9; }
+    else { float n=texture(uNoise,vW.xy*.7).r, n2=texture(uNoise,vW.xy*17.).g; alb*=.9+.14*n+.05*n2; }
+  }
+  else if(kind==${K.BRUSH}u){ float n=texture(uNoise,vec2(vW.x*2.+vW.z,vW.y*60.+vW.z*40.)).r; rough=clamp(rough+(n-.5)*.22,.08,1.); alb*=.92+.16*n; }
+  else if(kind==${K.EMTEX}u||kind==${K.DIGIT}u){ vec4 t=texture(uAtlas,vUV); extra=t.rgb*emis; alb=t.rgb*.04; emis=0.; }
+  else if(kind==${K.STRIP}u){ float e=smoothstep(1.,.2,abs(vUV.y-.5)*2.); extra=alb*emis*(.55+.45*e); alb*=.2; emis=0.; }
+  else if(kind==${K.FOIL}u){
+    vec3 q=vW*70.; vec3 nz=vec3(texture(uNoise,q.xy*.02+q.z*.013).r,texture(uNoise,q.yz*.02+q.x*.011).g,texture(uNoise,q.zx*.02+q.y*.017).b)-.5;
+    N=normalize(N+nz*1.15);
+  }
+  else if(kind==${K.PAD}u){ float n=texture(uNoise,vW.xz*42.).r; alb*=.93+.1*n; wrap=.2; }
+  vec3 F0=mix(vec3(.04),alb,metal), dif=alb*(1.-metal);
+  float nv=max(dot(N,V),1e-3);
+#ifdef LOWQ
+  float ao=1.;
+#else
+  float ao=texture(uAO,gl_FragCoord.xy*uRes.xy).r;
+#endif
+  float sh=1.;
+  vec3 col=dif*irr(vW,N,wrap,ao);
+  if(dot(N,uKeyDir.xyz)>0.) sh=shadow0(vW,N);
+  col+=specAll(vW,N,V,rough,F0,sh);
+  vec3 Fr=F0+(max(vec3(1.-rough),F0)-F0)*pow(1.-nv,5.);
+  vec3 R=reflect(-V,N);
+#ifndef LOWQ
+  if(kind==${K.BENCH}u){
+    vec2 suv=gl_FragCoord.xy*uRes.xy; float n=texture(uNoise,vW.xz*23.).g;
+    vec3 rf=textureLod(uRefl,suv+vec2(n-.5,0.)*.003,1.6+n).rgb;
+    col+=rf*(.055+.945*pow(1.-nv,5.))*1.15; envK=0.;
+  }
+#endif
+  col+=envRad(vW,R,rough)*Fr*mix(.35,1.,ao)*envK;
+  col+=dif*emis+extra;
+  o=vec4(min(col,vec3(30.)),1.);
+}`;
+
+// liquids, tinted plastics and amber glass: refract the low-res opaque pre-render, absorb, scatter
+const FS_LIQUID = `
+void main(){
+  vec3 N=normalize(vN); vec3 V=normalize(uCam-vW);
+  if(uRes.w>.5&&vW.y<uRes.z) discard;
+  if(dot(N,V)<0.) N=-N;
+  float nv=max(dot(N,V),1e-3);
+  vec3 tint=max(vCol.rgb,vec3(.002)); float turb=vMat.z, dens=vMat.w*4.;
+  vec3 bg;
+  if(uRes.w<.5){
+    vec3 nV=mat3(uView)*N; vec2 suv=gl_FragCoord.xy*uRes.xy;
+    bg=texture(uScene,clamp(suv-nV.xy*(.02+.07*(1.-nv)),.002,.998)).rgb;
+  } else bg=envRad(vW,refract(-V,N,.75),.35);
+  vec3 trans=pow(tint,vec3(dens*(.3+.7*nv)));
+  vec3 scat=tint*irr(vW,N,.7,1.)*1.25;
+  vec3 col=mix(bg*trans,scat,turb);
+  for(int i=0;i<2;i++){                                   // back-lit glow from the strips
+    vec3 Lp=stripNear(i,vW); vec3 L=normalize(Lp);
+    float v=i==0?1.:shelfVis(vW,L,${SH0_Y.toFixed(3)},.03);
+    col+=sqrt(tint)*uTC[i].rgb*stripAtt(Lp)*v*(.05+.22*pow(max(dot(-L,V)*.5+.5,0.),3.))*(1.-turb*.5);
+  }
+  float F=.02+.98*pow(1.-nv,5.);
+  col=mix(col,envRad(vW,reflect(-V,N),.06),F*.55);
+  col+=specAll(vW,N,V,.12,vec3(.03),1.)*.6;
+  o=vec4(min(col,vec3(30.)),1.);
+}`;
+
+// thin clear shells: rgb = reflected light (added), a = transmittance (multiplies what is behind)
+const FS_GLASS = `
+void main(){
+  vec3 N=normalize(vN); vec3 V=normalize(uCam-vW);
+  if(uRes.w>.5&&vW.y<uRes.z) discard;
+  if(dot(N,V)<0.) N=-N;
+  float nv=max(dot(N,V),1e-3);
+  if(vK.x==${K.INK}u){ vec4 t=texture(uAtlas,vUV); o=vec4(t.rgb*vCol.rgb*irr(vW,N,.5,1.)*t.a,1.-t.a); return; }
+  float rough=vCol.a, frost=vMat.z;
+  float F=.04+.96*pow(1.-nv,5.);
+  vec3 c=envRad(vW,reflect(-V,N),rough)*F;
+  c+=specAll(vW,N,V,max(rough,.05),vec3(.04),1.);
+  c+=vCol.rgb*frost*irr(vW,N,.6,1.)*.8;
+  float T=(1.-F*.85)*(1.-frost*.55)*mix(1.,.93,pow(1.-nv,2.));
+  o=vec4(min(c,vec3(30.)),T);
+}`;
+
+const FS_DEPTH = `#version 300 es
+precision highp float;
+uniform float uDither;
+void main(){ if(uDither>.5){ vec2 f=floor(gl_FragCoord.xy); if(fract(f.x*.5+f.y*.25)>.2) discard; } }`;
+
+const FS_MASK = `#version 300 es
+precision highp float;
+uniform vec4 uMaskCol; out vec4 o;
+void main(){ o=uMaskCol; }`;
+
+const VS_FX = G_HEAD + `
+layout(location=0) in vec3 aPos; layout(location=1) in vec4 aNrm; layout(location=2) in vec4 aCol; layout(location=3) in vec4 aMat; layout(location=5) in vec2 aUV;
+uniform mat4 uVP; uniform vec3 uCam;
+out vec3 vN; out vec3 vV; out vec2 vUV; out vec4 vCol;
+void main(){
+  vec3 p=aPos; float h=aUV.y, t=uMisc.y;
+  float w=h*h*aMat.z*.0035;
+  p.x+=(sin(t*17.+h*11.)+.6*sin(t*29.3+h*23.))*w; p.z+=(cos(t*14.1+h*13.)+.6*sin(t*31.7+h*19.))*w;
+  p.y+=sin(t*21.)*h*h*.004*aMat.z;
+  vN=aNrm.xyz; vV=uCam-p; vUV=aUV; vCol=aCol;
+  gl_Position=uVP*vec4(p,1.);
+}`;
+const FS_FX = `#version 300 es
+precision highp float;
+in vec3 vN; in vec3 vV; in vec2 vUV; in vec4 vCol; out vec4 o;
+void main(){
+  float e=abs(dot(normalize(vN),normalize(vV)));
+  float h=vUV.y;
+  float edge=mix(pow(1.-e,1.5)*1.6+.25, pow(e,1.6), vCol.a);      // a=0: hollow outer mantle, a=1: solid inner cone
+  vec3 c=pow(vCol.rgb,vec3(2.2))*edge*(1.-h*h*.85)*smoothstep(0.,.08,h);
+  o=vec4(c*5.,1.);
+}`;
+
+// drifting dust motes
+const VS_MOTE = G_HEAD + `
+layout(location=0) in vec3 aPos; layout(location=5) in vec2 aUV;
+uniform mat4 uVP; uniform vec4 uRes;
+out float vA;
+void main(){
+  float t=uMisc.y*.035+aUV.x*40.;
+  vec3 p=aPos+vec3(sin(t*1.3+aUV.y*9.)*.25,sin(t+aUV.x*20.)*.18,cos(t*.9+aUV.y*14.)*.25);
+  gl_Position=uVP*vec4(p,1.);
+  gl_PointSize=clamp(aUV.y*8./gl_Position.w/uRes.y*.0011,1.,48.);
+  vA=(.25+.75*aUV.x)*smoothstep(.6,1.6,gl_Position.w);
+}`;
+const FS_MOTE = `#version 300 es
+precision highp float;
+in float vA; out vec4 o;
+void main(){ vec2 q=gl_PointCoord-.5; float d=dot(q,q)*4.; o=vec4(vec3(.55,.7,.85)*vA*smoothstep(1.,.2,d)*.5,1.); }`;
+
+const VS_POST = `#version 300 es
+out vec2 vUV;
+void main(){ vec2 p=vec2((gl_VertexID<<1)&2,gl_VertexID&2); vUV=p; gl_Position=vec4(p*2.-1.,0.,1.); }`;
+const P_HEAD = `#version 300 es
+precision highp float;
+in vec2 vUV; out vec4 o;
+`;
+
+const FS_BG = P_HEAD + `
+uniform vec4 uP;
+void main(){
+  vec2 q=(vUV-vec2(.5,.56))*vec2(uP.x,1.); float d=length(q);
+  vec3 c=mix(vec3(.030,.052,.075),vec3(.004,.007,.012),smoothstep(0.,.95,d));
+  c+=vec3(.012,.02,.03)*smoothstep(.5,0.,abs(vUV.y-.42))*smoothstep(1.,.1,d);
+  o=vec4(c,1.);
+}`;
+
+// ambient occlusion from the half-res depth pre-pass (normals reconstructed from depth)
+const FS_SSAO = P_HEAD + `
+uniform sampler2D uDepth; uniform vec4 uProj; uniform vec4 uTex; // uProj: tanX, tanY, near, far ; uTex: 1/w, 1/h
+float lz(float d){ float z=d*2.-1.; return 2.*uProj.z*uProj.w/(uProj.w+uProj.z-z*(uProj.w-uProj.z)); }
+vec3 vp(vec2 uv){ float z=lz(texture(uDepth,uv).r); return vec3((uv*2.-1.)*uProj.xy*z,-z); }
+void main(){
+  float d0=texture(uDepth,vUV).r; if(d0>=.99999){ o=vec4(1.,uProj.w,0.,1.); return; }
+  vec3 P=vp(vUV);
+  vec3 Pr=vp(vUV+vec2(uTex.x,0.)), Pl=vp(vUV-vec2(uTex.x,0.)), Pu=vp(vUV+vec2(0.,uTex.y)), Pd=vp(vUV-vec2(0.,uTex.y));
+  vec3 dx=abs(Pr.z-P.z)<abs(P.z-Pl.z)?Pr-P:P-Pl, dy=abs(Pu.z-P.z)<abs(P.z-Pd.z)?Pu-P:P-Pd;
+  vec3 N=normalize(cross(dx,dy));
+  float z=-P.z, R=.11; vec2 ruv=R/(z*uProj.xy)*.5;
+  float ang=fract(52.9829189*fract(dot(gl_FragCoord.xy,vec2(.06711056,.00583715))))*6.2831853, s=0.;
+  for(int i=0;i<12;i++){
+    float t=(float(i)+.5)/12., a=ang+float(i)*2.39996;
+    vec3 Q=vp(vUV+vec2(cos(a),sin(a))*sqrt(t)*ruv);
+    vec3 v=Q-P; float vv=dot(v,v), vn=dot(v,N);
+    s+=max(vn-.004-.002*z,0.)/(vv+.0006)*smoothstep(R*R*1.6,R*R*.4,vv);
+  }
+  float ao=clamp(1.-s*.19,0.,1.);
+  o=vec4(ao*ao*.85+.15,z,0.,1.);
+}`;
+// depth-aware separable blur; .g carries linear view depth
+const FS_AOBLUR = P_HEAD + `
+uniform sampler2D uTex0; uniform vec4 uDir; // xy: step
+void main(){
+  vec4 c=texture(uTex0,vUV); float z0=c.g, s=c.r*.28, w=.28;
+  for(int i=1;i<=3;i++){
+    for(int k=-1;k<=1;k+=2){
+      vec4 t=texture(uTex0,vUV+uDir.xy*float(i*k)); float wt=(.26-float(i)*.06)*clamp(1.-abs(t.g-z0)*14./z0,0.,1.);
+      s+=t.r*wt; w+=wt;
+    }
+  }
+  o=vec4(s/w,c.g,0.,1.);
+}`;
+
+const FS_DOWN = P_HEAD + `
+uniform sampler2D uTex0; uniform vec4 uDir; // xy: texel of source, z: threshold (first pass only)
+void main(){
+  vec2 t=uDir.xy;
+  vec3 a=texture(uTex0,vUV+t*vec2(-1.,-1.)).rgb, b=texture(uTex0,vUV+t*vec2(1.,-1.)).rgb, c=texture(uTex0,vUV+t*vec2(-1.,1.)).rgb, d=texture(uTex0,vUV+t*vec2(1.,1.)).rgb, e=texture(uTex0,vUV).rgb;
+  if(uDir.z>0.){ // soft threshold + luma weighting to keep small bright sources stable
+    vec3 s=vec3(0.); float w=0.;
+    vec3 k[5]=vec3[5](a,b,c,d,e);
+    for(int i=0;i<5;i++){ float l=max(k[i].r,max(k[i].g,k[i].b)); float wt=1./(1.+l*.5); float m=max(l-uDir.z,0.); s+=k[i]*(m/(l+1e-4))*wt; w+=wt; }
+    o=vec4(s/w,1.);
+  } else o=vec4((a+b+c+d)*.2+e*.2,1.);
+}`;
+const FS_UP = P_HEAD + `
+uniform sampler2D uTex0; uniform vec4 uDir;
+void main(){
+  vec2 t=uDir.xy; vec3 s=texture(uTex0,vUV).rgb*4.;
+  s+=(texture(uTex0,vUV+vec2(t.x,0.)).rgb+texture(uTex0,vUV-vec2(t.x,0.)).rgb+texture(uTex0,vUV+vec2(0.,t.y)).rgb+texture(uTex0,vUV-vec2(0.,t.y)).rgb)*2.;
+  s+=texture(uTex0,vUV+t).rgb+texture(uTex0,vUV-t).rgb+texture(uTex0,vUV+vec2(t.x,-t.y)).rgb+texture(uTex0,vUV+vec2(-t.x,t.y)).rgb;
+  o=vec4(s/16.*uDir.z,1.);
+}`;
+const FS_MBLUR = P_HEAD + `
+uniform sampler2D uTex0; uniform vec4 uDir;
+void main(){
+  vec4 s=texture(uTex0,vUV)*.2;
+  for(int i=1;i<=4;i++){ float w=.2-float(i)*.04+.06; vec2 d=uDir.xy*float(i)*1.5; s+=(texture(uTex0,vUV+d)+texture(uTex0,vUV-d))*w*.5; }
+  o=s;
+}`;
+
+const FS_COMP = P_HEAD + `
+uniform sampler2D uScene; uniform sampler2D uBloom; uniform sampler2D uMask; uniform sampler2D uMaskB;
+uniform vec4 uP; // exposure, bloom, glow, time
+uniform vec4 uQ; // fade, vignette, _, _
+vec3 tone(vec3 x){ return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14),0.,1.); }
+void main(){
+  vec3 c=texture(uScene,vUV).rgb+texture(uBloom,vUV).rgb*uP.y;
+  vec4 mb=texture(uMaskB,vUV), ms=texture(uMask,vUV);
+  c+=(mb.rgb*(1.-ms.a)*1.6+ms.rgb*.1)*uP.z;
+  vec2 q=vUV-.5; c*=1.-dot(q,q)*uQ.y;
+  c=tone(c*uP.x);
+  c=pow(c,vec3(1./2.2));
+  float l=dot(c,vec3(.3,.59,.11)); c=mix(vec3(l),c,1.06);
+  c*=uQ.x;
+  float n=fract(sin(dot(gl_FragCoord.xy+uP.w,vec2(12.9898,78.233)))*43758.5453);
+  o=vec4(c+(n-.5)/170.,1.);
+}`;
+
+// ---------------------------------------------------------------------------
+// scene: everything on, under and above the bench, modelled in code
+// ---------------------------------------------------------------------------
+const HAND = '"Marker Felt","Bradley Hand","Segoe Print","Comic Sans MS",cursive';
+const NOTE = '"Noteworthy","Bradley Hand","Segoe Print","Comic Sans MS",cursive';
+const SANS = '"Avenir Next","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif';
+const BENCH_Y = 0.925;
+const BONE = { PUB: 1, CONTACT: 2, ACK: 3, LID0: 5, LID1: 6, LID2: 7, STIR: 8, HOUR: 9, MIN: 10, SEC: 11, EDU: 12, HON: 13 };
+const NOTEBOOK = { x: 0.95, z: 0.5, ry: -0.09, W: 0.205, D: 0.27, yL: 0.0105, yR: 0.0165 };
+
+function buildScene(atlas) {
+  const GO = new Geo(), GG = new Geo(), GL = new Geo(), GF = new Geo(), all = [GO, GG, GL];
+  const R = rng(20261116), T = m4.T, X = m4.X, g2 = atlas.g;
+  const objs = {}, pick = {}, anchor = {};
+  let cur = null;
+  const bone = b => all.forEach(g => { g.bone = b; });
+  const begin = id => { cur = { id, o: GO.I.length, g: GG.I.length, l: GL.I.length }; };
+  const end = () => { objs[cur.id] = { o: [cur.o, GO.I.length - cur.o], g: [cur.g, GG.I.length - cur.g], l: [cur.l, GL.I.length - cur.l] }; };
+  const box = (G, x0, y0, z0, x1, y1, z1, mt, bev = 0, M) => { const t = T((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2); G.add(boxPrim(x1 - x0, y1 - y0, z1 - z0, bev), M ? m4.mul(M, t) : t, mt); };
+  const lat = (G, prof, M, mt, seg = 32, o) => G.add(lathePrim(prof, seg, o), M, mt);
+  const hq = (G, x, y, z, w, d, ry, mt, uv, M) => { const t = X(T(x, y, z), m4.RY(ry), m4.RX(-PI / 2)); G.add(quadPrim(w, d), M ? m4.mul(M, t) : t, mt, uv); };
+  const vq = (G, x, y, z, w, h, mt, uv, M) => { const t = T(x, y, z); G.add(quadPrim(w, h), M ? m4.mul(M, t) : t, mt, uv); };
+  const tube = (G, pts, r, mt, seg = 8, M) => G.add(tubePrim(pts, r, seg), M, mt);
+
+  // ---- materials -----------------------------------------------------------
+  const mWall = Mat('#a9b2b5', 0.92, { k: K.WALL }), mFloor = Mat('#8e897f', 0.5, { k: K.FLOOR }), mBench = Mat('#2a2d30', 0.3, { k: K.BENCH });
+  const mCab = Mat('#cbcfce', 0.5), mCabIn = Mat('#0e0f10', 0.85), mKick = Mat('#2b2d2f', 0.7), mTray = Mat('#dedbd2', 0.6);
+  const mSteel = Mat('#c3c6c9', 0.32, { m: 1, k: K.BRUSH }), mChrome = Mat('#e2e5e7', 0.12, { m: 1 }), mDarkMetal = Mat('#3a3e43', 0.45, { m: 1 });
+  const mShelf = Mat('#e8e5dc', 0.5), mBlk = Mat('#17181a', 0.45), mWht = Mat('#ecebe6', 0.42), mGray = Mat('#8d9296', 0.5), mRubber = Mat('#151515', 0.85);
+  const mTex = Mat('#ffffff', 0.72, { k: K.TEX }), mPaper = Mat('#ffffff', 0.85, { k: K.PAPER });
+  const gClear = Mat('#ffffff', 0.03), gPlastic = Mat('#eef1f1', 0.22, { a: 0.42 }), gFrost = Mat('#f1f3f2', 0.4, { a: 0.75 }), gInk = Mat('#ffffff', 0.5, { k: K.INK });
+  const liq = (c, turb, dens) => Mat(c, 0.1, { a: turb, b: dens / 4 });
+  const LB = liq('#e2a727', 0.16, 2.2), YPM = liq('#c9861c', 0.2, 2.8), EP = liq('#e9e3b4', 0.08, 1.2), CULT = liq('#d9c98a', 0.78, 2), WATER = liq('#dfeef2', 0.03, 0.5);
+
+  // ---- atlas drawing helpers -----------------------------------------------
+  const txt = (g, s, x, y, font, color, align = 'left') => { g.font = font; g.fillStyle = color; g.textAlign = align; g.textBaseline = 'alphabetic'; g.fillText(s, x, y); };
+  const fit = (g, s, px, fam, maxW) => { g.font = `${px}px ${fam}`; const w = g.measureText(s).width; return w > maxW ? px * maxW / w : px; };
+  const grain = (g, w, h, n, a) => { g.globalAlpha = a; for (let i = 0; i < n; i++) { g.fillStyle = i % 2 ? '#000' : '#fff'; g.fillRect(0, R() * h, w, 1 + R() * 2); } g.globalAlpha = 1; };
+  const tapeLbl = (title, sub, bg, w = 512, h = 200, ink = '#1a1a1f') => atlas.draw(w, h, g => {
+    g.fillStyle = bg; g.fillRect(0, 0, w, h); grain(g, w, h, 50, 0.05);
+    const fs = fit(g, title, sub ? h * 0.47 : h * 0.6, HAND, w * 0.88);
+    txt(g, title, w / 2, sub ? h * 0.5 : h * 0.68, `${fs}px ${HAND}`, ink, 'center');
+    if (sub) txt(g, sub, w / 2, h * 0.86, `${fit(g, sub, h * 0.21, HAND, w * 0.9)}px ${HAND}`, ink, 'center');
+  });
+  const printLbl = (lines, bg, fg, w = 384, h = 256, band) => atlas.draw(w, h, g => {
+    g.fillStyle = bg; g.fillRect(0, 0, w, h);
+    if (band) { g.fillStyle = band; g.fillRect(0, 0, w, h * 0.2); }
+    let y = h * 0.42;
+    lines.forEach((l, i) => { const px = fit(g, l, i ? h * 0.13 : h * 0.2, SANS, w * 0.86); txt(g, l, w / 2, y, `${i ? 500 : 700} ${px}px ${SANS}`, fg, 'center'); y += h * (i ? 0.17 : 0.2); });
+  });
+  const autoclaveTape = atlas.draw(256, 48, (g, w, h) => {
+    g.fillStyle = '#d9cfae'; g.fillRect(0, 0, w, h); g.strokeStyle = '#3a2c1c'; g.lineWidth = 7;
+    for (let i = -2; i < 12; i++) { g.beginPath(); g.moveTo(i * 28, h + 4); g.lineTo(i * 28 + 30, -4); g.stroke(); }
+  });
+  const gradInk = atlas.draw(128, 320, (g, w, h) => {
+    g.fillStyle = '#fff'; g.strokeStyle = '#fff';
+    for (let i = 0; i <= 8; i++) { const y = h - 20 - i * 34; g.fillRect(8, y, i % 2 ? 26 : 46, 4); if (i % 2 === 0 && i) txt(g, String(i * 125), 60, y + 9, `600 22px ${SANS}`, '#fff'); }
+    txt(g, 'ml', 62, 28, `600 20px ${SANS}`, '#fff');
+  });
+  const colony = (g, x, y, r, c, rim) => {
+    const gr = g.createRadialGradient(x - r * 0.3, y - r * 0.3, r * 0.1, x, y, r); gr.addColorStop(0, '#fffdf2'); gr.addColorStop(0.45, c); gr.addColorStop(1, rim);
+    g.fillStyle = gr; g.beginPath(); g.arc(x, y, r, 0, TAU); g.fill();
+  };
+  const plateTex = kind => atlas.draw(512, 512, (g, w) => {
+    const c = w / 2, base = ['#d6bd6f', '#6a4c9c', '#e6dcbb', '#d8c076', '#d2b866'][kind], edge = ['#b99a48', '#4b3378', '#cdbf93', '#bb9f4e', '#b3963f'][kind];
+    const gr = g.createRadialGradient(c, c, 20, c, c, c); gr.addColorStop(0, base); gr.addColorStop(0.8, base); gr.addColorStop(1, edge);
+    g.fillStyle = gr; g.fillRect(0, 0, w, w);
+    const P = rng(77 + kind * 13);
+    if (kind === 0) { // quadrant streak
+      for (let q = 0; q < 4; q++) {
+        const a0 = q * (PI / 2) + 0.5, dens = [1, 0.6, 0.3, 0.14][q];
+        for (let l = 0; l < 7; l++) for (let s = 0; s < 46; s++) {
+          if (P() > dens) continue;
+          const t = s / 46, rr = 70 + l * 19 + Math.sin(t * 9) * 3, a = a0 + t * 1.15 * (l % 2 ? 1 : -1) + (l % 2 ? 0 : 1.15);
+          colony(g, c + Math.cos(a) * rr, c + Math.sin(a) * rr, q < 2 ? 5 + P() * 3 : 6 + P() * 5, '#f1e7bd', '#b7a25e');
+        }
+      }
+    } else if (kind === 1) { // acid-halo screen on indicator agar
+      for (let i = 0; i < 26; i++) {
+        const a = P() * TAU, rr = Math.sqrt(P()) * 190, x = c + Math.cos(a) * rr, y = c + Math.sin(a) * rr, hr = 22 + P() * 30;
+        const h2 = g.createRadialGradient(x, y, 4, x, y, hr); h2.addColorStop(0, 'rgba(244,214,74,0.95)'); h2.addColorStop(0.6, 'rgba(236,196,70,0.55)'); h2.addColorStop(1, 'rgba(236,196,70,0)');
+        g.fillStyle = h2; g.beginPath(); g.arc(x, y, hr, 0, TAU); g.fill(); colony(g, x, y, 6 + P() * 4, '#f4eccb', '#bfae74');
+      }
+    } else if (kind === 2) { // chromogenic agar: coloured colonies
+      const cols = [['#d8478f', '#8f2459'], ['#2ea7a0', '#17625e'], ['#4a6bd0', '#28408f'], ['#e7dfc4', '#b5a878']];
+      for (let i = 0; i < 70; i++) { const a = P() * TAU, rr = Math.sqrt(P()) * 200, k = cols[Math.floor(P() * 4)]; colony(g, c + Math.cos(a) * rr, c + Math.sin(a) * rr, 5 + P() * 7, k[0], k[1]); }
+    } else if (kind === 3) { // spread plate
+      for (let i = 0; i < 95; i++) { const a = P() * TAU, rr = Math.sqrt(P()) * 205; colony(g, c + Math.cos(a) * rr, c + Math.sin(a) * rr, 3.5 + P() * 4.5, '#f0e6bf', '#b6a05a'); }
+    } else { // spot dilution assay
+      for (let r = 0; r < 4; r++) for (let q = 0; q < 6; q++) {
+        const x = c - 150 + q * 60, y = c - 100 + r * 66, n = Math.round(60 / Math.pow(2.6, q));
+        if (q < 2) colony(g, x, y, 21 - q * 2, '#efe5bb', '#b9a45f'); else for (let i = 0; i < n; i++) { const a = P() * TAU, rr = Math.sqrt(P()) * 19; colony(g, x + Math.cos(a) * rr, y + Math.sin(a) * rr, 2.6 + P() * 1.6, '#f0e6bf', '#b6a05a'); }
+      }
+    }
+  });
+  const lidInk = (s, col = '#141c3a') => atlas.draw(384, 384, (g, w) => {
+    g.font = `${w * 0.086}px ${HAND}`; g.fillStyle = col; g.textAlign = 'center'; g.textBaseline = 'alphabetic';
+    const rr = w * 0.383; let a = PI * 0.5 + (g.measureText(s).width / rr) / 2;
+    for (const ch of s) { const cw = g.measureText(ch).width; a -= cw / rr / 2; g.save(); g.translate(w / 2 + Math.cos(a) * rr, w / 2 + Math.sin(a) * rr); g.rotate(a - PI / 2); g.fillText(ch, 0, 0); g.restore(); a -= cw / rr / 2; }
+  });
+  const pageTex = (type, w = 448, h = 590) => atlas.draw(w, h, g => {
+    g.fillStyle = '#f4efdf'; g.fillRect(0, 0, w, h);
+    const st = h / 34; g.strokeStyle = 'rgba(96,140,190,0.28)'; g.lineWidth = Math.max(1, w / 620);
+    for (let y = st * 2; y < h - st; y += st) { g.beginPath(); g.moveTo(w * 0.05, y); g.lineTo(w * 0.95, y); g.stroke(); }
+    for (let x = w * 0.05; x <= w * 0.951; x += st) { g.beginPath(); g.moveTo(x, st * 2); g.lineTo(x, h - st * 1.2); g.stroke(); }
+    const ink = '#1c2a55', f = px => `${px * w / 620}px ${NOTE}`, L = (s, row, x = 0.08, px = 21, c = ink) => txt(g, s, w * x, st * (row + 0.82), f(px), c);
+    txt(g, type.n, w * 0.93, st * 1.4, f(15), '#667', 'right');
+    if (type.k === 'A') {
+      L('11/16/26', 2, 0.08, 19, '#555'); L('Competition assay, day 3', 3.3, 0.08, 27);
+      L('- thaw strains, streak to single colonies', 5.5); L('- O/N cultures: 5 mL, 30 C, 200 rpm', 7); L('- normalise to OD600 = 0.05', 8.5); L('- mix 1:1, sample at t = 0, 24, 48 h', 10);
+      L('- spot 10-fold dilutions, 5 uL each', 11.5); L('Plates:', 14, 0.08, 23);
+      for (let i = 0; i < 3; i++) { g.strokeStyle = ink; g.lineWidth = 2; g.beginPath(); g.arc(w * (0.2 + i * 0.26), st * 19.3, st * 2.6, 0, TAU); g.stroke(); for (let k = 0; k < 9; k++) { g.beginPath(); g.arc(w * (0.2 + i * 0.26) + (R() - 0.5) * st * 3.4, st * 19.3 + (R() - 0.5) * st * 3.4, 2.5, 0, TAU); g.fill(); } L(['t0', '24 h', '48 h'][i], 22.6, 0.17 + i * 0.26, 18); }
+      L('count tomorrow AM!', 25.5, 0.08, 23, '#a8242a'); L('label everything. date + initials.', 28, 0.08, 19, '#555');
+    } else if (type.k === 'B') {
+      L('Growth curves', 2.6, 0.08, 27); g.strokeStyle = ink; g.lineWidth = 2.4;
+      g.beginPath(); g.moveTo(w * 0.14, st * 5); g.lineTo(w * 0.14, st * 15); g.lineTo(w * 0.9, st * 15); g.stroke();
+      for (const [k, c] of [[1, '#1c2a55'], [0.72, '#a8242a']]) { g.strokeStyle = c; g.beginPath(); for (let i = 0; i <= 40; i++) { const t = i / 40, y = k / (1 + Math.exp(-(t - 0.45) * 11)); g.lineTo(w * (0.14 + t * 0.74), st * (15 - y * 9)); } g.stroke(); }
+      L('OD600', 4.2, 0.03, 16); L('time (h)', 15.4, 0.74, 16); L('WT', 6, 0.82, 18); L('KO', 8.6, 0.82, 18, '#a8242a');
+      L('lag ~2 h, doubling ~55 min (WT)', 17.5); L('KO slower in exponential phase', 19); L('repeat in triplicate', 20.5); L('to do:', 23, 0.08, 23);
+      L('[x] pour plates', 24.6); L('[x] autoclave tips', 26.1); L('[ ] glycerol stocks', 27.6); L('[ ] order LB', 29.1);
+    } else if (type.k === 'C') {
+      L('PCR check', 2.6, 0.08, 27); L('25 uL rxns, 30 cycles', 4.6); L('anneal 58 C, ext 45 s', 6.1); L('gel: 1% agarose, 110 V, 35 min', 7.6);
+      g.strokeStyle = ink; g.lineWidth = 2; g.strokeRect(w * 0.12, st * 10, w * 0.7, st * 9);
+      for (let i = 0; i < 8; i++) { g.fillStyle = 'rgba(28,42,85,0.75)'; if (i === 0) for (let k = 0; k < 7; k++) g.fillRect(w * 0.16, st * (11 + k * 1.05), w * 0.05, 3); else g.fillRect(w * (0.16 + i * 0.08), st * (13 + (i % 3) * 1.4), w * 0.05, 5); }
+      L('L  1  2  3  4  5  6  7', 19.4, 0.16, 17); L('bands at expected size in 1-5', 21.5); L('6, 7: re-run', 23, 0.08, 21, '#a8242a');
+    } else if (type.k === 'D') {
+      L('Media prep', 2.6, 0.08, 27); L('LB: 10 g tryptone, 5 g YE, 10 g NaCl / L', 4.6, 0.08, 19); L('agar plates: + 15 g/L agar', 6.1, 0.08, 19); L('autoclave 121 C, 20 min', 7.6, 0.08, 19);
+      L('pour at ~55 C, 25 mL / plate', 9.1, 0.08, 19); L('date + initial every bottle', 11.5, 0.08, 21, '#a8242a');
+      for (let r = 0; r < 5; r++) { g.strokeStyle = ink; g.lineWidth = 1.6; g.strokeRect(w * 0.1, st * (14 + r * 2), w * 0.8, st * 2); g.beginPath(); g.moveTo(w * 0.4, st * (14 + r * 2)); g.lineTo(w * 0.4, st * (16 + r * 2)); g.stroke(); }
+      [['medium', 'made'], ['LB', '11/09'], ['YPM', '11/12'], ['EP', '10/30'], ['LB agar', '11/14']].forEach((r, i) => { L(r[0], 14.35 + i * 2, 0.13, 19); L(r[1], 14.35 + i * 2, 0.45, 19); });
+    } else if (type.k === 'TL') {
+      txt(g, 'Teaching Experience', w * 0.08, st * 3.6, f(40), ink);
+      g.strokeStyle = '#a8242a'; g.lineWidth = 3 * w / 620; g.beginPath(); g.moveTo(w * 0.08, st * 4.25); g.bezierCurveTo(w * 0.3, st * 4.5, w * 0.55, st * 4.0, w * 0.8, st * 4.3); g.stroke();
+    }
+  });
+  // large textures are allocated first so the packer can still fit them
+  const pg = { A: pageTex({ k: 'A', n: '46' }), B: pageTex({ k: 'B', n: '47' }), C: pageTex({ k: 'C', n: '48' }), D: pageTex({ k: 'D', n: '49' }), E: pageTex({ k: 'B', n: '51' }), F: pageTex({ k: 'D', n: '50' }), TL: pageTex({ k: 'TL', n: '52' }, 1024, 1348), TR: pageTex({ k: 'TR', n: '53' }, 620, 816) };
+  const cardTex = s => atlas.draw(600, 220, (g, w, h) => {
+    g.fillStyle = '#f6f3ea'; g.fillRect(0, 0, w, h); g.strokeStyle = '#b9b3a2'; g.lineWidth = 3; g.strokeRect(6, 6, w - 12, h - 12);
+    txt(g, s, w / 2, h * 0.64, `700 ${fit(g, s, h * 0.42, SANS, w * 0.84)}px ${SANS}`, '#22252b', 'center');
+  });
+  const sticky = (lines, bg) => atlas.draw(256, 256, (g, w) => { g.fillStyle = bg; g.fillRect(0, 0, w, w); g.fillStyle = 'rgba(0,0,0,0.06)'; g.fillRect(0, 0, w, 34); lines.forEach((l, i) => txt(g, l, 20, 84 + i * 50, `${fit(g, l, 38, HAND, 216)}px ${HAND}`, '#20222a')); });
+  const sheetTex = title => atlas.draw(440, 580, (g, w, h) => {
+    g.fillStyle = '#f7f6f1'; g.fillRect(0, 0, w, h); txt(g, title, 34, 62, `700 ${fit(g, title, 30, SANS, w - 68)}px ${SANS}`, '#1e2126');
+    g.fillStyle = '#9a9ea6'; for (let i = 0; i < 20; i++) { const y = 100 + i * 22; if (i % 6 === 5) continue; g.fillRect(34, y, (0.55 + R() * 0.4) * (w - 68), 6); }
+  });
+  const biohaz = (bg = '#f0832a', fg = '#141414') => atlas.draw(256, 256, (g, w) => {
+    g.fillStyle = bg; g.fillRect(0, 0, w, w); const c = w / 2; g.strokeStyle = fg; g.lineWidth = 17;
+    for (let i = 0; i < 3; i++) { const a = -PI / 2 + i * TAU / 3; g.beginPath(); g.arc(c + Math.cos(a) * 44, c + Math.sin(a) * 44, 46, a - 2.25, a + 2.25); g.stroke(); }
+    g.lineWidth = 12; g.beginPath(); g.arc(c, c, 26, 0, TAU); g.stroke(); g.fillStyle = bg; g.beginPath(); g.arc(c, c, 13, 0, TAU); g.fill();
+  });
+
+  // ---- room ------------------------------------------------------------------
+  box(GO, -2.6, -0.16, -0.16, 2.6, 0, 2.5, mFloor);
+  box(GO, -2.6, 0, -0.16, 2.6, 2.62, 0, mWall);
+  box(GO, -2.6, 0, 0, 2.6, 0.1, 0.014, Mat('#3b3e42', 0.6), 0.004);
+
+  // ---- casework --------------------------------------------------------------
+  const mods = [[-1.45, -0.9, 0], [-0.9, -0.35, BONE.PUB], [0.35, 0.9, BONE.CONTACT], [0.9, 1.45, BONE.ACK]];
+  const cards = { [BONE.PUB]: 'PUBLICATIONS', [BONE.CONTACT]: 'CONTACT', [BONE.ACK]: 'ACKNOWLEDGMENTS', 0: '' };
+  const ids = { [BONE.PUB]: 'publications', [BONE.CONTACT]: 'contact', [BONE.ACK]: 'ack' };
+  box(GO, -1.45, 0.1, 0.02, 1.45, 0.895, 0.06, mCab);                       // back panel (seen through the kneehole)
+  for (const [x0, x1, bn] of mods) {
+    const cx = (x0 + x1) / 2;
+    box(GO, x0 + 0.02, 0, 0.06, x1 - 0.02, 0.1, 0.66, mKick);
+    box(GO, x0, 0.1, 0.02, x1, 0.895, 0.715, mCab, 0.003);
+    box(GO, x0 + 0.012, 0.112, 0.7155, x1 - 0.012, 0.884, 0.7165, mCabIn);
+    box(GO, x0 + 0.004, 0.105, 0.718, x1 - 0.004, 0.698, 0.738, mCab, 0.004);       // door
+    tube(GO, [[x1 - 0.06, 0.52, 0.739], [x1 - 0.06, 0.52, 0.765], [x1 - 0.06, 0.64, 0.765], [x1 - 0.06, 0.64, 0.739]], 0.0055, mSteel, 10);
+    bone(bn);
+    if (bn) begin(ids[bn]);
+    box(GO, x0 + 0.004, 0.705, 0.718, x1 - 0.004, 0.862, 0.738, mCab, 0.004);       // drawer front
+    tube(GO, [[cx - 0.075, 0.745, 0.739], [cx - 0.075, 0.745, 0.764], [cx + 0.075, 0.745, 0.764], [cx + 0.075, 0.745, 0.739]], 0.0055, mSteel, 10);
+    box(GO, cx - 0.083, 0.786, 0.738, cx + 0.083, 0.848, 0.7412, mChrome, 0.001);
+    if (bn) { vq(GO, cx, 0.817, 0.7417, 0.154, 0.05, mTex, cardTex(cards[bn])); end(); pick[ids[bn]] = [[x0, 0.7, 0.71], [x1, 0.87, 0.78]]; anchor[ids[bn]] = [cx, 0.86, 0.75]; }
+    else vq(GO, cx, 0.817, 0.7417, 0.154, 0.05, Mat('#f1eee4', 0.8));
+    if (bn) {                                                               // tray + contents
+      const a = x0 + 0.03, b = x1 - 0.03, y0 = 0.72, y1 = 0.845;
+      box(GO, a, y0, 0.31, b, y0 + 0.008, 0.718, mTray); box(GO, a, y0, 0.31, a + 0.012, y1, 0.718, mTray); box(GO, b - 0.012, y0, 0.31, b, y1, 0.718, mTray); box(GO, a, y0, 0.31, b, y1, 0.322, mTray);
+      const fy = y0 + 0.0085;
+      if (bn === BONE.PUB) {
+        const pub = atlas.draw(520, 680, (g, w, h) => {
+          g.fillStyle = '#fbfaf6'; g.fillRect(0, 0, w, h); g.fillStyle = '#27496d'; g.fillRect(0, 0, w, 44);
+          txt(g, 'Cancer Treatment and Research Communications', 22, 30, `600 19px ${SANS}`, '#fff');
+          const t = ['Comprehensive clinical characteristics', 'and outcomes of stage IV EGFR-mutant', 'NSCLC based on PD-L1 expression'];
+          t.forEach((l, i) => txt(g, l, 30, 98 + i * 36, `700 26px ${SANS}`, '#1b1d22'));
+          txt(g, 'Lee JW, Jin X, Bogdan S, Abou-Alfa A, Chang J, et al.', 30, 222, `500 16px ${SANS}`, '#444');
+          g.fillStyle = '#a3a7ae'; for (let c = 0; c < 2; c++) for (let i = 0; i < 26; i++) g.fillRect(30 + c * 240, 262 + i * 15, (i % 9 === 8 ? 0.5 : 0.92 + R() * 0.08) * 220, 5);
+        });
+        for (let i = 0; i < 4; i++) box(GO, cx - 0.115 + i * 0.004, fy + i * 0.0012, 0.42 - i * 0.003, cx + 0.085 + i * 0.004, fy + (i + 1) * 0.0012, 0.69 - i * 0.003, mWht);
+        hq(GO, cx - 0.003, fy + 0.0052, 0.5505, 0.2, 0.262, 0.012, mPaper, pub);
+        box(GO, cx + 0.115, fy, 0.44, cx + 0.2, fy + 0.03, 0.56, Mat('#31506f', 0.6), 0.004);
+        lat(GO, [[0, 0], [0.007, 0], [0.007, 0.12], [0, 0.12]], X(T(cx + 0.16, fy + 0.007, 0.68), m4.RZ(-PI / 2)), Mat('#f2d21c', 0.35), 12);
+      } else if (bn === BONE.CONTACT) {
+        const env = atlas.draw(440, 300, (g, w, h) => {
+          g.fillStyle = '#efe7d3'; g.fillRect(0, 0, w, h); g.strokeStyle = '#cdbf9c'; g.lineWidth = 3; g.beginPath(); g.moveTo(0, 0); g.lineTo(w / 2, h * 0.55); g.lineTo(w, 0); g.stroke();
+          g.fillStyle = '#b8473d'; g.fillRect(w - 86, 22, 60, 72); txt(g, '@', w / 2, h * 0.84, `700 78px ${SANS}`, '#31405f', 'center');
+        });
+        box(GO, cx - 0.12, fy, 0.5, cx + 0.1, fy + 0.004, 0.65, Mat('#efe7d3', 0.8)); hq(GO, cx - 0.01, fy + 0.0045, 0.575, 0.218, 0.148, 0, mPaper, env);
+        box(GO, cx - 0.1, fy, 0.36, cx - 0.01, fy + 0.012, 0.42, mWht, 0.002);
+        hq(GO, cx - 0.055, fy + 0.0125, 0.39, 0.088, 0.055, 0, mTex, printLbl(['Ayman Abou-Alfa', 'Physics & Biophysics', 'Cornell University'], '#fbfaf5', '#20242c', 352, 220));
+        box(GO, cx + 0.13, fy, 0.38, cx + 0.2, fy + 0.009, 0.52, mBlk, 0.004);
+      } else {
+        const cup = [[0, 0], [0.034, 0], [0.047, 0.1], [0.049, 0.104], [0.044, 0.104], [0, 0.104]];
+        lat(GO, cup, T(cx + 0.11, fy, 0.5), Mat('#f4f1e8', 0.6), 28);
+        GO.add(arcPrim(0.0455, 0.0375, 0.055, 0.06, PI / 2, 2.2, 14), T(cx + 0.11, fy, 0.5), mTex, atlas.draw(380, 170, (g, w, h) => { g.fillStyle = '#c93a2b'; g.fillRect(0, 0, w, h); txt(g, 'RAMEN', w / 2, h * 0.7, `800 90px ${SANS}`, '#fff3d6', 'center'); }));
+        const card = atlas.draw(420, 300, (g, w, h) => { g.fillStyle = '#fbf6e9'; g.fillRect(0, 0, w, h); txt(g, 'thank you!', w / 2, h * 0.52, `92px ${HAND}`, '#a8242a', 'center'); txt(g, 'jesse-zhou.com', w / 2, h * 0.78, `40px ${HAND}`, '#31405f', 'center'); });
+        box(GO, cx - 0.15, fy, 0.44, cx - 0.01, fy + 0.002, 0.54, mWht); hq(GO, cx - 0.08, fy + 0.0025, 0.49, 0.138, 0.098, 0.05, mPaper, card);
+        for (const dz of [0, 0.012]) lat(GO, [[0, 0], [0.003, 0], [0.0022, 0.22], [0, 0.22]], X(T(cx - 0.16, fy + 0.004, 0.62 + dz), m4.RZ(-PI / 2), m4.RX(0.04)), Mat('#b98a4e', 0.6), 8);
+      }
+    }
+    bone(0);
+  }
+  box(GO, -1.48, 0.895, 0.0, 1.48, BENCH_Y, 0.78, mBench, 0.006);
+  // stool in the kneehole
+  { const M = T(0.02, 0, 0.84); lat(GO, [[0, 0.56], [0.165, 0.56], [0.175, 0.575], [0.175, 0.6], [0.16, 0.615], [0, 0.615]], M, Mat('#1c1d20', 0.55), 36);
+    lat(GO, [[0, 0.06], [0.022, 0.06], [0.022, 0.56], [0, 0.56]], M, mChrome, 16); lat(GO, [[0.03, 0.04], [0.045, 0.04], [0.045, 0.09], [0.03, 0.09]], M, mBlk, 16);
+    for (let i = 0; i < 5; i++) { const a = i * TAU / 5 + 0.3, c = Math.cos(a), s = Math.sin(a); tube(GO, [[0.02 * c, 0.065, 0.02 * s], [0.26 * c, 0.05, 0.26 * s]], 0.014, mChrome, 8, M); GO.add(spherePrim(0.024, 12, 8), X(M, T(0.26 * c, 0.024, 0.26 * s)), mBlk); }
+    const ring = []; for (let i = 0; i <= 28; i++) { const a = i / 28 * TAU; ring.push([0.2 * Math.cos(a), 0.25, 0.2 * Math.sin(a)]); } tube(GO, ring, 0.009, mChrome, 8, M);
+    for (let i = 0; i < 3; i++) { const a = i * TAU / 3; tube(GO, [[0.022 * Math.cos(a), 0.25, 0.022 * Math.sin(a)], [0.2 * Math.cos(a), 0.25, 0.2 * Math.sin(a)]], 0.005, mChrome, 6, M); } }
+
+  // ---- wall services ----------------------------------------------------------
+  box(GO, -1.46, 1.03, 0, 1.46, 1.13, 0.032, Mat('#d7d9d7', 0.5), 0.004);
+  const outlet = atlas.draw(128, 200, (g, w, h) => { g.fillStyle = '#eeece4'; g.fillRect(0, 0, w, h); g.fillStyle = '#d9d6cb'; for (const y of [30, 110]) { g.beginPath(); g.roundRect(22, y, 84, 62, 14); g.fill(); g.fillStyle = '#26282b'; g.fillRect(44, y + 14, 6, 20); g.fillRect(78, y + 14, 6, 20); g.beginPath(); g.arc(64, y + 46, 5, 0, TAU); g.fill(); g.fillStyle = '#d9d6cb'; } });
+  for (const x of [-0.75, -0.15, 0.45, 1.05]) vq(GO, x, 1.08, 0.0328, 0.052, 0.082, mTex, outlet);
+  { const M = T(-1.2, 1.08, 0.032); lat(GO, [[0, 0], [0.016, 0], [0.016, 0.03], [0.011, 0.04], [0, 0.04]], X(M, m4.RX(PI / 2)), mChrome, 16);
+    box(GO, -0.006, -0.004, 0.036, 0.006, 0.05, 0.05, Mat('#e6c62a', 0.4), 0.002, M); lat(GO, [[0, 0], [0.005, 0], [0.004, 0.03], [0, 0.03]], X(M, T(0, -0.012, 0.022), m4.RX(PI)), mChrome, 10); }
+  vq(GO, -0.46, 1.25, 0.002, 0.2, 0.264, mPaper, sheetTex('PROTOCOL: Spot dilution assay'));
+  [['streak', 'plates Fri', '#f7e06a', -0.2, 1.23, 0.06], ['order', 'P200 tips!', '#f59bb7', -0.085, 1.26, -0.05], ['lab mtg', '10 am Tue', '#9be08f', 0.2, 1.24, 0.04]].forEach(n => {
+    const M = X(T(n[3], n[4], 0.0025), m4.RZ(n[5])); GO.add(quadPrim(0.076, 0.076), M, mPaper, sticky([n[0], n[1]], n[2]));
+  });
+
+  // ---- shelves, lights, pipette rack ---------------------------------------------
+  for (const x of [-1.3, 0, 1.3]) { box(GO, x - 0.014, 0.96, 0, x + 0.014, 2.16, 0.022, mDarkMetal); for (const y of [1.372, 1.772]) box(GO, x - 0.012, y - 0.05, 0.022, x + 0.012, y, 0.29, mDarkMetal, 0.002); }
+  for (const y of [SH0_Y, SH1_Y]) {
+    box(GO, -1.44, y - 0.028, 0, 1.44, y, 0.31, mShelf, 0.004);
+    box(GO, -1.38, y - 0.044, 0.222, 1.38, y - 0.028, 0.268, Mat('#b9bcc0', 0.35, { m: 1 }), 0.002);
+    hq(GO, 0, y - 0.0445, 0.245, 2.74, 0.03, 0, Mat('#fff1d6', 0.5, { k: K.STRIP, e: 7.5 }), null, X(T(0, 2 * (y - 0.0445), 0), m4.S(1, -1, 1)));
+  }
+  const strips = [[[-1.37, SH0_Y - 0.047, 0.245], [1.37, SH0_Y - 0.047, 0.245]], [[-1.37, SH1_Y - 0.047, 0.245], [1.37, SH1_Y - 0.047, 0.245]]];
+  hq(GO, -1.02, SH0_Y - 0.014, 0.3105, 0.21, 0.024, 0, mTex, tapeLbl('AYMAN A.  BENCH 4', null, '#8fd0f2', 512, 60), X(T(0, SH0_Y - 0.014, 0.3105), m4.RX(PI / 2), T(0, -(SH0_Y - 0.014), -0.3105)));
+  box(GO, 0.42, SH0_Y - 0.05, 0.31, 1.0, SH0_Y - 0.004, 0.336, Mat('#2e3238', 0.35), 0.003);
+  const pipette = (x, s, col) => {
+    const M = X(T(x, SH0_Y - 0.004 - 0.236 * s, 0.353), m4.S(s)), body = Mat('#dfe1e2', 0.4), c = Mat(col, 0.4);
+    lat(GO, [[0, 0], [0.0016, 0], [0.003, 0.03], [0.0045, 0.032], [0.006, 0.13], [0.0105, 0.134], [0.0135, 0.17], [0.014, 0.245], [0.012, 0.262], [0, 0.262]], M, body, 18);
+    lat(GO, [[0.0142, 0.2], [0.0146, 0.2], [0.0146, 0.214], [0.0142, 0.214]], M, c, 18);
+    lat(GO, [[0, 0.262], [0.004, 0.262], [0.004, 0.284], [0.0088, 0.285], [0.0088, 0.296], [0.007, 0.298], [0, 0.298]], M, c, 16);
+    box(GO, -0.006, 0.236, -0.036, 0.006, 0.247, -0.008, body, 0.002, M); box(GO, -0.005, 0.222, -0.036, 0.005, 0.24, -0.029, body, 0.002, M);
+    box(GO, 0.008, 0.25, -0.006, 0.019, 0.27, 0.006, body, 0.003, M); box(GO, -0.005, 0.176, 0.0125, 0.005, 0.196, 0.0145, mBlk, 0, M);
+  };
+  [[0.48, 1.06, '#2f6fd0'], [0.6, 0.98, '#e8c12b'], [0.72, 0.94, '#e8c12b'], [0.84, 0.9, '#d94a3a'], [0.94, 0.88, '#8a8f96']].forEach(p => pipette(p[0], p[1], p[2]));
+
+  // ---- glassware builders ----------------------------------------------------------
+  const bottle = (x, y, z, Rr, H, lq, fill, lab, o = {}) => {
+    const M = X(T(x, y, z), m4.RY(o.ry || 0)), t = 0.0035, rn = Math.max(Rr * 0.46, 0.019), hs = H * 0.64, hn = H * 0.82, seg = o.seg || 36, out = [[0, 0], [Rr - 0.006, 0], [Rr, 0.006]], inn = [];
+    for (let i = 0; i <= 6; i++) { const a = i / 6 * PI / 2; out.push([rn + (Rr - rn) * Math.cos(a), hs + (hn - hs) * Math.sin(a)]); }
+    out.push([rn, H - 0.003], [rn + 0.002, H]); inn.push([rn - t + 0.002, H], [rn - t, H - 0.004]);
+    for (let i = 6; i >= 0; i--) { const a = i / 6 * PI / 2; inn.push([rn - t + (Rr - rn) * Math.cos(a), hs + (hn - hs) * Math.sin(a) - t * 0.4]); }
+    inn.push([Rr - t, 0.009], [Rr - t - 0.006, t], [0, t]);
+    lat(GG, out.concat(inn), M, gClear, seg);
+    if (lq) { const ri = Rr - t - 0.0005, hf = Math.min(H * fill, hs - 0.004); lat(GL, [[0, t + 0.0004], [ri - 0.006, t + 0.0004], [ri, 0.0095], [ri, hf + 0.0016], [ri - 0.004, hf], [0, hf]], M, lq, seg); }
+    const rc = rn + 0.0075, cap = Mat(o.cap || '#1f5fc4', 0.42);
+    lat(GO, [[rn + 0.001, H - 0.027], [rc, H - 0.027], [rc, H + 0.002], [rc - 0.003, H + 0.005], [0, H + 0.005]], M, cap, 28);
+    lat(GO, [[rn + 0.0005, H - 0.036], [rn + 0.0055, H - 0.036], [rn + 0.0055, H - 0.03], [rn + 0.0005, H - 0.03]], M, Mat(o.cap || '#3f7fe0', 0.4), 28);
+    if (lab) { const lh = o.lh || 0.05, aw = (o.lw || 0.085) / Rr; GO.add(arcPrim(Rr + 0.0007, Rr + 0.0007, hs * 0.52, lh, PI / 2 + (o.la || 0), aw, 18), M, mTex, lab); }
+    if (o.tape) GO.add(arcPrim(Rr + 0.0007, Rr + 0.0007, hs * 0.9, 0.012, PI / 2 + (o.la || 0) + 0.25, 0.06 / Rr, 10), M, mTex, autoclaveTape);
+    if (Rr > 0.04) GG.add(arcPrim(Rr + 0.0004, Rr + 0.0004, hs * 0.5, hs * 0.8, PI / 2 - 1.25 + (o.la || 0), 0.03 / Rr, 6), M, gInk, gradInk);
+  };
+  const flask = (x, y, z, Rb, H, rn, lq, fill, o = {}) => {
+    const M = X(T(x, y, z), m4.RY(o.ry || 0)), t = 0.003, hc = H * 0.76, seg = o.seg || 36, rAt = h => Rb + (rn - Rb) * clamp((h - 0.012) / (hc - 0.012));
+    lat(GG, [[0, 0], [Rb - 0.01, 0], [Rb, 0.008], [Rb, 0.014], [rn, hc], [rn, H - 0.006], [rn + 0.004, H], [rn + 0.004 - t, H], [rn - t, H - 0.006], [rn - t, hc], [Rb - t, 0.015], [Rb - t - 0.008, t], [0, t]], M, gClear, seg);
+    if (lq) {
+      const hf = H * fill, ri = rAt(hf) - t - 0.0006, pr = [[0, t + 0.0004], [Rb - t - 0.009, t + 0.0004], [Rb - t - 0.0006, 0.015], [ri, hf + 0.0012]];
+      if (o.vortex) pr.push([ri - 0.004, hf - 0.001], [ri * 0.55, hf - 0.006], [ri * 0.22, hf - 0.022], [0.002, hf - 0.04], [0, hf - 0.04]); else pr.push([ri - 0.004, hf], [0, hf]);
+      lat(GL, pr, M, lq, seg);
+    }
+    if (o.foil) lat(GO, [[rn + 0.016, H - 0.05], [rn + 0.009, H - 0.02], [rn + 0.007, H + 0.003], [rn * 0.5, H + 0.008], [0, H + 0.006]], M, Mat('#c9ccd0', 0.3, { m: 1, k: K.FOIL }), 22);
+    if (o.lab) { const yc = hc * 0.42, hh = o.lh || 0.05; GO.add(arcPrim(rAt(yc + hh / 2) + 0.0008, rAt(yc - hh / 2) + 0.0008, yc, hh, PI / 2 + (o.la || 0), (o.lw || 0.1) / rAt(yc), 18), M, mTex, o.lab); }
+    GG.add(arcPrim(rAt(hc * 0.62) + 0.0005, rAt(hc * 0.2) + 0.0005, hc * 0.41, hc * 0.42, PI / 2 - 1.2 + (o.la || 0), 0.5, 6), M, gInk, gradInk);
+  };
+  const beaker = (x, y, z, Rr, H, lq, fill) => {
+    const M = T(x, y, z), t = 0.0028;
+    lat(GG, [[0, 0], [Rr - 0.004, 0], [Rr, 0.004], [Rr, H - 0.004], [Rr + 0.003, H], [Rr + 0.003 - t, H], [Rr - t, H - 0.004], [Rr - t, 0.006], [Rr - t - 0.004, t], [0, t]], M, gClear, 32);
+    if (lq) lat(GL, [[0, t + 0.0004], [Rr - t - 0.005, t + 0.0004], [Rr - t - 0.0006, 0.007], [Rr - t - 0.0006, H * fill + 0.001], [Rr - t - 0.004, H * fill], [0, H * fill]], M, lq, 32);
+    GG.add(arcPrim(Rr + 0.0004, Rr + 0.0004, H * 0.5, H * 0.7, PI / 2 + 0.5, 0.03 / Rr, 6), M, gInk, gradInk);
+  };
+  const ctube = (x, y, z, lq, hf, capc, M0) => {
+    const Rr = 0.008, H = 0.125, t = 0.001, M = M0 ? m4.mul(M0, T(x, y, z)) : T(x, y, z), o = [], n = [], l = [];
+    for (let i = 0; i <= 5; i++) { const a = i / 5 * PI / 2; o.push([Rr * Math.sin(a), Rr - Rr * Math.cos(a)]); l.push([(Rr - t - 0.0003) * Math.sin(a), Rr - (Rr - t - 0.0003) * Math.cos(a)]); }
+    for (let i = 5; i >= 0; i--) { const a = i / 5 * PI / 2; n.push([(Rr - t) * Math.sin(a), Rr - (Rr - t) * Math.cos(a)]); }
+    lat(GG, o.concat([[Rr, H]], [[Rr - t, H]], n), M, gClear, 14);
+    if (lq) lat(GL, l.concat([[Rr - t - 0.0003, hf], [0, hf]]), M, lq, 14);
+    lat(GO, [[Rr + 0.0005, H - 0.024], [Rr + 0.0028, H - 0.024], [Rr + 0.0028, H + 0.006], [Rr + 0.001, H + 0.008], [0, H + 0.008]], M, Mat(capc, 0.45), 14);
+  };
+  const falcon = (x, y, z, lq, hf) => {
+    const M = T(x, y, z), Rr = 0.0145;
+    lat(GG, [[0, 0], [0.003, 0], [Rr, 0.024], [Rr, 0.112], [Rr - 0.0012, 0.112], [Rr - 0.0012, 0.025], [0.002, 0.0015], [0, 0.0015]], M, gPlastic, 16);
+    if (lq) lat(GL, [[0, 0.002], [0.002, 0.002], [Rr - 0.0016, 0.0255], [Rr - 0.0016, hf], [0, hf]], M, lq, 16);
+    lat(GO, [[Rr + 0.0004, 0.1], [Rr + 0.0032, 0.1], [Rr + 0.0032, 0.115], [Rr + 0.0015, 0.117], [0, 0.117]], M, Mat('#1d5dc0', 0.5), 18);
+  };
+  const petri = (x, y, z, tex, ink, lidBone, inverted, ry = 0) => {
+    const Rr = 0.0445, M0 = X(T(x, y, z), m4.RY(ry)), M = inverted ? X(M0, T(0, 0.0168, 0), m4.S(1, -1, 1)) : M0;
+    lat(GG, [[0, 0], [Rr, 0], [Rr, 0.0135], [Rr - 0.0012, 0.0135], [Rr - 0.0012, 0.0012], [0, 0.0012]], M, gClear, 40);
+    lat(GO, [[Rr - 0.0016, 0.0012], [Rr - 0.0016, 0.0056]], M, Mat('#c9b468', 0.3), 40);
+    GO.add(discPrim(Rr - 0.0016, 40), X(M, T(0, 0.0056, 0)), Mat('#ffffff', 0.2, { k: K.AGAR }), tex);
+    if (inverted) GO.add(discPrim(Rr - 0.0016, 40), X(M, T(0, 0.0012, 0), m4.S(1, -1, 1)), Mat('#e8dcae', 0.25, { k: K.AGAR }), tex);
+    bone(lidBone || 0);
+    lat(GG, [[Rr + 0.0024, 0.0072], [Rr + 0.0024, 0.0168, 1], [0, 0.0168]], M, gClear, 40);
+    lat(GG, [[0, 0.0156], [Rr + 0.0012, 0.0156, 1], [Rr + 0.0012, 0.0072, 1], [Rr + 0.0024, 0.0072]], M, gClear, 40);
+    if (ink) GG.add(discPrim(Rr, 24), X(M, T(0, inverted ? -0.0003 : 0.0171, 0), inverted ? m4.S(1, -1, 1) : m4.I()), gInk, ink);
+    bone(0);
+  };
+
+  // ---- lower shelf --------------------------------------------------------------------
+  const s0 = SH0_Y, s1 = SH1_Y, zs = 0.15;
+  { const b = atlas.draw(300, 300, (g, w) => { g.fillStyle = '#f2f4f0'; g.fillRect(0, 0, w, w); g.fillStyle = '#2f9a61'; g.fillRect(0, 0, w, 96); txt(g, 'LAB WIPES', w / 2, 66, `800 44px ${SANS}`, '#fff', 'center'); txt(g, 'low-lint  ·  280 ct', w / 2, 170, `500 26px ${SANS}`, '#2a2d31', 'center'); });
+    box(GO, -1.36, s0, zs - 0.058, -1.245, s0 + 0.118, zs + 0.058, Mat('#f2f4f0', 0.75), 0.003); vq(GO, -1.3025, s0 + 0.059, zs + 0.0585, 0.113, 0.116, mTex, b);
+    box(GO, -1.335, s0 + 0.118, zs - 0.012, -1.27, s0 + 0.1186, zs + 0.012, mCabIn); box(GO, -1.32, s0 + 0.118, zs - 0.004, -1.285, s0 + 0.15, zs + 0.004, Mat('#ffffff', 0.9), 0.002); }
+  bottle(-1.1, s0, zs, 0.0505, 0.225, LB, 0.6, tapeLbl('LB', '11/09/26   AA', '#f3ead2'), { tape: 1, la: 0.1 });
+  bottle(-0.965, s0, zs + 0.01, 0.0505, 0.225, YPM, 0.42, tapeLbl('YPM', '11/12/26   AA', '#f3ead2'), { tape: 1, la: -0.12 });
+  bottle(-0.84, s0, zs - 0.01, 0.043, 0.176, EP, 0.5, tapeLbl('EP', '10/30/26   AA', '#f3ead2'), { la: 0.2, lw: 0.07, lh: 0.042 });
+  bone(BONE.EDU); begin('education');
+  bottle(-0.52, s0, zs + 0.02, 0.0505, 0.225, LB, 0.55, tapeLbl('EDUCATION', 'Cornell A&S   exp. 05/27', '#f6d55c'), { seg: 56, lw: 0.1, lh: 0.056, tape: 1 });
+  end(); bone(0); pick.education = [[-0.58, s0, zs - 0.04], [-0.46, s0 + 0.235, zs + 0.08]]; anchor.education = [-0.52, s0 + 0.24, zs + 0.02];
+  { const M = T(-0.27, s0, zs - 0.01), t = 0.0028; lat(GG, [[0, 0], [0.036, 0], [0.04, 0.006], [0.04, 0.012], [0.0165, 0.016], [0.0165, 0.29], [0.019, 0.295], [0.019 - t, 0.295], [0.0165 - t, 0.29], [0.0165 - t, 0.018], [0, 0.018]], M, gClear, 28);
+    lat(GL, [[0, 0.0185], [0.0132, 0.0185], [0.0132, 0.151], [0.011, 0.15], [0, 0.15]], M, WATER, 20); GG.add(arcPrim(0.0168, 0.0168, 0.16, 0.24, PI / 2 + 0.3, 1.2, 6), M, gInk, gradInk); }
+  beaker(-0.18, s0, zs + 0.03, 0.034, 0.085, null, 0);
+  bone(BONE.HON); begin('honors');
+  flask(-0.02, s0, zs + 0.02, 0.066, 0.215, 0.019, YPM, 0.3, { foil: 1, seg: 56, lab: tapeLbl('HONORS & AWARDS', null, '#f79d65', 512, 190), lw: 0.1, lh: 0.04 });
+  end(); bone(0); pick.honors = [[-0.09, s0, zs - 0.05], [0.05, s0 + 0.225, zs + 0.09]]; anchor.honors = [-0.02, s0 + 0.23, zs + 0.02];
+  for (let i = 0; i < 4; i++) { const x = 0.2 + i * 0.075, M = T(x, s0, zs - 0.02 + (i % 2) * 0.02), am = liq('#7a3d10', 0.12, 3.2);
+    lat(GL, [[0, 0], [0.027, 0], [0.03, 0.004], [0.03, 0.062], [0.024, 0.078], [0.012, 0.084], [0.012, 0.094], [0, 0.094]], M, am, 24);
+    lat(GO, [[0.0125, 0.088], [0.016, 0.088], [0.016, 0.108], [0, 0.109]], M, mBlk, 18);
+    GO.add(arcPrim(0.0305, 0.0305, 0.036, 0.036, PI / 2 + (i - 1.5) * 0.15, 1.9, 12), M, mTex, printLbl([['Tris-HCl', 'NaCl 5 M', 'EDTA 0.5 M', 'MgCl2 1 M'][i], ['1 M  pH 8.0', '', 'pH 8.0', ''][i], 'AA  10/21/26'], '#f7f5ee', '#1d2026', 300, 200, ['#2f6fd0', '#d94a3a', '#2f9a61', '#8a5fd0'][i])); }
+  { const rackM = T(0.62, s0, zs); box(GO, -0.09, 0, -0.035, 0.09, 0.012, 0.035, Mat('#2f6fd0', 0.5), 0.003, rackM); box(GO, -0.09, 0.05, -0.035, 0.09, 0.058, 0.035, Mat('#2f6fd0', 0.5), 0.002, rackM);
+    for (const sx of [-0.086, 0.082]) for (const sz of [-0.031, 0.027]) box(GO, sx, 0.012, sz, sx + 0.004, 0.05, sz + 0.004, Mat('#2f6fd0', 0.5), 0, rackM);
+    for (let i = 0; i < 5; i++) for (let r = 0; r < 2; r++) if ((i + r) % 4 !== 3) falcon(0.62 - 0.068 + i * 0.034, s0 + 0.012, zs - 0.016 + r * 0.032, [LB, WATER, CULT, EP][(i + r) % 4], 0.03 + R() * 0.06); }
+  { let y = s0; for (const [c, h] of [['#f6d55c', 0.019], ['#f291b2', 0.019], ['#7bd389', 0.025], ['#6ec6f0', 0.019]]) { lat(GO, [[0.02, y], [0.037, y], [0.037, y + h], [0.02, y + h, 1], [0.02, y]], T(0.82, 0, zs + 0.02), Mat(c, 0.55), 30); y += h + 0.0005; } }
+  box(GO, 0.9, s0, zs - 0.05, 1.02, s0 + 0.052, zs + 0.06, Mat('#e9e7df', 0.7), 0.003); vq(GO, 0.96, s0 + 0.026, zs + 0.0605, 0.116, 0.05, mTex, printLbl(['SEALING FILM', '4 in × 125 ft'], '#e9e7df', '#1e3a6e', 380, 164, '#1e3a6e'));
+  bottle(1.14, s0, zs, 0.043, 0.176, WATER, 0.7, tapeLbl('DI H2O', 'sterile  11/10/26', '#f3ead2'), { lw: 0.07, lh: 0.042, la: -0.15 });
+  beaker(1.28, s0, zs + 0.02, 0.043, 0.11, null, 0);
+
+  // ---- upper shelf --------------------------------------------------------------------
+  { const gb = atlas.draw(480, 150, (g, w, h) => { g.fillStyle = '#6548b3'; g.fillRect(0, 0, w, h); g.fillStyle = '#fff'; g.fillRect(0, h - 26, w, 26); txt(g, 'NITRILE EXAM GLOVES', 24, 62, `800 34px ${SANS}`, '#fff'); txt(g, 'powder-free  ·  MEDIUM  ·  100 ct', 24, 104, `500 22px ${SANS}`, '#e5dcff'); });
+    for (let i = 0; i < 2; i++) { const y = s1 + i * 0.068, dx = i * 0.012; box(GO, -1.34 + dx, y, zs - 0.06, -1.1 + dx, y + 0.067, zs + 0.065, Mat('#6548b3', 0.7), 0.003); vq(GO, -1.22 + dx, y + 0.0335, zs + 0.0655, 0.236, 0.065, mTex, gb); } }
+  flask(-0.96, s1, zs, 0.082, 0.27, 0.024, null, 0, { foil: 1 });
+  bottle(-0.74, s1, zs + 0.01, 0.068, 0.262, LB, 0.58, tapeLbl('LB  2 L', '11/02/26   AA', '#f3ead2'), { tape: 1, lw: 0.1, lh: 0.058, la: 0.08 });
+  flask(-0.53, s1, zs - 0.01, 0.066, 0.215, 0.019, null, 0, { foil: 1 });
+  { let x = -0.33; const sp = [['PROTOCOLS', '#b9442f', 0.062], ['SAFETY + SDS', '#e0b030', 0.07], ['NOTEBOOK 01', '#2c3e50', 0.034], ['NOTEBOOK 02', '#2c3e50', 0.034], ['ORDERS', '#2e7d5b', 0.05]];
+    for (const [s, c, w] of sp) { const lean = s === 'ORDERS' ? -0.09 : 0, M = X(T(x, s1, zs - 0.11), m4.RZ(lean)); box(GO, 0, 0, 0, w, 0.3, 0.23, Mat(c, 0.6), 0.003, M);
+      const uv = atlas.draw(64, 300, (g, ww, h) => { g.fillStyle = '#f4f1e6'; g.fillRect(0, 0, ww, h); g.save(); g.translate(ww / 2, h / 2); g.rotate(PI / 2); txt(g, s, 0, 13, `700 ${fit(g, s, 36, SANS, h * 0.86)}px ${SANS}`, '#22252b', 'center'); g.restore(); });
+      vq(GO, w / 2, 0.17, 0.2305, Math.min(w * 0.6, 0.03), 0.15, mTex, uv, M); x += w + 0.004 + (lean ? 0.03 : 0); } }
+  bottle(0.12, s1, zs + 0.01, 0.0505, 0.225, YPM, 0.5, tapeLbl('YPM', '11/05/26   AA', '#f3ead2'), { tape: 1, la: -0.1 });
+  flask(0.28, s1, zs, 0.052, 0.176, 0.017, null, 0, { foil: 1 });
+  const tipCache = {}, tipTop = c => tipCache[c] || (tipCache[c] = atlas.draw(288, 198, (g, w, h) => { g.fillStyle = c; g.fillRect(0, 0, w, h); for (let i = 0; i < 12; i++) for (let j = 0; j < 8; j++) { const x = 18 + i * 22.9, y = 19 + j * 22.9; g.fillStyle = 'rgba(0,0,0,0.5)'; g.beginPath(); g.arc(x, y, 8, 0, TAU); g.fill(); g.fillStyle = 'rgba(255,255,255,0.8)'; g.beginPath(); g.arc(x, y, 5.6, 0, TAU); g.fill(); g.fillStyle = 'rgba(20,20,30,0.75)'; g.beginPath(); g.arc(x, y, 3.2, 0, TAU); g.fill(); } }));
+  const tipBox = (x, y, z, col, h, open, ry = 0) => {
+    const M = X(T(x, y, z), m4.RY(ry)), w = 0.122, d = 0.084;
+    box(GO, -w / 2, 0, -d / 2, w / 2, h, d / 2, Mat(col, 0.38), 0.004, M); hq(GO, 0, h + 0.0004, 0, w - 0.012, d - 0.012, 0, mTex, tipTop(col), M);
+    const L = open ? X(M, T(0, h, -d / 2), m4.RX(-1.9), T(0, 0, d / 2)) : X(M, T(0, h, 0));
+    box(GG, -w / 2 - 0.001, 0, -d / 2 - 0.001, w / 2 + 0.001, 0.03, d / 2 + 0.001, gPlastic, 0.003, L);
+  };
+  tipBox(0.47, s1, zs, '#2f6fd0', 0.095, false); tipBox(0.47, s1 + 0.126, zs, '#2f6fd0', 0.095, false); tipBox(0.61, s1, zs, '#e8c12b', 0.062, false); tipBox(0.61, s1 + 0.093, zs, '#e8c12b', 0.062, false); tipBox(0.61, s1 + 0.186, zs, '#9aa0a6', 0.062, false);
+  beaker(0.8, s1, zs, 0.052, 0.14, null, 0);
+  { const wb = (x, z, cap, lab, lq) => { const M = T(x, s1, z); lat(GG, [[0, 0], [0.034, 0], [0.037, 0.005], [0.037, 0.115], [0.03, 0.14], [0.014, 0.152], [0.014, 0.16], [0, 0.16]], M, gFrost, 26); lat(GL, [[0, 0.002], [0.035, 0.004], [0.035, 0.085], [0, 0.085]], M, lq, 22);
+      lat(GO, [[0.0145, 0.156], [0.019, 0.156], [0.019, 0.178], [0.008, 0.184], [0, 0.184]], M, Mat(cap, 0.4), 18); tube(GO, spline([[0, 0.184, 0], [0, 0.215, 0.002], [0.006, 0.232, 0.014], [0.03, 0.228, 0.05]], 10), 0.0026, Mat('#f1f1ec', 0.5), 6, M);
+      GO.add(arcPrim(0.0376, 0.0376, 0.07, 0.05, PI / 2, 1.9, 12), M, mTex, lab); };
+    wb(0.96, zs + 0.01, '#d23b30', printLbl(['70% EtOH', 'flammable'], '#fbfaf4', '#b3261e', 320, 190, '#d23b30'), WATER); wb(1.06, zs - 0.02, '#2f6fd0', printLbl(['DI WATER', ''], '#fbfaf4', '#1e3a6e', 320, 190, '#2f6fd0'), WATER); }
+  box(GO, 1.16, s1, zs - 0.09, 1.4, s1 + 0.17, zs + 0.1, Mat('#b08a5a', 0.85), 0.004); vq(GO, 1.28, s1 + 0.09, zs + 0.1005, 0.15, 0.08, mTex, printLbl(['PIPETTE TIPS', '200 µL  ·  10 × 96', 'LOT 2611-A'], '#f4f1e8', '#22252b', 380, 210));
+
+  // ---- bench top ------------------------------------------------------------------------
+  const by = BENCH_Y;
+  box(GO, -0.5, by, 0.31, 0.42, by + 0.0016, 0.735, Mat('#f0f1ee', 0.9, { k: K.PAD }), 0.0007);
+  box(GO, -0.503, by, 0.307, 0.423, by + 0.0008, 0.738, Mat('#4f86c6', 0.6));
+  // vortex mixer
+  { const M = T(-1.28, by, 0.2); lat(GO, [[0, 0], [0.066, 0], [0.07, 0.008], [0.062, 0.085], [0.05, 0.1], [0.03, 0.105], [0.033, 0.12], [0.027, 0.126], [0.012, 0.114], [0, 0.112]], M, Mat('#263347', 0.45), 36);
+    lat(GO, [[0, 0], [0.012, 0], [0.012, 0.012], [0.009, 0.015], [0, 0.015]], X(M, T(0, 0.04, 0.064), m4.RX(PI / 2 - 0.09)), mBlk, 16); box(GO, -0.003, 0.068, 0.0605, 0.003, 0.074, 0.0625, Mat('#39d98a', 0.4, { e: 3 }), 0, M); }
+  // falcon rack on the bench
+  { const M = T(-0.99, by, 0.16); box(GO, -0.09, 0, -0.035, 0.09, 0.012, 0.035, Mat('#e9e9e4', 0.5), 0.003, M); box(GO, -0.09, 0.05, -0.035, 0.09, 0.058, 0.035, Mat('#e9e9e4', 0.5), 0.002, M);
+    for (const sx of [-0.086, 0.082]) for (const sz of [-0.031, 0.027]) box(GO, sx, 0.012, sz, sx + 0.004, 0.05, sz + 0.004, Mat('#e9e9e4', 0.5), 0, M);
+    for (let i = 0; i < 5; i++) for (let r = 0; r < 2; r++) if ((i * 3 + r) % 5 !== 1) falcon(-0.99 - 0.068 + i * 0.034, by + 0.012, 0.16 - 0.016 + r * 0.032, [CULT, LB, YPM][(i + r) % 3], 0.035 + R() * 0.055); }
+  // bunsen burner + hose
+  const BX = -0.86, BZ = 0.42;
+  { const M = T(BX, by, BZ), en = Mat('#2c4a66', 0.4), brass = Mat('#b89243', 0.35, { m: 1 });
+    lat(GO, [[0, 0], [0.042, 0], [0.045, 0.004], [0.04, 0.012], [0.014, 0.02], [0.0075, 0.03], [0, 0.03]], M, en, 32);
+    lat(GO, [[0.0066, 0.03], [0.0066, 0.14], [0.0054, 0.14, 1], [0.0054, 0.128]], M, mSteel, 18); lat(GO, [[0.0068, 0.034], [0.0098, 0.036], [0.0098, 0.052], [0.0068, 0.054]], M, brass, 18);
+    tube(GO, [[0, 0.018, 0], [-0.05, 0.018, -0.01]], 0.0045, brass, 8, M);
+    tube(GO, spline([[BX - 0.05, by + 0.018, BZ - 0.01], [BX - 0.12, by + 0.008, BZ - 0.05], [BX - 0.22, by + 0.006, BZ - 0.2], [-1.17, by + 0.012, 0.12], [-1.2, by + 0.07, 0.06], [-1.2, 1.045, 0.054]], 28), 0.0052, Mat('#c8742c', 0.6), 8);
+    const fl = (pr, c, solid, fk) => GF.add(lathePrim(pr, 16), M, Mat(c, solid, { a: fk }));
+    fl([[0.0056, 0.14], [0.0084, 0.158], [0.0078, 0.186], [0.0044, 0.212], [0, 0.232]], '#4f6dff', 0, 1); fl([[0.0044, 0.14], [0.005, 0.153], [0.0027, 0.172], [0, 0.185]], '#a5dcff', 1, 0.35); }
+  // ethanol wash bottle, tip boxes, plates stack
+  { const M = T(-0.62, by, 0.16); lat(GG, [[0, 0], [0.034, 0], [0.037, 0.005], [0.037, 0.115], [0.03, 0.14], [0.014, 0.152], [0.014, 0.16], [0, 0.16]], M, gFrost, 26); lat(GL, [[0, 0.002], [0.035, 0.004], [0.035, 0.07], [0, 0.07]], M, WATER, 22);
+    lat(GO, [[0.0145, 0.156], [0.019, 0.156], [0.019, 0.178], [0.008, 0.184], [0, 0.184]], M, Mat('#d23b30', 0.4), 18); tube(GO, spline([[0, 0.184, 0], [0, 0.215, 0.002], [0.006, 0.232, 0.014], [0.03, 0.228, 0.05]], 10), 0.0026, Mat('#f1f1ec', 0.5), 6, M);
+    GO.add(arcPrim(0.0376, 0.0376, 0.07, 0.05, PI / 2 + 0.2, 1.9, 12), M, mTex, printLbl(['70% EtOH', 'flammable'], '#fbfaf4', '#b3261e', 320, 190, '#d23b30')); }
+  tipBox(-0.42, by, 0.17, '#2f6fd0', 0.095, false, 0.05); tipBox(-0.27, by, 0.16, '#e8c12b', 0.062, false, -0.04); tipBox(-0.27, by + 0.093, 0.16, '#e8c12b', 0.062, false, 0.06);
+  tipBox(-0.66, by, 0.55, '#e8c12b', 0.062, true, 0.3);
+  const texSpread = plateTex(3), texSpot = plateTex(4);
+  for (let i = 0; i < 5; i++) petri(-0.1 + (R() - 0.5) * 0.006, by + i * 0.0172, 0.185 + (R() - 0.5) * 0.006, i % 2 ? texSpot : texSpread, i === 4 ? lidInk('G. oxy  KO lib.  11/14  AA') : null, 0, true, R() * 6);
+  // the three clickable plates
+  const plates = [['barstow', -0.2, plateTex(1), 'BARSTOW LAB', BONE.LID0], ['mason', -0.07, plateTex(0), 'MASON LAB', BONE.LID1], ['wolchok', 0.06, plateTex(2), 'WOLCHOK + MERGHOUB', BONE.LID2]];
+  for (const [id, x, tx, s, bn] of plates) { begin(id); petri(x, by + 0.0016, 0.575, tx, lidInk(s), bn, false, 0); end(); pick[id] = [[x - 0.05, by, 0.525], [x + 0.05, by + 0.03, 0.625]]; anchor[id] = [x, by + 0.02, 0.575]; }
+  objs.research = { parts: ['barstow', 'mason', 'wolchok'] }; pick.research = [[-0.25, by, 0.525], [0.11, by + 0.03, 0.625]]; anchor.research = [-0.07, by + 0.025, 0.575];
+  // inoculating loop + marker on the pad
+  { const M = X(T(-0.36, by + 0.006, 0.47), m4.RY(0.5), m4.RZ(-PI / 2)); lat(GO, [[0, 0], [0.0045, 0], [0.0045, 0.11], [0.002, 0.118], [0, 0.118]], M, Mat('#2a2c30', 0.5), 12); lat(GO, [[0, 0.118], [0.0006, 0.118], [0.0006, 0.2], [0, 0.2]], M, mChrome, 6);
+    const lp = []; for (let i = 0; i <= 12; i++) { const a = i / 12 * TAU; lp.push([0.0025 * Math.sin(a), 0.2025 - 0.0025 * Math.cos(a), 0]); } tube(GO, lp, 0.0005, mChrome, 5, M); }
+  const pen = (x, z, ry, body, cap, r = 0.0058, L = 0.125, y = by) => { const M = X(T(x, y + r, z), m4.RY(ry), m4.RZ(-PI / 2));
+    lat(GO, [[0, 0], [r * 0.5, 0], [r, 0.012], [r, L * 0.68], [r * 0.9, L * 0.68], [0, L * 0.68]], M, Mat(body, 0.4), 14); lat(GO, [[r * 1.08, L * 0.66], [r * 1.08, L], [r * 0.7, L + 0.003], [0, L + 0.003]], M, Mat(cap, 0.4), 14); box(GO, -0.0012, L * 0.74, r * 1.05, 0.0012, L * 0.98, r * 1.3, Mat(cap, 0.4), 0, M); };
+  pen(0.17, 0.66, 0.35, '#202226', '#202226', 0.0058, 0.125, by + 0.0016); pen(0.33, 0.51, -0.6, '#c9302c', '#c9302c', 0.005, 0.13, by + 0.0016);
+  // microtube rack, 96-well plate
+  { const M = X(T(0.27, by + 0.0016, 0.62), m4.RY(0.12)); box(GO, -0.065, 0, -0.03, 0.065, 0.028, 0.03, Mat('#18a79b', 0.45), 0.004, M);
+    const cc = ['#f4f4ef', '#f6d55c', '#f291b2', '#6ec6f0', '#f4f4ef', '#7bd389'];
+    for (let i = 0; i < 6; i++) for (let r = 0; r < 2; r++) if ((i + r * 2) % 5) lat(GO, [[0.0048, 0.028], [0.0048, 0.036], [0.0062, 0.036], [0.0062, 0.039], [0, 0.039]], X(M, T(-0.05 + i * 0.02, 0, -0.012 + r * 0.024)), Mat(cc[(i * 2 + r) % 6], 0.5), 10); }
+  { const M = X(T(0.31, by + 0.0016, 0.395), m4.RY(-0.1)), wp = atlas.draw(384, 256, (g, w, h) => { g.fillStyle = '#e7ebec'; g.fillRect(0, 0, w, h); for (let i = 0; i < 12; i++) for (let j = 0; j < 8; j++) { const t = clamp(1 - i / 9 - j * 0.03 + (R() - 0.5) * 0.12); g.fillStyle = `rgb(${236 - t * 18},${228 - t * 62},${214 - t * 170})`; g.beginPath(); g.arc(26 + i * 30.2, 24 + j * 29.8, 11.5, 0, TAU); g.fill(); g.strokeStyle = 'rgba(90,100,110,0.5)'; g.lineWidth = 1.5; g.stroke(); } });
+    box(GG, -0.064, 0, -0.043, 0.064, 0.0145, 0.043, gPlastic, 0.002, M); hq(GO, 0, 0.0105, 0, 0.122, 0.08, 0, Mat('#ffffff', 0.35, { k: K.TEX }), wp, M); }
+  // culture tubes (skills)
+  { const cx = 0.19, cz = 0.22, M = T(cx, by, cz), rk = Mat('#f1f0ea', 0.5); begin('skills');
+    box(GO, -0.1, 0, -0.03, 0.1, 0.01, 0.03, rk, 0.003, M); box(GO, -0.1, 0.06, -0.03, 0.1, 0.067, 0.03, rk, 0.002, M);
+    for (const sx of [-0.097, 0.092]) for (const sz of [-0.027, 0.022]) box(GO, sx, 0.01, sz, sx + 0.005, 0.06, sz + 0.005, rk, 0, M);
+    const caps = ['#2f6fd0', '#2f6fd0', '#2f9a61', '#2f9a61', '#e2752b', '#e2752b'];
+    for (let i = 0; i < 6; i++) ctube(-0.08 + i * 0.032, 0.01, 0, CULT, 0.04 + (i % 2) * 0.008 + R() * 0.006, caps[i], M);
+    vq(GO, 0, 0.035, 0.0305, 0.15, 0.03, mTex, tapeLbl('O/N cultures   11/15   AA', null, '#7bd389', 600, 120), M);
+    end(); pick.skills = [[cx - 0.11, by, cz - 0.04], [cx + 0.11, by + 0.14, cz + 0.04]]; anchor.skills = [cx, by + 0.14, cz]; }
+  // timer
+  const digits = atlas.draw(640, 96, (g, w, h) => {
+    g.fillStyle = '#04100d'; g.fillRect(0, 0, w, h); const seg = { a: [14, 10, 36, 9], b: [46, 14, 9, 30], c: [46, 52, 9, 30], d: [14, 77, 36, 9], e: [9, 52, 9, 30], f: [9, 14, 9, 30], g: [14, 43, 36, 9] };
+    const map = ['abcdef', 'bc', 'abged', 'abgcd', 'fgbc', 'afgcd', 'afgedc', 'abc', 'abcdefg', 'abcdfg'];
+    for (let d = 0; d < 10; d++) for (const k in seg) { const s = seg[k]; g.fillStyle = map[d].includes(k) ? '#7dffd0' : '#0b2a22'; g.fillRect(d * 64 + s[0], s[1], s[2], s[3]); }
+  });
+  const digitW = 64 / atlas.S;
+  { const M = X(T(0.6, by, 0.19), m4.RY(-0.25), m4.RX(-0.32)); box(GO, -0.036, 0, -0.009, 0.036, 0.082, 0.009, Mat('#e6e6e1', 0.45), 0.004, M); box(GO, -0.031, 0.044, 0.009, 0.031, 0.075, 0.0095, Mat('#04100d', 0.3), 0, M);
+    for (let i = 0; i < 4; i++) { const x = -0.0215 + i * 0.0127 + (i > 1 ? 0.0048 : 0); GO.add(quadPrim(0.0118, 0.024), X(M, T(x, 0.0595, 0.0098)), Mat('#ffffff', 0.4, { k: K.DIGIT, e: 2.4, a: i / 255 }), [digits[0], digits[1], digits[0] + digitW, digits[3]]); }
+    for (const dy of [-0.005, 0.005]) box(GO, -0.0012, 0.0583 + dy, 0.0097, 0.0012, 0.0607 + dy, 0.0099, Mat('#7dffd0', 0.4, { e: 2.4 }), 0, M);
+    for (let i = 0; i < 3; i++) box(GO, -0.027 + i * 0.02, 0.012, 0.009, -0.013 + i * 0.02, 0.03, 0.0115, Mat(['#3a3d42', '#3a3d42', '#d23b30'][i], 0.5), 0.002, M); }
+  // stir plate with a stirring flask
+  const SX = 1.2, SZ = 0.2;
+  { const M = T(SX, by, SZ); box(GO, -0.1, 0, -0.12, 0.1, 0.075, 0.12, Mat('#e4e4de', 0.45), 0.008, M); box(GO, -0.085, 0.075, -0.1, 0.085, 0.081, 0.085, Mat('#f4f4f0', 0.25), 0.002, M);
+    vq(GO, 0, 0.036, 0.1205, 0.18, 0.05, mTex, atlas.draw(360, 100, (g, w, h) => { g.fillStyle = '#23272c'; g.fillRect(0, 0, w, h); txt(g, 'STIR', 76, 88, `600 18px ${SANS}`, '#cfd3d8', 'center'); txt(g, 'HEAT', 284, 88, `600 18px ${SANS}`, '#cfd3d8', 'center'); }), M);
+    for (const dx of [-0.052, 0.052]) lat(GO, [[0, 0], [0.014, 0], [0.014, 0.012], [0.011, 0.016], [0, 0.016]], X(M, T(dx, 0.042, 0.1205), m4.RX(PI / 2)), mBlk, 20);
+    box(GO, -0.004, 0.04, 0.1205, 0.004, 0.046, 0.1225, Mat('#49e08a', 0.4, { e: 4 }), 0, M);
+    flask(SX, by + 0.081, SZ - 0.008, 0.052, 0.176, 0.017, LB, 0.34, { vortex: 1, foil: 1 });
+    bone(BONE.STIR); tube(GO, [[-0.014, by + 0.0885, SZ - 0.008], [0.014, by + 0.0885, SZ - 0.008]].map(p => [p[0] + SX, p[1], p[2]]), 0.0038, Mat('#f6f6f2', 0.35), 8); bone(0); }
+  // red tip-waste box
+  { const M = T(-1.22, by, 0.52); box(GL, -0.055, 0, -0.055, 0.055, 0.13, 0.055, liq('#c8261f', 0.55, 2.5), 0.006, M); box(GO, -0.058, 0.13, -0.058, 0.058, 0.142, 0.058, Mat('#e8e6df', 0.5), 0.004, M); box(GO, -0.025, 0.142, -0.025, 0.025, 0.1425, 0.025, mCabIn, 0, M); vq(GO, 0, 0.07, 0.0558, 0.07, 0.07, mTex, biohaz(), M); }
+  // notebook (static parts) + pens
+  const NB = NOTEBOOK, NM = X(T(NB.x, by, NB.z), m4.RY(NB.ry));
+  begin('teaching');
+  box(GO, -NB.W - 0.009, 0, -NB.D / 2 - 0.006, NB.W + 0.009, 0.004, NB.D / 2 + 0.006, Mat('#1d3a2e', 0.6), 0.002, NM);
+  box(GO, -NB.W, 0.004, -NB.D / 2, -0.003, NB.yL, NB.D / 2, Mat('#efe9d6', 0.8), 0.001, NM); box(GO, 0.003, 0.004, -NB.D / 2, NB.W, NB.yR, NB.D / 2, Mat('#efe9d6', 0.8), 0.001, NM);
+  hq(GO, -NB.W / 2 - 0.0015, NB.yL + 0.0003, 0, NB.W - 0.003, NB.D, 0, mPaper, pg.A, NM); hq(GO, NB.W / 2 + 0.0015, NB.yR + 0.0003, 0, NB.W - 0.003, NB.D, 0, mPaper, pg.TR, NM);
+  tube(GO, [[0, 0.012, -NB.D / 2 + 0.01], [-0.004, 0.0125, 0], [0.002, 0.012, NB.D / 2 + 0.03]], 0.0022, Mat('#b3261e', 0.7), 5, NM);
+  end(); pick.teaching = [[NB.x - 0.23, by, NB.z - 0.16], [NB.x + 0.23, by + 0.04, NB.z + 0.16]]; anchor.teaching = [NB.x, by + 0.03, NB.z];
+  pen(NB.x + 0.26, NB.z + 0.1, 1.2, '#1f4fa8', '#1f4fa8', 0.0046, 0.14); pen(0.6, 0.66, -0.25, '#202226', '#8d9296'); pen(NB.x - 0.13, NB.z + 0.19, 0.12, '#f2d21c', '#f2d21c', 0.0066, 0.11);
+
+  // ---- floor-standing items ------------------------------------------------------------------
+  { const x0 = 1.62, x1 = 2.3; box(GO, x0, 0.02, 0.03, x1, 1.82, 0.7, Mat('#eceeed', 0.4), 0.02); box(GO, x0 + 0.01, 1.243, 0.7, x1 - 0.01, 1.25, 0.704, mCabIn);
+    box(GO, x0 + 0.006, 0.03, 0.7, x1 - 0.006, 1.24, 0.725, Mat('#f1f2f1', 0.38), 0.012); box(GO, x0 + 0.006, 1.253, 0.7, x1 - 0.006, 1.812, 0.725, Mat('#f1f2f1', 0.38), 0.012);
+    for (const [ya, yb] of [[0.86, 1.18], [1.32, 1.62]]) tube(GO, [[x0 + 0.06, ya, 0.726], [x0 + 0.06, ya, 0.76], [x0 + 0.06, yb, 0.76], [x0 + 0.06, yb, 0.726]], 0.008, mSteel, 10);
+    vq(GO, x1 - 0.16, 1.62, 0.7256, 0.1, 0.1, mTex, biohaz()); vq(GO, x1 - 0.2, 1.42, 0.7256, 0.2, 0.09, mTex, printLbl(['NO FOOD OR DRINK', 'lab reagents only'], '#f7f0d8', '#a8242a', 420, 190));
+    vq(GO, x1 - 0.3, 0.95, 0.7256, 0.2, 0.264, mPaper, sheetTex('-20 °C  INVENTORY')); vq(GO, x0 + 0.22, 1.72, 0.7256, 0.12, 0.05, mTex, tapeLbl('-20 °C', null, '#8fd0f2', 300, 120)); }
+  { const M = T(-1.78, 0, 0.2); lat(GO, [[0, 0], [0.105, 0], [0.115, 0.012], [0.115, 1.22], [0.105, 1.3], [0.07, 1.37], [0.036, 1.4], [0.036, 1.43], [0.05, 1.435], [0.05, 1.5], [0.03, 1.54], [0, 1.54]], M, Mat('#3c4a44', 0.42, { m: 0.6 }), 40);
+    box(GO, -0.14, 0.95, -0.2, 0.14, 0.98, -0.17, mDarkMetal, 0, M); const ch = [[-0.13, 0.965, -0.18]]; for (let i = 0; i <= 20; i++) { const a = PI - i / 20 * PI; ch.push([0.122 * Math.cos(a), 0.965, 0.122 * Math.sin(a)]); } ch.push([0.13, 0.965, -0.18]); tube(GO, ch, 0.006, mSteel, 6, M);
+    GO.add(arcPrim(0.1156, 0.1156, 0.8, 0.2, PI / 2 + 0.2, 1.4, 16), M, mTex, printLbl(['NITROGEN', 'compressed gas', 'N2'], '#f4f1e8', '#1f2d27', 380, 250, '#2f9a61')); }
+  { const M = T(-2.2, 0, 0.38); box(GO, -0.19, 0, -0.16, 0.19, 0.56, 0.16, Mat('#c8261f', 0.5), 0.012, M); box(GO, -0.2, 0.56, -0.17, 0.2, 0.6, 0.17, Mat('#ecebe6', 0.5), 0.01, M); vq(GO, 0, 0.3, 0.1605, 0.2, 0.2, mTex, biohaz('#c8261f', '#161616'), M); }
+  // wall clock
+  const CLOCK = [-1.8, 2.0, 0.0];
+  { const M = X(T(CLOCK[0], CLOCK[1], 0), m4.RX(PI / 2)), face = atlas.draw(512, 512, (g, w) => { g.fillStyle = '#f6f5ef'; g.fillRect(0, 0, w, w); const c = w / 2; for (let i = 0; i < 60; i++) { const a = i / 60 * TAU, r0 = i % 5 ? 222 : 204; g.strokeStyle = '#22252b'; g.lineWidth = i % 5 ? 3 : 8; g.beginPath(); g.moveTo(c + Math.cos(a) * r0, c + Math.sin(a) * r0); g.lineTo(c + Math.cos(a) * 236, c + Math.sin(a) * 236); g.stroke(); } for (let i = 1; i <= 12; i++) { const a = i / 12 * TAU - PI / 2; txt(g, String(i), c + Math.cos(a) * 168, c + Math.sin(a) * 168 + 18, `600 50px ${SANS}`, '#22252b', 'center'); } });
+    lat(GO, [[0, 0], [0.15, 0], [0.15, 0.03], [0.14, 0.036], [0.136, 0.03], [0.136, 0.012], [0, 0.012]], M, Mat('#1d1f22', 0.4), 48);
+    GO.add(discPrim(0.136, 48), X(T(CLOCK[0], CLOCK[1], 0.0125), m4.RX(PI / 2)), mTex, face);
+    const hand = (bn, len, w, z, c) => { bone(bn); box(GO, CLOCK[0] - w, CLOCK[1] - len * 0.18, z, CLOCK[0] + w, CLOCK[1] + len, z + 0.0015, Mat(c, 0.5)); bone(0); };
+    hand(BONE.HOUR, 0.07, 0.005, 0.016, '#1d1f22'); hand(BONE.MIN, 0.105, 0.0035, 0.019, '#1d1f22'); hand(BONE.SEC, 0.115, 0.0012, 0.022, '#c8261f');
+    lat(GO, [[0, 0], [0.008, 0], [0.008, 0.004], [0, 0.005]], X(T(CLOCK[0], CLOCK[1], 0.022), m4.RX(PI / 2)), mBlk, 14);
+    GG.add(discPrim(0.137, 40), X(T(CLOCK[0], CLOCK[1], 0.031), m4.RX(PI / 2)), gClear); }
+
+  // dust motes (drawn as points; uv carries per-mote phase and size)
+  const motes = new Float32Array(170 * 5);
+  for (let i = 0; i < 170; i++) { motes[i * 5] = (R() - 0.5) * 9; motes[i * 5 + 1] = -0.6 + R() * 4.2; motes[i * 5 + 2] = -2.5 + R() * 7.5; motes[i * 5 + 3] = R(); motes[i * 5 + 4] = 0.25 + R() * 0.75; }
+
+  return { GO, GG, GL, GF, objs, pick, anchor, strips, pg, NM, digitW, motes, flame: [BX, by + 0.19, BZ], clock: CLOCK, stir: [SX, by + 0.0885, SZ - 0.008],
+    plateX: plates.map(p => p[1]), drawerX: { publications: -0.625, contact: 0.625, ack: 1.175 } };
+}
+
+// the three flipping notebook pages, rebuilt whenever a flip is in progress (f[i] in 0..1: 0 = lying right, 1 = lying left)
+function buildPages(S, f) {
+  const G = new Geo(), NB = NOTEBOOK, n = 16, fr = ['B', 'D', 'F'], bk = ['C', 'E', 'TL'], mt = Mat('#ffffff', 0.85, { k: K.PAPER }), W = NB.W - 0.003, ds = W / n, e = 0.00012;
+  for (let i = 0; i < 3; i++) {
+    const t = f[i], front = { p: [], n: [], u: [], i: [] }, back = { p: [], n: [], u: [], i: [] };
+    let x = 0.0015 * (1 - 2 * t), y = lerp(NB.yR + 0.0009 + (2 - i) * 0.0007, NB.yL + 0.0009 + i * 0.0007, t);
+    for (let s = 0; s <= n; s++) {
+      const ph = PI * t - 1.05 * Math.sin(PI * t) * Math.pow(s / n, 1.3), cx = Math.cos(ph), sy = Math.sin(ph);
+      for (const zz of [-1, 1]) {
+        front.p.push(x - sy * e, y + cx * e, zz * NB.D / 2); front.n.push(-sy, cx, 0); front.u.push(s / n, zz < 0 ? 0 : 1);
+        back.p.push(x + sy * e, y - cx * e, zz * NB.D / 2); back.n.push(sy, -cx, 0); back.u.push(1 - s / n, zz < 0 ? 0 : 1);
+      }
+      x += cx * ds; y += sy * ds;
+    }
+    for (let s = 0; s < n; s++) { const a = s * 2, b = a + 2; front.i.push(a, a + 1, b + 1, a, b + 1, b); back.i.push(a, b + 1, a + 1, a, b, b + 1); }
+    G.add(front, S.NM, mt, S.pg[fr[i]]); G.add(back, S.NM, mt, S.pg[bk[i]]);
+  }
+  return G;
+}
+
+// ---------------------------------------------------------------------------
+// content: everything shown in the panels. Text follows the resume; links were
+// checked against the organisations' own sites.
+// ---------------------------------------------------------------------------
+const L = {
+  cas: 'https://as.cornell.edu/',
+  physics: 'https://physics.cornell.edu/',
+  rcprs: 'https://scl.cornell.edu/growth-opportunities/rawlings-cornell-presidential-research-scholars',
+  scholar: 'https://as.cornell.edu/major_minor_gradfield/robert-s-harrison-college-scholar-program',
+  oib: 'https://international.collegeboard.org/students/issp/oib',
+  barstow: 'https://barstow.bee.cornell.edu/',
+  mason: 'https://www.masonlab.net/',
+  ludwig: 'https://www.ludwigcancerresearch.org/location/new-yorkweill-cornell/',
+  meyer: 'https://meyercancer.weill.cornell.edu/',
+  bowers: 'https://bowers.cornell.edu/',
+  morrison: 'https://scl.cornell.edu/residential-life/housing/campus-housing/first-year-undergraduates/residence-halls/toni-morrison-hall',
+  pla: 'https://physics.cornell.edu/learning-assistant-program',
+  doi: 'https://doi.org/10.1016/j.ctarc.2026.101109',
+  pubmed: 'https://pubmed.ncbi.nlm.nih.gov/41576524/',
+  jesse: 'https://www.jesse-zhou.com/',
+  github: 'https://github.com/AymanAbouAlfa',
+  repo: 'https://github.com/AymanAbouAlfa/AymanAbouAlfa.github.io',
+  claude: 'https://claude.com/claude-code',
+};
+const A = (k, t) => `<a href="${L[k]}" target="_blank" rel="noopener">${t}</a>`;
+const role = (title, dates, where, bullets, links) => `<h2>${title}</h2><p class="meta">${dates}</p><p class="where">${where}</p><ul>${bullets.map(b => `<li>${b}</li>`).join('')}</ul>${links ? `<p class="links">${links}</p>` : ''}`;
+
+// id -> { t: tag text, h: panel heading, c: tape colour, side, parent, html }
+const SEC = {
+  education: {
+    t: 'Education', c: '#f6d55c', side: 'r',
+    html: `<h2>Cornell University</h2><p class="where">College of Arts &amp; Sciences · Ithaca, NY</p>
+      <dl><dt>Degree</dt><dd>Bachelor of Arts in Physics and Biophysics</dd><dt>Graduation</dt><dd>Anticipated May 2027</dd><dt>Cumulative GPA</dt><dd>4.111</dd></dl>
+      <p class="links">${A('cas', 'College of Arts &amp; Sciences')}${A('physics', 'Department of Physics')}</p>`,
+  },
+  honors: {
+    t: 'Honors & Awards', c: '#f79d65', side: 'r',
+    html: `<ul class="plain">
+      <li><b>Hunter R. Rawlings III Cornell Presidential Research Scholar</b><span>${A('rcprs', 'About the program')}</span></li>
+      <li><b>Robert S. Harrison College Scholar</b><span>${A('scholar', 'About the program')}</span></li>
+      <li><b>Option International du Baccalauréat</b><span>Admis Mention Très Bien avec les Félicitations du Jury · ${A('oib', 'About the OIB')}</span></li>
+      <li><b>Board of Trustees Award</b><span>Class of 2023</span></li></ul>`,
+  },
+  research: { t: 'Research', c: '#7bd389', group: ['barstow', 'mason', 'wolchok'], hint: 'Three plates, three labs. Click a plate.' },
+  barstow: {
+    t: 'Barstow Lab', h: 'Research · Biological Engineering', c: '#7bd389', side: 'r', parent: 'research',
+    html: role('Biological Engineering Research Assistant', 'May 2025 – Present', 'Professor Buz Barstow, Cornell, New York, NY', [
+      'Project’s aim is to identify and characterize DNA sequences extracted from rocks that code for biomining capabilities',
+      'Write annotations for <i>G. oxydans</i> genome to generate knockout and knockdown collections',
+      'Prepare competition assays to assess metal bioleaching in engineered <i>G. oxydans</i> and <i>V. natriegens</i>'], A('barstow', 'Barstow Lab')),
+  },
+  mason: {
+    t: 'Mason Lab', h: 'Research · Biophysics', c: '#7bd389', side: 'r', parent: 'research',
+    html: role('Biophysics Research Assistant', 'May 2025 – September 2025', 'Professor Christopher Mason, Weill Cornell Medicine, New York, NY', [
+      'Identified endogenous radioresistant genes to be used as radiation countermeasures during deep-space missions',
+      'Prepared and amplified gene-edited cell samples, using CRISPRi/a, for sequencing and omics analysis'], A('mason', 'The Mason Lab')),
+  },
+  wolchok: {
+    t: 'Wolchok & Merghoub', h: 'Research · Immunology', c: '#7bd389', side: 'r', parent: 'research',
+    html: role('Immunology Research Assistant', 'June 2024 – September 2024', 'Dr. Jedd D. Wolchok &amp; Professor Taha Merghoub, Weill Cornell Medicine, New York, NY', [
+      'Project’s aim was to identify MHC peptides that could be used as targets in therapeutic cancer vaccines',
+      'Analyzed biopsied tissue using multiplex immunofluorescence, HALO software, and custom-made ML algorithm'],
+      A('ludwig', 'Ludwig Collaborative Laboratory') + A('meyer', 'Meyer Cancer Center')),
+  },
+  skills: {
+    t: 'Skills', c: '#6ec6f0', side: 'r',
+    html: `<div class="vial" style="--v:#2f6fd0"><h3>Laboratory</h3><p>Flow Cytometry · Multiplex Immunofluorescence · PCR · Gel Electrophoresis · Chromatography</p></div>
+      <div class="vial" style="--v:#2f9a61"><h3>Programming</h3><p>Python (data analysis, machine learning) · R (data analysis) · Java</p></div>
+      <div class="vial" style="--v:#e2752b"><h3>Languages</h3><p>English (native) · French (native) · Mandarin (intermediate)</p></div>`,
+  },
+  teaching: {
+    t: 'Teaching', c: '#f291b2', notebook: true,
+    left: role('Computer Science Teaching Assistant', 'August 2025 – Present', `${A('bowers', 'Bowers College of Computing and Information Science')}, Cornell University, Ithaca, NY`, [
+      'Lead computer science recitations on data structures and object-oriented programming',
+      'Host weekly office hours, grade assignments, and moderate discussion board']),
+    right: role('French Residential Language Fellow', 'September 2024 – Present', `${A('morrison', 'Toni Morrison Hall')}, Cornell University, Ithaca, NY`, [
+      'Serve as a live-in francophone RA: supervise and teach French to 14 select residents',
+      'Organize social activities involving French culture, alongside relevant faculty and campus partners'])
+      + role('Physics Learning Assistant', 'September 2024 – May 2025', `${A('pla', 'Department of Physics')}, Cornell University, Ithaca, NY`, [
+        'Led physics recitations on introductory mechanics and electromagnetism for biology students']),
+  },
+  publications: {
+    t: 'Publications', c: '#f1ead8', side: 'r',
+    html: `<p class="cite">Lee JW, Jin X, Bogdan S, <b>Abou-Alfa A</b>, Chang J, Rafizadeh M, Kang EC, Garcia C, Zhou XK, Saxena A. 2026.
+      <b>Comprehensive clinical characteristics and outcomes of stage IV EGFR-mutant NSCLC based on PD-L1 expression.</b>
+      <i>Cancer Treatment and Research Communications.</i></p><p class="links">${A('doi', 'Read the article (DOI)')}${A('pubmed', 'PubMed')}</p>`,
+  },
+  contact: {
+    t: 'Contact', c: '#b9a7f0', side: 'l',
+    html: `<h2>Ayman Abou-Alfa</h2><p class="where">Physics &amp; Biophysics · Cornell University</p>
+      <dl><dt>Email</dt><dd><a href="mailto:aga56@cornell.edu">aga56@cornell.edu</a></dd><dt>Based in</dt><dd>New York, NY · Ithaca, NY</dd><dt>Code</dt><dd>${A('github', 'github.com/AymanAbouAlfa')}</dd></dl>`,
+  },
+  ack: {
+    t: 'Acknowledgments', c: '#5fd0c0', side: 'l',
+    html: `<h3>Inspiration</h3><p>The idea of a small 3D scene that doubles as the site’s menu comes from ${A('jesse', 'Jesse Zhou’s ramen-shop portfolio')}. Nothing from it is reused here: the bench, the glassware and the shaders were written from scratch.</p>
+      <h3>How Claude was used</h3><p>This site was built in ${A('claude', 'Claude Code')} with <b>Claude Fable 5.2</b> (model ID <code>claude-fable-5-2</code>), working from my brief and résumé. Claude wrote the WebGL2 renderer without any 3D library, modelled every object procedurally in code, and wrote the shaders, the interface and this page.</p>
+      <p>Concept, scene direction and content: Ayman Abou-Alfa. ${A('repo', 'Source on GitHub')}</p>`,
+  },
+};
+const HOME_IDS = ['education', 'honors', 'research', 'skills', 'teaching', 'publications', 'contact', 'ack'];
+
+// ---------------------------------------------------------------------------
+// app: renderer, camera, interaction, interface
+// ---------------------------------------------------------------------------
+const Q = new URLSearchParams(location.search), $ = id => document.getElementById(id);
+const MANUAL = Q.has('manual'), PERF = Q.has('perf');
+const canvas = $('gl');
+const gl = canvas.getContext('webgl2', { antialias: false, alpha: false, depth: false, stencil: false, powerPreference: 'high-performance', preserveDrawingBuffer: MANUAL });
+const lab = (window.__lab = { ready: false, errors: glErr, frames: [], marks: [] });
+
+function fallback() {
+  document.body.classList.add('nogl'); $('ld').remove();
+  $('fb').hidden = false;
+  $('fb').innerHTML = '<h1>Ayman Abou-Alfa</h1><p>Physics &amp; Biophysics · Cornell University</p>' +
+    ['education', 'honors', 'barstow', 'mason', 'wolchok', 'skills', 'teaching', 'publications', 'contact', 'ack'].map(id => {
+      const s = SEC[id]; return `<section><h4>${s.h || s.t}</h4>${s.html || s.left + s.right}</section>`;
+    }).join('');
+}
+
+async function init() {
+  if (!gl || !gl.getExtension('EXT_color_buffer_float')) return fallback();
+  gl.getExtension('OES_texture_float_linear');
+  const yieldUI = () => new Promise(r => setTimeout(r, 0));
+  const progress = p => { $('ldb').style.transform = `scaleX(${p})`; $('ldt').textContent = Math.round(p * 100) + '%'; };
+  progress(0.08); await yieldUI();
+
+  // ---- scene data -------------------------------------------------------------
+  const atlas = new Atlas(4096), S = buildScene(atlas);
+  lab.atlas = { used: +(atlas.used / (4096 * 4096)).toFixed(3), top: atlas.top };
+  progress(0.5); await yieldUI();
+  const mO = mkMesh(gl, S.GO), mG = mkMesh(gl, S.GG), mL = mkMesh(gl, S.GL), mF = mkMesh(gl, S.GF), mP = mkMesh(gl, buildPages(S, [0, 0, 0]), true);
+  lab.tris = { opaque: mO.n / 3, glass: mG.n / 3, liquid: mL.n / 3 };
+  const moteVao = gl.createVertexArray(), moteBuf = gl.createBuffer();
+  gl.bindVertexArray(moteVao); gl.bindBuffer(gl.ARRAY_BUFFER, moteBuf); gl.bufferData(gl.ARRAY_BUFFER, S.motes, gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 20, 0); gl.enableVertexAttribArray(5); gl.vertexAttribPointer(5, 2, gl.FLOAT, false, 20, 12); gl.bindVertexArray(null);
+
+  const atlasTex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, atlasTex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.SRGB8_ALPHA8, gl.RGBA, gl.UNSIGNED_BYTE, atlas.cv); gl.generateMipmap(gl.TEXTURE_2D);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  const aniso = gl.getExtension('EXT_texture_filter_anisotropic'); if (aniso) gl.texParameterf(gl.TEXTURE_2D, aniso.TEXTURE_MAX_ANISOTROPY_EXT, 8);
+  atlas.cv.width = atlas.cv.height = 1;
+  const nz = new Uint8Array(256 * 256 * 4), nr = rng(7); for (let i = 0; i < nz.length; i++) nz[i] = nr() * 256;
+  const noiseTex = mkTex(gl, 256, 256, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, gl.LINEAR_MIPMAP_LINEAR, gl.REPEAT, nz); gl.generateMipmap(gl.TEXTURE_2D);
+  const dummy = mkTex(gl, 1, 1, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, gl.NEAREST, 0, new Uint8Array([255, 255, 255, 255]));
+  progress(0.7); await yieldUI();
+
+  // ---- programs ---------------------------------------------------------------
+  const lit = (fs, low) => mkProg(gl, VS_SCENE, G_HEAD + (low ? '#define LOWQ\n' : '') + G_LIGHT + fs, 'lit');
+  const pOpaque = lit(FS_OPAQUE), pOpaqueLo = lit(FS_OPAQUE, 1), pLiquid = lit(FS_LIQUID), pLiquidLo = lit(FS_LIQUID, 1), pGlass = lit(FS_GLASS, 1), pGlassLo = pGlass;
+  const pDepth = mkProg(gl, VS_SCENE, FS_DEPTH, 'depth'), pMask = mkProg(gl, VS_SCENE, FS_MASK, 'mask'), pFx = mkProg(gl, VS_FX, FS_FX, 'fx'), pMote = mkProg(gl, VS_MOTE, FS_MOTE, 'mote');
+  const post = fs => mkProg(gl, VS_POST, fs, 'post');
+  const pBg = post(FS_BG), pSsao = post(FS_SSAO), pAoBlur = post(FS_AOBLUR), pDown = post(FS_DOWN), pUp = post(FS_UP), pMBlur = post(FS_MBLUR), pComp = post(FS_COMP);
+  for (const p of [pOpaque, pOpaqueLo, pLiquid, pLiquidLo, pGlass]) { gl.useProgram(p.p); const m = { uAtlas: 0, uNoise: 1, uSh0: 2, uSh1: 3, uAO: 4, uRefl: 5, uScene: 6 }; for (const k in m) if (p.u[k]) gl.uniform1i(p.u[k], m[k]); }
+  if (glErr.length) { console.error(glErr.join('\n')); return fallback(); }
+  progress(0.9); await yieldUI();
+
+  // ---- render targets -----------------------------------------------------------
+  const SAMPLES = Math.min(+(Q.get('msaa') || 4), gl.getParameter(gl.MAX_SAMPLES)), HDR = gl.RGBA16F, BUDGET = 2560 * 1440;
+  let W = 0, H = 0, hw = 0, hh = 0, T = null;
+  const tex = (w, h, ifmt, fmt, type, filt) => mkTex(gl, w, h, ifmt, fmt, type, filt);
+  function alloc() {
+    if (T) { T.tex.forEach(t => gl.deleteTexture(t)); T.fbo.forEach(f => gl.deleteFramebuffer(f)); T.rb.forEach(r => gl.deleteRenderbuffer(r)); }
+    T = { tex: [], fbo: [], rb: [], bloom: [] }; hw = Math.max(W >> 1, 1); hh = Math.max(H >> 1, 1);
+    const tx = (...a) => { const t = tex(...a); T.tex.push(t); return t; }, fb = (c, d) => { const f = mkFbo(gl, c, d); T.fbo.push(f); return f; };
+    const rb = (fmt, w, h, s) => { const r = gl.createRenderbuffer(); gl.bindRenderbuffer(gl.RENDERBUFFER, r); if (s) gl.renderbufferStorageMultisample(gl.RENDERBUFFER, s, fmt, w, h); else gl.renderbufferStorage(gl.RENDERBUFFER, fmt, w, h); T.rb.push(r); return r; };
+    if (SAMPLES > 1) {
+      const c = rb(HDR, W, H, SAMPLES), d = rb(gl.DEPTH_COMPONENT24, W, H, SAMPLES);
+      T.msF = gl.createFramebuffer(); T.fbo.push(T.msF); gl.bindFramebuffer(gl.FRAMEBUFFER, T.msF);
+      gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, c); gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, d);
+      T.scene = tx(W, H, HDR, gl.RGBA, gl.HALF_FLOAT, gl.LINEAR); T.sceneF = fb(T.scene);
+    } else {
+      T.scene = tx(W, H, HDR, gl.RGBA, gl.HALF_FLOAT, gl.LINEAR); T.sceneF = T.msF = gl.createFramebuffer(); T.fbo.push(T.msF); gl.bindFramebuffer(gl.FRAMEBUFFER, T.msF);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, T.scene, 0); gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, rb(gl.DEPTH_COMPONENT24, W, H, 0));
+    }
+    T.pre = tx(hw, hh, HDR, gl.RGBA, gl.HALF_FLOAT, gl.LINEAR); T.preD = tx(hw, hh, gl.DEPTH_COMPONENT24, gl.DEPTH_COMPONENT, gl.UNSIGNED_INT, gl.NEAREST); T.preF = fb(T.pre, T.preD);
+    T.aoA = tx(hw, hh, gl.RG16F, gl.RG, gl.HALF_FLOAT, gl.LINEAR); T.aoAF = fb(T.aoA); T.aoB = tx(hw, hh, gl.RG16F, gl.RG, gl.HALF_FLOAT, gl.LINEAR); T.aoBF = fb(T.aoB);
+    T.refl = tx(hw, hh, HDR, gl.RGBA, gl.HALF_FLOAT, gl.LINEAR_MIPMAP_LINEAR); gl.generateMipmap(gl.TEXTURE_2D);
+    T.reflF = fb(T.refl); gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, rb(gl.DEPTH_COMPONENT24, hw, hh, 0));
+    let bw = hw, bh = hh;
+    for (let i = 0; i < 6; i++) { const t = tx(bw, bh, gl.R11F_G11F_B10F, gl.RGB, gl.HALF_FLOAT, gl.LINEAR); T.bloom.push({ t, f: fb(t), w: bw, h: bh }); bw = Math.max(bw >> 1, 1); bh = Math.max(bh >> 1, 1); }
+    T.mask = tx(hw, hh, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, gl.LINEAR); T.maskF = fb(T.mask); T.maskT = tx(hw, hh, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, gl.LINEAR); T.maskTF = fb(T.maskT);
+    T.maskB = tx(hw, hh, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, gl.LINEAR); T.maskBF = fb(T.maskB);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  }
+  function resize() {
+    let w, h; const forced = Q.get('res');
+    if (forced) { [w, h] = forced.split('x').map(Number); canvas.style.width = w / devicePixelRatio + 'px'; canvas.style.height = h / devicePixelRatio + 'px'; }
+    else { let s = Math.min(devicePixelRatio || 1, 2); const cw = innerWidth, ch = innerHeight; if (cw * ch * s * s > BUDGET) s = Math.sqrt(BUDGET / (cw * ch)); w = Math.max(Math.round(cw * s), 2); h = Math.max(Math.round(ch * s), 2); }
+    if (w === W && h === H) return;
+    W = w; H = h; canvas.width = W; canvas.height = H; alloc();
+  }
+  const shTex = (w, h) => { const t = mkTex(gl, w, h, gl.DEPTH_COMPONENT24, gl.DEPTH_COMPONENT, gl.UNSIGNED_INT, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_COMPARE_MODE, gl.COMPARE_REF_TO_TEXTURE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_COMPARE_FUNC, gl.LEQUAL); return t; };
+  const SH0 = 4096, SH1W = 2048, SH1H = 1024, sh0 = shTex(SH0, SH0), sh0F = mkFbo(gl, null, sh0), sh1 = shTex(SH1W, SH1H), sh1F = mkFbo(gl, null, sh1);
+
+  // ---- lights (static part of the frame block) --------------------------------------
+  const UB = new Float32Array(88 + NB * 16), bones = UB.subarray(88), ubo = gl.createBuffer();
+  for (let i = 0; i < NB; i++) bones.set(m4.I(), i * 16);
+  const keyDir = vnorm([-0.34, 1, 0.52]);
+  const orthoFit = (view, pts, pad) => { let a = [1e9, 1e9, 1e9], b = [-1e9, -1e9, -1e9]; for (const p of pts) { const q = m4.pt(view, p); for (let i = 0; i < 3; i++) { a[i] = Math.min(a[i], q[i]); b[i] = Math.max(b[i], q[i]); } } return m4.ortho(a[0] - pad, b[0] + pad, a[1] - pad, b[1] + pad, -b[2] - pad, -a[2] + pad); };
+  const corners = (x0, y0, z0, x1, y1, z1) => { const o = []; for (const x of [x0, x1]) for (const y of [y0, y1]) for (const z of [z0, z1]) o.push([x, y, z]); return o; };
+  const v0 = m4.look(vadd([0, 1.1, 0.9], vmul(keyDir, 8)), [0, 1.1, 0.9], [0, 1, 0]), shM0 = m4.mul(orthoFit(v0, corners(-2.7, -0.2, -0.2, 2.7, 2.7, 2.6), 0.05), v0);
+  const sd = vnorm([0, -1, 0.42]), se = [0, SH0_Y - 0.05, 0.245], v1 = m4.look(se, vadd(se, sd), [0, 0, 1]);
+  const o1 = orthoFit(v1, corners(-1.6, 0.9, 0, 1.6, SH0_Y - 0.05, 1.0), 0.02), n1 = 0.004, f1 = 0.75;
+  o1[10] = -2 / (f1 - n1); o1[14] = -(f1 + n1) / (f1 - n1);
+  const shM1 = m4.mul(o1, v1);
+  UB.set(shM0, 0); UB.set(shM1, 16); UB.set([...keyDir, 0], 32); UB.set([0.92, 1.02, 1.16, 0], 36);
+  S.strips.forEach((s, i) => { UB.set([...s[0], 0], 40 + i * 4); UB.set([...s[1], 0], 48 + i * 4); UB.set(i ? [0.5, 0.42, 0.31, 0] : [0.62, 0.5, 0.35, 0], 56 + i * 4); });
+  UB.set([...S.flame, 1], 64); UB.set([0.1, 0.16, 0.34, 0], 68); UB.set([0.085, 0.1, 0.13, 0], 72); UB.set([0.04, 0.036, 0.034, 0], 76);
+  UB.set([S.digitW, 0, 1 / SH0, 1 / SH1W], 84);
+  gl.bindBuffer(gl.UNIFORM_BUFFER, ubo); gl.bufferData(gl.UNIFORM_BUFFER, UB, gl.DYNAMIC_DRAW); gl.bindBufferBase(gl.UNIFORM_BUFFER, 0, ubo);
+
+  // ---- camera poses ------------------------------------------------------------------
+  const HOME = { e: [0.1, 1.72, 2.95], t: [0, 1.15, 0.3], f: 44 }, INTRO = { e: [3.7, 4.0, 7.8], t: [0.1, 1.05, 0.6], f: 30 };
+  const focus = (o, d, sh) => ({ o, d, sh, f: 44 });
+  const POSE = {
+    education: focus([-0.52, 1.51, 0.17], [0.02, 0.06, 0.69], 0.19), honors: focus([-0.02, 1.5, 0.17], [-0.02, 0.06, 0.69], 0.19),
+    research: focus([-0.07, 0.93, 0.56], [0, 0.42, 0.5], 0), barstow: focus([-0.2, 0.935, 0.55], [0, 0.27, 0.33], 0.11), mason: focus([-0.07, 0.935, 0.55], [0, 0.27, 0.33], 0.11), wolchok: focus([0.06, 0.935, 0.55], [0, 0.27, 0.33], 0.11),
+    skills: focus([0.19, 0.99, 0.22], [0, 0.2, 0.56], 0.15), teaching: focus([0.95, 0.935, 0.5], [0, 0.5, 0.115], 0),
+    publications: focus([-0.625, 0.78, 0.98], [0, 0.72, 0.74], 0.155), contact: focus([0.625, 0.78, 0.98], [0, 0.72, 0.74], -0.155), ack: focus([1.175, 0.78, 0.98], [0, 0.72, 0.74], -0.155),
+  };
+  const portrait = () => innerWidth / innerHeight < 1.15;
+  const poseOf = id => {
+    if (id === 'home' || id === 'intro') return HOME;
+    const p = POSE[id], sh = portrait() ? 0 : p.sh, dy = portrait() && p.sh ? -0.09 : 0;
+    return { e: [p.o[0] + p.d[0] + sh, p.o[1] + p.d[1] + dy, p.o[2] + p.d[2]], t: [p.o[0] + sh, p.o[1] + dy, p.o[2]], f: p.f };
+  };
+  const cam = { e: INTRO.e.slice(), t: INTRO.t.slice(), f: INTRO.f };
+  let tr = null;
+  const flyTo = (p, dur) => { tr = { fe: cam.e.slice(), ft: cam.t.slice(), ff: cam.f, p, k: 0, dur: Math.max(dur, 0.001) }; };
+
+  // ---- state ---------------------------------------------------------------------------
+  const st = { view: 'intro', t: 0, hover: null, mx: 0, my: 0, px: 0, py: 0, hl: 0, fade: 0, pageT: 0, drawer: { publications: 0, contact: 0, ack: 0 }, lid: [0, 0, 0], pull: { education: 0, honors: 0 }, stir: 0, sig: -1 };
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clickables = () => (st.view === 'home' ? HOME_IDS : SEC[st.view] && SEC[st.view].group ? SEC[st.view].group : []);
+  const timers = [];
+  const after = (sec, fn) => timers.push({ at: st.t + sec, fn });
+
+  // ---- interface ------------------------------------------------------------------------
+  const tagEl = {}, TAGOFF = { publications: 1, contact: 1, ack: 1 };
+  for (const id in SEC) if (S.anchor[id]) {
+    const b = document.createElement('button'); b.className = 'tag' + (TAGOFF[id] ? ' dn' : ''); b.style.setProperty('--c', SEC[id].c);
+    b.innerHTML = `<i></i><span>${SEC[id].t}</span>`; b.setAttribute('aria-label', 'Open ' + SEC[id].t);
+    b.onclick = () => go(id); b.onmouseenter = () => { st.hover = id; }; b.onmouseleave = () => { if (st.hover === id) st.hover = null; };
+    $('tags').appendChild(b); tagEl[id] = b;
+  }
+  $('pgl').innerHTML = SEC.teaching.left; $('pgr').innerHTML = SEC.teaching.right;
+  function refreshUI() {
+    const v = st.view, s = SEC[v], list = clickables();
+    for (const id in tagEl) { tagEl[id].classList.remove('on'); tagEl[id].tabIndex = -1; }
+    $('panel').classList.remove('on'); $('nb').classList.remove('on'); $('hint').classList.remove('on');
+    $('back').classList.toggle('on', v !== 'home' && v !== 'intro');
+    $('back').textContent = s && s.parent ? '← Back to ' + SEC[s.parent].t.toLowerCase() : '← Back to the bench';
+    document.body.dataset.view = v;
+    const settle = v === 'home' ? 0.75 : 0.8;
+    after(settle, () => {
+      if (st.view !== v) return;
+      list.forEach(id => { tagEl[id].classList.add('on'); tagEl[id].tabIndex = 0; });
+      if (v === 'home' || (s && s.group)) { $('hint').textContent = v === 'home' ? 'Click a labelled item on the bench' : s.hint; $('hint').classList.add('on'); }
+      if (s && s.html) {
+        const p = $('panel'); p.className = 'on ' + (s.side === 'l' ? 'l' : 'r'); p.style.setProperty('--c', s.c);
+        $('ptitle').textContent = s.h || s.t; $('pbody').innerHTML = s.html; p.scrollTop = 0;
+      }
+    });
+    if (s && s.notebook) after(1.75, () => { if (st.view === v) $('nb').classList.add('on'); });
+  }
+  function go(id) { if (!SEC[id] || st.view === id || st.view === 'intro') return; st.view = id; st.hover = null; flyTo(poseOf(id), reduce ? 0 : 1.35); refreshUI(); if (PERF) lab.marks.push({ t: performance.now(), view: id }); }
+  function back() { if (st.view === 'home' || st.view === 'intro') return; const p = SEC[st.view] && SEC[st.view].parent; st.view = p || 'home'; st.hover = null; flyTo(poseOf(st.view), reduce ? 0 : 1.25); refreshUI(); if (PERF) lab.marks.push({ t: performance.now(), view: st.view }); }
+  function start() {
+    if (st.view !== 'intro') return;
+    $('ld').classList.add('gone'); st.view = 'home'; flyTo(HOME, reduce ? 0 : 3.8); document.body.dataset.view = 'home';
+    after(reduce ? 0.1 : 3.3, () => { if (st.view === 'home') refreshUI(); });
+    if (PERF) lab.marks.push({ t: performance.now(), view: 'intro-zoom' });
+  }
+  $('back').onclick = back; $('start').onclick = start; $('ftack').onclick = () => go('ack');
+  addEventListener('keydown', e => { if (e.key === 'Escape') back(); });
+  addEventListener('resize', () => { resize(); if (!tr && st.view !== 'intro') flyTo(poseOf(st.view), 0.3); });
+
+  // ---- picking ---------------------------------------------------------------------------
+  const vp = new Float32Array(16), ivp = new Float32Array(16), view = new Float32Array(16), proj = new Float32Array(16), eye = [0, 0, 0];
+  function pickAt(cx, cy) {
+    const r = canvas.getBoundingClientRect(), nx = ((cx - r.left) / r.width) * 2 - 1, ny = 1 - ((cy - r.top) / r.height) * 2;
+    const a = m4.proj(ivp, [nx, ny, -1]), b = m4.proj(ivp, [nx, ny, 1]), d = vnorm(vsub(b, a));
+    let best = null, bt = 1e9;
+    for (const id of clickables()) {
+      const bx = S.pick[id]; let t0 = 0, t1 = 1e9, off = [0, 0, 0];
+      if (st.drawer[id] !== undefined) off = [0, 0, st.drawer[id] * 0.36];
+      for (let i = 0; i < 3; i++) { const inv = 1 / (d[i] || 1e-9), u = (bx[0][i] + off[i] - 0.012 - a[i]) * inv, w = (bx[1][i] + off[i] + 0.012 - a[i]) * inv; t0 = Math.max(t0, Math.min(u, w)); t1 = Math.min(t1, Math.max(u, w)); }
+      if (t0 <= t1 && t0 < bt) { bt = t0; best = id; }
+    }
+    return best;
+  }
+  canvas.addEventListener('pointermove', e => { st.mx = (e.clientX / innerWidth) * 2 - 1; st.my = (e.clientY / innerHeight) * 2 - 1; st.hover = pickAt(e.clientX, e.clientY); canvas.style.cursor = st.hover ? 'pointer' : ''; });
+  canvas.addEventListener('pointerleave', () => { st.hover = null; });
+  canvas.addEventListener('click', e => { if (e.button !== 0) return; const id = pickAt(e.clientX, e.clientY); if (id) go(id); else if (st.view !== 'home' && st.view !== 'intro') back(); });
+
+  // ---- per-frame simulation ------------------------------------------------------------
+  const tmpA = new Float32Array(16), tmpB = new Float32Array(16), right = [1, 0, 0], upv = [0, 1, 0];
+  const setBone = (i, m) => bones.set(m, i * 16);
+  const approach = (v, target, dt, rate) => v + (target - v) * (1 - Math.exp(-dt * rate));
+  function update(dt) {
+    st.t += dt;
+    for (let i = timers.length - 1; i >= 0; i--) if (st.t >= timers[i].at) { const f = timers[i].fn; timers.splice(i, 1); f(); }
+    if (tr) {
+      tr.k = Math.min(tr.k + dt / tr.dur, 1); const k = easeIO(tr.k), p = tr.p;
+      for (let i = 0; i < 3; i++) { cam.e[i] = lerp(tr.fe[i], p.e[i], k); cam.t[i] = lerp(tr.ft[i], p.t[i], k); }
+      cam.f = lerp(tr.ff, p.f, k); if (tr.k >= 1) tr = null;
+    }
+    const v = st.view, moving = tr ? 1 : 0;
+    st.fade = approach(st.fade, v === 'intro' ? 0.55 : 1, dt, 3);
+    st.hl = approach(st.hl, moving || v === 'intro' ? 0 : 1, dt, moving ? 9 : 3.5);
+    st.px = approach(st.px, st.mx + (v === 'home' ? Math.sin(st.t * 0.23) * 0.22 : 0), dt, 3); st.py = approach(st.py, st.my, dt, 3);
+    for (const id in st.drawer) st.drawer[id] = approach(st.drawer[id], v === id ? 1 : 0, dt, 5.5);
+    for (const id in st.pull) st.pull[id] = approach(st.pull[id], v === id ? 1 : 0, dt, 5);
+    ['barstow', 'mason', 'wolchok'].forEach((id, i) => { st.lid[i] = approach(st.lid[i], v === id ? 1 : 0, dt, 4.2); });
+    st.pageT = clamp(st.pageT + (v === 'teaching' ? dt : -dt * 1.3), 0, 1.5);
+    st.stir += dt * 21;
+    // bones
+    setBone(BONE.PUB, m4.T(0, 0, st.drawer.publications * 0.36)); setBone(BONE.CONTACT, m4.T(0, 0, st.drawer.contact * 0.36)); setBone(BONE.ACK, m4.T(0, 0, st.drawer.ack * 0.36));
+    setBone(BONE.EDU, m4.T(0, 0, st.pull.education * 0.065)); setBone(BONE.HON, m4.T(0, 0, st.pull.honors * 0.06));
+    for (let i = 0; i < 3; i++) {
+      const k = st.lid[i], x = S.plateX[i], y = BENCH_Y + 0.012, z = 0.575;
+      setBone(BONE.LID0 + i, m4.X(m4.T(x, y + Math.sin(PI * k) * 0.05 - k * 0.0072, z - easeIO(k) * 0.118), m4.RX(-Math.sin(PI * k) * 0.55), m4.T(-x, -y, -z)));
+    }
+    setBone(BONE.STIR, m4.X(m4.T(S.stir[0], 0, S.stir[2]), m4.RY(st.stir), m4.T(-S.stir[0], 0, -S.stir[2])));
+    const d = new Date(), sec = d.getSeconds() + (MANUAL ? 0 : d.getMilliseconds() / 1000), mn = d.getMinutes() + sec / 60, hr = (d.getHours() % 12) + mn / 60;
+    [[BONE.HOUR, hr / 12], [BONE.MIN, mn / 60], [BONE.SEC, sec / 60]].forEach(([b, f]) => setBone(b, m4.X(m4.T(S.clock[0], S.clock[1], 0), m4.RZ(-f * TAU), m4.T(-S.clock[0], -S.clock[1], 0))));
+    const left = Math.max(0, 899 - Math.floor(st.t)), mm = Math.floor(left / 60), ss = left % 60;
+    UB[80] = Math.floor(mm / 10); UB[81] = mm % 10; UB[82] = Math.floor(ss / 10); UB[83] = ss % 10; UB[85] = st.t;
+    UB[67] = 0.85 + 0.15 * Math.sin(st.t * 23) * Math.sin(st.t * 7.3);
+  }
+
+  // ---- rendering ----------------------------------------------------------------------------
+  const useScene = (p, m, vw, e, tw, th, mir) => { gl.useProgram(p.p); gl.uniformMatrix4fv(p.u.uVP, false, m); if (p.u.uView) gl.uniformMatrix4fv(p.u.uView, false, vw); if (p.u.uCam) gl.uniform3fv(p.u.uCam, e); if (p.u.uRes) gl.uniform4f(p.u.uRes, 1 / tw, 1 / th, BENCH_Y + 0.0025, mir); };
+  const draw = m => { gl.bindVertexArray(m.vao); gl.drawElements(gl.TRIANGLES, m.n, gl.UNSIGNED_INT, 0); };
+  const bind = (u, t) => { gl.activeTexture(gl.TEXTURE0 + u); gl.bindTexture(gl.TEXTURE_2D, t); };
+  const fsPass = (p, fbo, w, h, t0, u4) => { gl.bindFramebuffer(gl.FRAMEBUFFER, fbo); gl.viewport(0, 0, w, h); gl.useProgram(p.p); bind(0, t0); if (u4) for (const k in u4) gl.uniform4fv(p.u[k], u4[k]); gl.bindVertexArray(null); gl.drawArrays(gl.TRIANGLES, 0, 3); };
+  const mirM = m4.X(m4.T(0, 2 * BENCH_Y, 0), m4.S(1, -1, 1)), viewR = new Float32Array(16), vpR = new Float32Array(16);
+  const TQ = PERF ? gl.getExtension('EXT_disjoint_timer_query_webgl2') || gl.getExtension('EXT_disjoint_timer_query') : null, tq2 = TQ && !TQ.createQueryEXT, pending = [];
+  lab.timer = TQ ? (tq2 ? 'EXT_disjoint_timer_query_webgl2' : 'EXT_disjoint_timer_query') : null;
+  if (TQ) lab.timerBits = { elapsed: tq2 ? gl.getQuery(0x88BF, 0x8864) : TQ.getQueryEXT(0x88BF, 0x8864), timestamp: tq2 ? gl.getQuery(0x8E28, 0x8864) : TQ.getQueryEXT(0x8E28, 0x8864) };
+  let pagesSig = -1, frameNo = 0;
+
+  function render() {
+    // camera
+    const asp = W / H, fov = Math.min(2 * Math.atan(Math.tan(cam.f * DEG / 2) * Math.max(1, (16 / 9) / asp)), 1.75);
+    const fw = vnorm(vsub(cam.t, cam.e)), rt = vnorm(vcross(fw, [0, 1, 0])), up2 = vcross(rt, fw);
+    const amp = st.view === 'home' || st.view === 'intro' ? 0.075 : st.view === 'teaching' ? 0 : 0.022, k = reduce ? 0 : amp * (tr ? 1 - Math.sin(tr.k * PI) * 0.6 : 1);
+    for (let i = 0; i < 3; i++) eye[i] = cam.e[i] + rt[i] * st.px * k - up2[i] * st.py * k * 0.5;
+    m4.look(eye, cam.t, [0, 1, 0], view); m4.persp(fov, asp, 0.08, 60, proj); m4.mul(proj, view, vp); m4.inv(vp, ivp);
+    m4.mul(view, mirM, viewR); m4.mul(proj, viewR, vpR);
+    const eyeR = [eye[0], 2 * BENCH_Y - eye[1], eye[2]];
+    // flipping pages
+    const pf = [0, 1, 2].map(i => easeIO(clamp((st.pageT - i * 0.2) / 0.9)));
+    const ps = Math.round((pf[0] + pf[1] * 3 + pf[2] * 7) * 4000);
+    if (ps !== pagesSig) { pagesSig = ps; gl.bindBuffer(gl.ARRAY_BUFFER, mP.vb); gl.bufferSubData(gl.ARRAY_BUFFER, 0, buildPages(S, pf).pack().buf); }
+    gl.bindBuffer(gl.UNIFORM_BUFFER, ubo); gl.bufferSubData(gl.UNIFORM_BUFFER, 0, UB);
+    let q = null;
+    if (TQ) { q = tq2 ? gl.createQuery() : TQ.createQueryEXT(); tq2 ? gl.beginQuery(0x88BF, q) : TQ.beginQueryEXT(0x88BF, q); }
+    bind(0, atlasTex); bind(1, noiseTex); bind(2, sh0); bind(3, sh1); bind(4, dummy); bind(5, dummy); bind(6, dummy);
+    gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LEQUAL); gl.depthMask(true); gl.disable(gl.BLEND); gl.enable(gl.CULL_FACE); gl.frontFace(gl.CCW);
+
+    // 1. shadow maps (only when something that casts a shadow has moved)
+    const sig = Math.round((st.drawer.publications + st.drawer.contact * 3 + st.drawer.ack * 5 + st.pull.education * 7 + st.pull.honors * 11 + st.lid[0] * 13 + st.lid[1] * 17 + st.lid[2] * 19) * 3000) + ps * 31;
+    if (sig !== st.sig) {
+      st.sig = sig; gl.disable(gl.CULL_FACE); gl.enable(gl.POLYGON_OFFSET_FILL); gl.polygonOffset(1.5, 3); gl.useProgram(pDepth.p);
+      for (const [fbo, w, h, m] of [[sh0F, SH0, SH0, shM0], [sh1F, SH1W, SH1H, shM1]]) {
+        bind(2, dummy); bind(3, dummy);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo); gl.viewport(0, 0, w, h); gl.clear(gl.DEPTH_BUFFER_BIT); gl.uniformMatrix4fv(pDepth.u.uVP, false, m);
+        gl.uniform1f(pDepth.u.uDither, 0); draw(mO); draw(mP); draw(mL); gl.uniform1f(pDepth.u.uDither, 1); draw(mG);
+      }
+      gl.disable(gl.POLYGON_OFFSET_FILL); gl.enable(gl.CULL_FACE); bind(2, sh0); bind(3, sh1);
+    }
+    // 2. half-res opaque pre-pass: depth for AO, colour for refraction
+    gl.bindFramebuffer(gl.FRAMEBUFFER, T.preF); gl.viewport(0, 0, hw, hh); gl.clearColor(0.012, 0.02, 0.03, 1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    useScene(pOpaqueLo, vp, view, eye, hw, hh, 0); draw(mO); draw(mP);
+    // 3. ambient occlusion
+    gl.disable(gl.DEPTH_TEST); gl.disable(gl.CULL_FACE);
+    const ty = Math.tan(fov / 2);
+    fsPass(pSsao, T.aoAF, hw, hh, T.preD, { uProj: [ty * asp, ty, 0.08, 60], uTex: [1 / hw, 1 / hh, 0, 0] });
+    fsPass(pAoBlur, T.aoBF, hw, hh, T.aoA, { uDir: [1.4 / hw, 0, 0, 0] }); fsPass(pAoBlur, T.aoAF, hw, hh, T.aoB, { uDir: [0, 1.4 / hh, 0, 0] });
+    // 4. mirrored half-res pass for the bench-top reflection
+    gl.enable(gl.DEPTH_TEST); gl.enable(gl.CULL_FACE); gl.frontFace(gl.CW); bind(0, atlasTex);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, T.reflF); gl.viewport(0, 0, hw, hh); gl.clearColor(0.006, 0.01, 0.015, 1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    useScene(pOpaqueLo, vpR, viewR, eyeR, hw, hh, 1); draw(mO); draw(mP);
+    useScene(pLiquidLo, vpR, viewR, eyeR, hw, hh, 1); draw(mL);
+    gl.disable(gl.CULL_FACE); gl.enable(gl.BLEND); gl.blendFuncSeparate(gl.ONE, gl.SRC_ALPHA, gl.ZERO, gl.ONE); gl.depthMask(false);
+    useScene(pGlassLo, vpR, viewR, eyeR, hw, hh, 1); draw(mG);
+    gl.blendFunc(gl.ONE, gl.ONE); gl.useProgram(pFx.p); gl.uniformMatrix4fv(pFx.u.uVP, false, vpR); gl.uniform3fv(pFx.u.uCam, eyeR); draw(mF);
+    gl.depthMask(true); gl.disable(gl.BLEND); gl.enable(gl.CULL_FACE); gl.frontFace(gl.CCW);
+    bind(5, T.refl); gl.generateMipmap(gl.TEXTURE_2D);
+    // 5. main pass (multisampled, HDR)
+    bind(4, T.aoA); bind(6, T.pre);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, T.msF); gl.viewport(0, 0, W, H); gl.clear(gl.DEPTH_BUFFER_BIT);
+    gl.disable(gl.DEPTH_TEST); gl.depthMask(false); gl.useProgram(pBg.p); gl.uniform4f(pBg.u.uP, asp, 0, 0, 0); gl.bindVertexArray(null); gl.drawArrays(gl.TRIANGLES, 0, 3);
+    gl.enable(gl.DEPTH_TEST); gl.depthMask(true);
+    useScene(pOpaque, vp, view, eye, W, H, 0); draw(mO); draw(mP);
+    useScene(pLiquid, vp, view, eye, W, H, 0); draw(mL);
+    gl.disable(gl.CULL_FACE); gl.enable(gl.BLEND); gl.blendFuncSeparate(gl.ONE, gl.SRC_ALPHA, gl.ZERO, gl.ONE); gl.depthMask(false);
+    useScene(pGlass, vp, view, eye, W, H, 0); draw(mG);
+    gl.blendFunc(gl.ONE, gl.ONE); gl.useProgram(pFx.p); gl.uniformMatrix4fv(pFx.u.uVP, false, vp); gl.uniform3fv(pFx.u.uCam, eye); draw(mF);
+    gl.useProgram(pMote.p); gl.uniformMatrix4fv(pMote.u.uVP, false, vp); gl.uniform4f(pMote.u.uRes, 1 / W, 1 / H, 0, 0); gl.bindVertexArray(moteVao); gl.drawArrays(gl.POINTS, 0, S.motes.length / 5);
+    gl.depthMask(true); gl.disable(gl.BLEND); gl.disable(gl.DEPTH_TEST);
+    if (SAMPLES > 1) {
+      gl.bindFramebuffer(gl.READ_FRAMEBUFFER, T.msF); gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, T.sceneF); gl.blitFramebuffer(0, 0, W, H, 0, 0, W, H, gl.COLOR_BUFFER_BIT, gl.NEAREST);
+      gl.invalidateFramebuffer(gl.READ_FRAMEBUFFER, [gl.COLOR_ATTACHMENT0, gl.DEPTH_ATTACHMENT]);
+    }
+    // 6. highlight mask for clickable objects
+    const list = st.hl > 0.01 ? clickables() : [];
+    if (list.length) {
+      gl.bindFramebuffer(gl.FRAMEBUFFER, T.maskF); gl.viewport(0, 0, hw, hh); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.useProgram(pMask.p); gl.uniformMatrix4fv(pMask.u.uVP, false, vp);
+      for (const id of list) {
+        const c = hex(SEC[id].c), a = st.hl * (st.hover === id ? 1 : 0.5 + 0.16 * Math.sin(st.t * 2.2 + id.length));
+        gl.uniform4f(pMask.u.uMaskCol, Math.pow(c[0], 2.2) * a, Math.pow(c[1], 2.2) * a, Math.pow(c[2], 2.2) * a, a);
+        for (const part of S.objs[id].parts || [id]) { const o = S.objs[part];
+          for (const [m, r] of [[mO, o.o], [mG, o.g], [mL, o.l]]) if (r[1]) { gl.bindVertexArray(m.vao); gl.drawElements(gl.TRIANGLES, r[1], gl.UNSIGNED_INT, r[0] * 4); } }
+      }
+      fsPass(pMBlur, T.maskTF, hw, hh, T.mask, { uDir: [1 / hw, 0, 0, 0] }); fsPass(pMBlur, T.maskBF, hw, hh, T.maskT, { uDir: [0, 1 / hh, 0, 0] });
+    }
+    // 7. bloom
+    const B = T.bloom;
+    fsPass(pDown, B[0].f, B[0].w, B[0].h, T.scene, { uDir: [1 / W, 1 / H, 1.05, 0] });
+    for (let i = 1; i < B.length; i++) fsPass(pDown, B[i].f, B[i].w, B[i].h, B[i - 1].t, { uDir: [1 / B[i - 1].w, 1 / B[i - 1].h, 0, 0] });
+    gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE);
+    for (let i = B.length - 2; i >= 0; i--) fsPass(pUp, B[i].f, B[i].w, B[i].h, B[i + 1].t, { uDir: [1 / B[i + 1].w, 1 / B[i + 1].h, 0.9, 0] });
+    gl.disable(gl.BLEND);
+    // 8. composite to the canvas
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, W, H); gl.useProgram(pComp.p);
+    bind(0, T.scene); bind(1, B[0].t); bind(2, list.length ? T.mask : dummy); bind(3, list.length ? T.maskB : dummy);
+    gl.uniform1i(pComp.u.uScene, 0); gl.uniform1i(pComp.u.uBloom, 1); gl.uniform1i(pComp.u.uMask, 2); gl.uniform1i(pComp.u.uMaskB, 3);
+    gl.uniform4f(pComp.u.uP, 1.0, 0.055, list.length ? 1.25 : 0, MANUAL ? 0 : (frameNo % 97) * 1.7); gl.uniform4f(pComp.u.uQ, st.fade, 0.75, 0, 0);
+    gl.bindVertexArray(null); gl.drawArrays(gl.TRIANGLES, 0, 3);
+    if (list.length === 0) { bind(2, dummy); bind(3, dummy); }
+    if (TQ) { tq2 ? gl.endQuery(0x88BF) : TQ.endQueryEXT(0x88BF); pending.push({ q, i: frameNo }); }
+    frameNo++;
+  }
+  function pollQueries() {
+    for (let i = pending.length - 1; i >= 0; i--) {
+      const p = pending[i], ok = tq2 ? gl.getQueryParameter(p.q, gl.QUERY_RESULT_AVAILABLE) : TQ.getQueryObjectEXT(p.q, 0x8867);
+      if (!ok) continue;
+      const ns = tq2 ? gl.getQueryParameter(p.q, gl.QUERY_RESULT) : TQ.getQueryObjectEXT(p.q, 0x8866), dis = gl.getParameter(0x8FBB);
+      const f = lab.frames[p.i]; if (f) f.gpu = dis ? null : ns / 1e6;
+      tq2 ? gl.deleteQuery(p.q) : TQ.deleteQueryEXT(p.q); pending.splice(i, 1);
+    }
+  }
+
+  // ---- overlays that follow the 3D scene ------------------------------------------------------
+  const nbEl = $('nb'), NW = 1060, NH = 698;
+  function homography(src, dst) { // 4 point pairs -> css matrix3d
+    const A = [], b = [];
+    for (let i = 0; i < 4; i++) { const [x, y] = src[i], [u, v] = dst[i]; A.push([x, y, 1, 0, 0, 0, -u * x, -u * y]); b.push(u); A.push([0, 0, 0, x, y, 1, -v * x, -v * y]); b.push(v); }
+    for (let c = 0; c < 8; c++) { let p = c; for (let r = c + 1; r < 8; r++) if (Math.abs(A[r][c]) > Math.abs(A[p][c])) p = r; [A[c], A[p]] = [A[p], A[c]]; [b[c], b[p]] = [b[p], b[c]];
+      for (let r = 0; r < 8; r++) if (r !== c) { const f = A[r][c] / A[c][c]; for (let k = c; k < 8; k++) A[r][k] -= f * A[c][k]; b[r] -= f * b[c]; } }
+    const h = b.map((v, i) => v / A[i][i]);
+    return `matrix3d(${h[0]},${h[3]},0,${h[6]},${h[1]},${h[4]},0,${h[7]},0,0,1,0,${h[2]},${h[5]},0,1)`;
+  }
+  function overlays() {
+    const cw = innerWidth, ch = innerHeight, list = clickables();
+    for (const id of list) {
+      const a = S.anchor[id], off = st.drawer[id] !== undefined ? st.drawer[id] * 0.36 : 0, p = m4.proj(vp, [a[0], a[1], a[2] + off]);
+      tagEl[id].style.transform = p[3] > 0 ? `translate3d(${((p[0] + 1) / 2 * cw).toFixed(1)}px,${((1 - p[1]) / 2 * ch).toFixed(1)}px,0)` : 'translate3d(-999px,0,0)';
+      tagEl[id].classList.toggle('hv', st.hover === id);
+    }
+    if (st.view === 'teaching') {
+      const NB = NOTEBOOK, y = 0.0125, c = [[-NB.W, y, -NB.D / 2], [NB.W, y, -NB.D / 2], [NB.W, y, NB.D / 2], [-NB.W, y, NB.D / 2]].map(q => { const p = m4.proj(vp, m4.pt(S.NM, q)); return [(p[0] + 1) / 2 * cw, (1 - p[1]) / 2 * ch]; });
+      nbEl.style.transform = homography([[0, 0], [NW, 0], [NW, NH], [0, NH]], c);
+    }
+  }
+
+  // ---- main loop ----------------------------------------------------------------------------------
+  let last = 0;
+  function tick(dt, now, raw) {
+    const c0 = performance.now(); update(dt); render(); overlays();
+    if (PERF) { lab.frames.push({ t: now, raf: raw, cpu: performance.now() - c0, gpu: undefined, view: st.view, moving: tr ? 1 : 0 }); pollQueries(); }
+  }
+  function loop(now) { requestAnimationFrame(loop); const raw = now - last; last = now; tick(Math.min(raw / 1000, 0.05), now, raw); }
+  resize(); refreshUI(); document.body.dataset.view = 'intro';
+  if (MANUAL) document.body.classList.add('manual');
+  tick(0, 0, 0);
+  progress(1); await yieldUI();
+  $('ld').classList.add('ready');
+  Object.assign(lab, { ready: true, go, back, start, st, cam, step: ms => tick(ms / 1000, performance.now(), ms), size: () => [W, H, SAMPLES], pose: (e, t, f) => { tr = null; cam.e = e; cam.t = t; cam.f = f; } });
+  if (!MANUAL) { last = performance.now(); requestAnimationFrame(loop); }
+  if (Q.has('autostart')) start();
+}
+init().catch(e => { lab.errors.push(String(e) + ' | ' + String(e && e.stack || '')); console.error(e); if (!lab.ready) fallback(); });
+
+})();</script>
+</body>
+</html>
