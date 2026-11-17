@@ -43,6 +43,11 @@ uniform vec3 uCam; uniform vec4 uRes; uniform mat4 uView;
 uniform sampler2D uAtlas; uniform sampler2D uNoise; uniform sampler2D uAO; uniform sampler2D uRefl; uniform sampler2D uScene;
 uniform sampler2DShadow uSh0; uniform sampler2DShadow uSh1;
 out vec4 o;
+#ifdef DITHER11
+vec3 dth(vec3 c){ vec2 p=gl_FragCoord.xy; vec3 n=fract(52.9829189*fract(vec3(dot(p,vec2(.06711056,.00583715)),dot(p+17.3,vec2(.06711056,.00583715)),dot(p+41.7,vec2(.06711056,.00583715)))))-.5; return c*(1.+n*vec3(.017,.017,.034)); }
+#else
+#define dth(c) (c)
+#endif
 float D_GGX(float nh,float a){float a2=a*a,d=nh*nh*(a2-1.)+1.;return a2/(PI*d*d+1e-6);}
 float V_SJ(float nv,float nl,float a){float k=a*.5+1e-4;return .25/((nv*(1.-k)+k)*(nl*(1.-k)+k));}
 vec3 specL(vec3 N,vec3 V,vec3 L,float rough,vec3 F0){
@@ -99,7 +104,7 @@ vec3 envRad(vec3 P,vec3 R,float rough){
 // diffuse irradiance (already divided by PI) from all lights, with optional wrap for translucent media
 // sh: pre-filtered screen-space shadow factors (key, strip); negative = look the shadow maps up here
 vec3 irr(vec3 P,vec3 N,float wrap,float ao,vec2 sh){
-  vec3 e=mix(uAmbGnd.rgb,uAmbSky.rgb,N.y*.5+.5)*ao;
+  vec3 e=(mix(uAmbGnd.rgb,uAmbSky.rgb,N.y*.5+.5)+vec3(.05,.052,.058)*max(N.z,0.))*ao;
   float nl=(dot(N,uKeyDir.xyz)+wrap)/(1.+wrap);
   if(nl>0.) e+=uKeyCol.rgb*nl*(sh.x<0.?shadow0(P,N):sh.x)/PI;
   for(int i=0;i<2;i++){
@@ -145,14 +150,14 @@ void main(){
   }
   else if(kind==${K.WALL}u){
     if(N.z<.5){ alb=vec3(.035,.037,.04); rough=.9; }
-    else { float n=texture(uNoise,vW.xy*.7).r, n2=texture(uNoise,vW.xy*17.).g; alb*=.9+.14*n+.05*n2; }
+    else { float n=texture(uNoise,vW.xy*.7).r, n2=texture(uNoise,vW.xy*17.).g; alb*=.96+.05*n+.03*n2; }
   }
   else if(kind==${K.BRUSH}u){ float n=texture(uNoise,vec2(vW.x*2.+vW.z,vW.y*60.+vW.z*40.)).r; rough=clamp(rough+(n-.5)*.22,.08,1.); alb*=.92+.16*n; }
   else if(kind==${K.EMTEX}u||kind==${K.DIGIT}u){ vec4 t=texture(uAtlas,vUV); extra=t.rgb*emis; alb=t.rgb*.04; emis=0.; }
   else if(kind==${K.STRIP}u){ float e=smoothstep(1.,.2,abs(vUV.y-.5)*2.); extra=alb*emis*(.55+.45*e); alb*=.2; emis=0.; }
   else if(kind==${K.FOIL}u){
-    vec3 q=vW*13.; vec3 nz=vec3(texture(uNoise,q.xy*.02+q.z*.013).r,texture(uNoise,q.yz*.02+q.x*.011).g,texture(uNoise,q.zx*.02+q.y*.017).b)-.5;
-    N=normalize(N+nz*.45); rough=max(rough,.46);
+    vec3 q=vW*36.; vec3 nz=vec3(texture(uNoise,q.xy*.02+q.z*.013).r,texture(uNoise,q.yz*.02+q.x*.011).g,texture(uNoise,q.zx*.02+q.y*.017).b)-.5;
+    N=normalize(N+nz*.85); rough=max(rough,.34);
   }
   else if(kind==${K.PAD}u){ float n=texture(uNoise,vW.xz*42.).r; alb*=.93+.1*n; wrap=.2; }
   vec3 F0=mix(vec3(.04),alb,metal), dif=alb*(1.-metal);
@@ -165,20 +170,20 @@ void main(){
   float sh=1.;
   vec3 col=dif*irr(vW,N,wrap,ao,shv);
   if(dot(N,uKeyDir.xyz)>0.) sh=shv.x<0.?shadow0(vW,N):shv.x;
-  col+=specAll(vW,N,V,rough,F0,sh);
+  col+=specAll(vW,N,V,kind==${K.BENCH}u?max(rough,.7):rough,F0,sh);   // the bench shows the strips through its mirror image only
   vec3 Fr=F0+(max(vec3(1.-rough),F0)-F0)*pow(1.-nv,5.);
   vec3 R=reflect(-V,N);
 #ifndef LOWQ
   if(kind==${K.BENCH}u){
     vec2 suv=gl_FragCoord.xy*uRes.xy; float n=texture(uNoise,vW.xz*23.).g;
-    vec3 rf=textureLod(uRefl,suv+vec2(n-.5,0.)*.003,1.9+n*.6).rgb;
-    col+=rf*(.045+.955*pow(1.-nv,5.))*.8; envK=0.;
+    vec3 rf=textureLod(uRefl,suv+vec2(n-.5,0.)*.002,1.3+n*.5).rgb;
+    col+=rf*(.04+.96*pow(1.-nv,5.))*.55; envK=0.;
   }
 #endif
   if(rough<.5||metal>.5) col+=envRad(vW,R,rough)*Fr*mix(.35,1.,ao)*envK;
   else col+=mix(uAmbGnd.rgb,uAmbSky.rgb,R.y*.5+.5)*1.5*Fr*ao*envK;
   col+=dif*emis+extra;
-  o=vec4(min(col,vec3(30.)),vMat.w>.5?0.:1.);    // alpha 0 marks labels stuck on glassware (see the liquid shader)
+  o=vec4(dth(min(col,vec3(30.))),vMat.w>.5?0.:1.);    // alpha 0 marks labels stuck on glassware (see the liquid shader)
 }`;
 
 // liquids, tinted plastics and amber glass: refract the low-res opaque pre-render, absorb, scatter
@@ -206,7 +211,7 @@ void main(){
   float F=.02+.98*pow(1.-nv,5.);
   col=mix(col,envRad(vW,reflect(-V,N),.06),F*.55);
   col+=specAll(vW,N,V,.12,vec3(.03),1.)*.6;
-  o=vec4(min(col,vec3(30.)),1.);
+  o=vec4(dth(min(col,vec3(30.))),1.);
 }`;
 
 // thin clear shells: rgb = reflected light (added), a = transmittance (multiplies what is behind)
@@ -290,7 +295,8 @@ void main(){
   vec2 q=(vUV-vec2(.5,.56))*vec2(uP.x,1.); float d=length(q);
   vec3 c=mix(vec3(.030,.052,.075),vec3(.004,.007,.012),smoothstep(0.,.95,d));
   c+=vec3(.012,.02,.03)*smoothstep(.5,0.,abs(vUV.y-.42))*smoothstep(1.,.1,d);
-  o=vec4(c,1.);
+  vec2 p=gl_FragCoord.xy; vec3 n=fract(52.9829189*fract(vec3(dot(p,vec2(.06711056,.00583715)),dot(p+17.3,vec2(.06711056,.00583715)),dot(p+41.7,vec2(.06711056,.00583715)))))-.5;
+  o=vec4(c*(1.+n*vec3(.017,.017,.034)*uP.y),1.);
 }`;
 
 // low-res screen-space pass: ambient occlusion plus filtered shadow factors for both shadow-casting lights,
@@ -371,8 +377,8 @@ vec3 tone(vec3 x){ return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14),0.,1.); }
 void main(){
   vec3 c=texture(uScene,vUV).rgb+texture(uBloom,vUV).rgb*uP.y;
   vec4 mb=texture(uMaskB,vUV), ms=texture(uMask,vUV);
-  float oa=clamp(mb.a*(1.-clamp(ms.a*8.,0.,1.))*1.7*uP.z,0.,1.); oa*=oa*(3.-2.*oa); vec3 oc=mb.rgb/max(mb.a,.02);
-  c=mix(c,oc*1.1,oa*.6)+oc*oa*.45+ms.rgb*.05*uP.z;
+  float oa=clamp(pow(mb.a,.62)*(1.-clamp(ms.a*8.,0.,1.))*2.3*uP.z,0.,1.); oa*=oa*(3.-2.*oa); vec3 oc=mb.rgb/max(mb.a,.02);
+  c=mix(c,oc*1.1,oa*.78)+oc*oa*.5+ms.rgb*.17*uP.z;
   vec2 q=vUV-.5; c*=1.-dot(q,q)*uQ.y;
   c=tone(c*uP.x);
   c=pow(c,vec3(1./2.2));

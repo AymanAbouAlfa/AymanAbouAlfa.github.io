@@ -1,0 +1,365 @@
+{
+ "env": {
+  "canvas": [
+   2560,
+   1440
+  ],
+  "dpr": 2,
+  "errors": [],
+  "hidden": false,
+  "inner": [
+   1280,
+   720
+  ],
+  "renderer": "Apple M1, or similar",
+  "size": [
+   2560,
+   1440,
+   4
+  ],
+  "timer": "EXT_disjoint_timer_query",
+  "timerBits": {
+   "elapsed": 32,
+   "timestamp": 0
+  },
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:159.0) Gecko/20100101 Firefox/159.0"
+ },
+ "groups": {
+  "all frames after start": {
+   "gpu_ms": {
+    "n": 3947,
+    "avg": 9.07,
+    "p50": 9.07,
+    "p99": 12.02,
+    "max": 15.24
+   },
+   "raf_interval_ms": {
+    "n": 3948,
+    "avg": 16.68,
+    "p50": 16.66,
+    "p99": 17.3,
+    "max": 48.08
+   },
+   "cpu_ms": {
+    "n": 3948,
+    "avg": 0.33,
+    "p50": 0.32,
+    "p99": 0.97,
+    "max": 2.86
+   },
+   "gpu_frames_over_16.7ms": 0,
+   "raf_intervals_over_25ms": 3,
+   "gpu_samples_missing": 1
+  },
+  "during animations": {
+   "gpu_ms": {
+    "n": 3140,
+    "avg": 8.99,
+    "p50": 9.0,
+    "p99": 11.94,
+    "max": 14.58
+   },
+   "raf_interval_ms": {
+    "n": 3140,
+    "avg": 16.69,
+    "p50": 16.66,
+    "p99": 17.31,
+    "max": 48.08
+   },
+   "cpu_ms": {
+    "n": 3140,
+    "avg": 0.34,
+    "p50": 0.32,
+    "p99": 1.03,
+    "max": 2.86
+   },
+   "gpu_frames_over_16.7ms": 0,
+   "raf_intervals_over_25ms": 3,
+   "gpu_samples_missing": 0
+  },
+  "camera in motion only": {
+   "gpu_ms": {
+    "n": 1919,
+    "avg": 8.81,
+    "p50": 8.88,
+    "p99": 11.75,
+    "max": 13.45
+   },
+   "raf_interval_ms": {
+    "n": 1919,
+    "avg": 16.7,
+    "p50": 16.66,
+    "p99": 17.34,
+    "max": 48.08
+   },
+   "cpu_ms": {
+    "n": 1919,
+    "avg": 0.36,
+    "p50": 0.32,
+    "p99": 1.14,
+    "max": 2.86
+   },
+   "gpu_frames_over_16.7ms": 0,
+   "raf_intervals_over_25ms": 3,
+   "gpu_samples_missing": 0
+  },
+  "idle (no animation)": {
+   "gpu_ms": {
+    "n": 807,
+    "avg": 9.36,
+    "p50": 9.25,
+    "p99": 12.15,
+    "max": 15.24
+   },
+   "raf_interval_ms": {
+    "n": 808,
+    "avg": 16.67,
+    "p50": 16.66,
+    "p99": 17.2,
+    "max": 17.5
+   },
+   "cpu_ms": {
+    "n": 808,
+    "avg": 0.3,
+    "p50": 0.3,
+    "p99": 0.6,
+    "max": 0.94
+   },
+   "gpu_frames_over_16.7ms": 0,
+   "raf_intervals_over_25ms": 0,
+   "gpu_samples_missing": 1
+  }
+ },
+ "per_animation": {
+  "00 intro-zoom": {
+   "gpu_ms": {
+    "n": 236,
+    "avg": 7.75,
+    "p50": 7.62,
+    "p99": 12.34,
+    "max": 12.47
+   },
+   "raf_max": 48.08
+  },
+  "01 education": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 8.85,
+    "p50": 8.85,
+    "p99": 10.69,
+    "max": 14.58
+   },
+   "raf_max": 17.42
+  },
+  "02 home": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 8.63,
+    "p50": 8.18,
+    "p99": 11.04,
+    "max": 12.77
+   },
+   "raf_max": 17.34
+  },
+  "03 honors": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 9.22,
+    "p50": 9.03,
+    "p99": 12.55,
+    "max": 12.99
+   },
+   "raf_max": 17.42
+  },
+  "04 home": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 8.87,
+    "p50": 8.81,
+    "p99": 10.63,
+    "max": 10.73
+   },
+   "raf_max": 16.9
+  },
+  "05 skills": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 9.49,
+    "p50": 9.42,
+    "p99": 11.76,
+    "max": 12.41
+   },
+   "raf_max": 17.2
+  },
+  "06 home": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 9.44,
+    "p50": 9.36,
+    "p99": 10.77,
+    "max": 10.93
+   },
+   "raf_max": 17.32
+  },
+  "07 teaching": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 8.86,
+    "p50": 8.71,
+    "p99": 12.21,
+    "max": 13.45
+   },
+   "raf_max": 17.26
+  },
+  "08 home": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 9.34,
+    "p50": 9.12,
+    "p99": 12.58,
+    "max": 12.62
+   },
+   "raf_max": 17.38
+  },
+  "09 publications": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 9.13,
+    "p50": 8.94,
+    "p99": 12.2,
+    "max": 12.48
+   },
+   "raf_max": 17.44
+  },
+  "10 home": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 9.16,
+    "p50": 9.22,
+    "p99": 10.82,
+    "max": 11.1
+   },
+   "raf_max": 17.32
+  },
+  "11 contact": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 9.64,
+    "p50": 9.4,
+    "p99": 11.78,
+    "max": 12.29
+   },
+   "raf_max": 17.52
+  },
+  "12 home": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 8.86,
+    "p50": 9.0,
+    "p99": 11.57,
+    "max": 11.94
+   },
+   "raf_max": 17.38
+  },
+  "13 ack": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 8.96,
+    "p50": 8.92,
+    "p99": 11.01,
+    "max": 11.92
+   },
+   "raf_max": 17.24
+  },
+  "14 home": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 8.95,
+    "p50": 8.99,
+    "p99": 10.83,
+    "max": 11.56
+   },
+   "raf_max": 17.22
+  },
+  "15 research": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 9.51,
+    "p50": 9.47,
+    "p99": 11.66,
+    "max": 11.82
+   },
+   "raf_max": 17.36
+  },
+  "16 barstow": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 9.04,
+    "p50": 8.85,
+    "p99": 11.32,
+    "max": 11.44
+   },
+   "raf_max": 17.42
+  },
+  "17 research": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 8.92,
+    "p50": 9.04,
+    "p99": 10.91,
+    "max": 11.5
+   },
+   "raf_max": 17.52
+  },
+  "18 mason": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 8.82,
+    "p50": 8.75,
+    "p99": 10.74,
+    "max": 13.1
+   },
+   "raf_max": 17.46
+  },
+  "19 research": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 9.1,
+    "p50": 8.87,
+    "p99": 11.34,
+    "max": 12.73
+   },
+   "raf_max": 17.4
+  },
+  "20 wolchok": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 9.12,
+    "p50": 9.05,
+    "p99": 11.85,
+    "max": 12.15
+   },
+   "raf_max": 17.3
+  },
+  "21 research": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 8.98,
+    "p50": 8.86,
+    "p99": 10.95,
+    "max": 11.69
+   },
+   "raf_max": 17.52
+  },
+  "22 home": {
+   "gpu_ms": {
+    "n": 132,
+    "avg": 9.17,
+    "p50": 9.04,
+    "p99": 12.13,
+    "max": 13.0
+   },
+   "raf_max": 16.98
+  }
+ }
+}

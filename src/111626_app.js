@@ -45,7 +45,8 @@ async function init() {
   progress(0.7); await yieldUI();
 
   // ---- programs ---------------------------------------------------------------
-  const lit = (fs, low) => mkProg(gl, VS_SCENE, G_HEAD + (low ? '\n#define LOWQ\n' : '') + G_LIGHT + fs, 'lit');
+  const FMT11 = Q.get('fmt') !== '16';   // HDR targets use R11F_G11F_B10F with dithering; ?fmt=16 selects RGBA16F
+  const lit = (fs, low) => mkProg(gl, VS_SCENE, G_HEAD + (low ? '\n#define LOWQ\n' : FMT11 ? '\n#define DITHER11\n' : '\n') + G_LIGHT + fs, 'lit');
   const pOpaque = lit(FS_OPAQUE), pOpaqueLo = lit(FS_OPAQUE, 1), pLiquid = lit(FS_LIQUID), pLiquidLo = lit(FS_LIQUID, 1), pGlass = lit(FS_GLASS, 1), pGlassLo = pGlass;
   const pDepth = mkProg(gl, VS_SCENE, FS_DEPTH, 'depth'), pMask = mkProg(gl, VS_SCENE, FS_MASK, 'mask'), pFx = mkProg(gl, VS_FX, FS_FX, 'fx'), pMote = mkProg(gl, VS_MOTE, FS_MOTE, 'mote');
   const post = fs => mkProg(gl, VS_POST, fs, 'post');
@@ -56,7 +57,7 @@ async function init() {
   progress(0.9); await yieldUI();
 
   // ---- render targets -----------------------------------------------------------
-  const SAMPLES = Math.min(+(Q.get('msaa') || 4), gl.getParameter(gl.MAX_SAMPLES)), HDR = Q.get('fmt') === '11' ? gl.R11F_G11F_B10F : gl.RGBA16F, HDRF = HDR === gl.RGBA16F ? gl.RGBA : gl.RGB, BUDGET = 2560 * 1440;
+  const SAMPLES = Math.min(+(Q.get('msaa') || 4), gl.getParameter(gl.MAX_SAMPLES)), HDR = FMT11 ? gl.R11F_G11F_B10F : gl.RGBA16F, HDRF = HDR === gl.RGBA16F ? gl.RGBA : gl.RGB, BUDGET = 2560 * 1440;
   let W = 0, H = 0, hw = 0, hh = 0, aw = 0, ah = 0, T = null;
   const tex = (w, h, ifmt, fmt, type, filt) => mkTex(gl, w, h, ifmt, fmt, type, filt);
   function alloc() {
@@ -108,18 +109,18 @@ async function init() {
   const shM1 = m4.mul(o1, v1);
   UB.set(shM0, 0); UB.set(shM1, 16); UB.set([...keyDir, 0], 32); UB.set([0.56, 0.64, 0.76, 0], 36);
   S.strips.forEach((s, i) => { UB.set([...s[0], 0], 40 + i * 4); UB.set([...s[1], 0], 48 + i * 4); UB.set(i ? [1.1, 0.84, 0.56, 0] : [2.1, 1.55, 0.98, 0], 56 + i * 4); });
-  UB.set([...S.flame, 1], 64); UB.set([0.1, 0.16, 0.34, 0], 68); UB.set([0.085, 0.1, 0.13, 0], 72); UB.set([0.04, 0.036, 0.034, 0], 76);
+  UB.set([...S.flame, 1], 64); UB.set([0.1, 0.16, 0.34, 0], 68); UB.set([0.105, 0.12, 0.15, 0], 72); UB.set([0.05, 0.046, 0.043, 0], 76);
   UB.set([S.digitW, 0, 1 / SH0, 1 / SH1W], 84);
   gl.bindBuffer(gl.UNIFORM_BUFFER, ubo); gl.bufferData(gl.UNIFORM_BUFFER, UB, gl.DYNAMIC_DRAW); gl.bindBufferBase(gl.UNIFORM_BUFFER, 0, ubo);
 
   // ---- camera poses ------------------------------------------------------------------
-  const HOME = { e: [0.05, 1.7, 3.02], t: [0, 1.15, 0.3], f: 44 }, INTRO = { e: [3.7, 4.0, 7.8], t: [0.1, 1.05, 0.6], f: 30 };
+  const HOME = { e: [0.05, 1.7, 3.02], t: [0, 1.15, 0.3], f: 44 }, INTRO = { e: [3.3, 3.5, 9.4], t: [0.1, 0.72, 0.75], f: 30 };
   const focus = (o, d, sh) => ({ o, d, sh, f: 44 });
   const POSE = {
     education: focus([-0.52, 1.51, 0.17], [0.02, 0.06, 0.69], 0.25), honors: focus([-0.02, 1.5, 0.17], [-0.02, 0.06, 0.69], 0.25),
-    research: focus([-0.07, 0.93, 0.565], [0, 0.31, 0.37], 0), barstow: focus([-0.2, 0.935, 0.55], [0, 0.23, 0.27], 0.135), mason: focus([-0.07, 0.935, 0.55], [0, 0.23, 0.27], 0.135), wolchok: focus([0.06, 0.935, 0.55], [0, 0.23, 0.27], 0.135),
-    skills: focus([0.19, 0.985, 0.22], [0, 0.25, 0.68], 0.21), teaching: focus([0.918, 0.935, 0.512], [0, 0.535, 0.085], 0),
-    publications: focus([-0.625, 0.88, 0.78], [0, 0.74, 0.77], 0.27), contact: focus([0.625, 0.88, 0.78], [0, 0.74, 0.77], -0.2), ack: focus([1.175, 0.88, 0.78], [0, 0.74, 0.77], -0.2),
+    research: focus([-0.07, 0.93, 0.565], [0, 0.4, 0.48], 0), barstow: focus([-0.37, 0.935, 0.545], [0, 0.2, 0.16], 0.068), mason: focus([-0.07, 0.935, 0.545], [0, 0.2, 0.16], 0.068), wolchok: focus([0.23, 0.935, 0.545], [0, 0.2, 0.16], 0.068),
+    skills: focus([0.19, 0.985, 0.22], [0, 0.05, 0.37], 0.1), teaching: focus([0.93, 0.935, 0.512], [0, 0.48, 0.076], 0),
+    publications: focus([-0.625, 0.88, 0.78], [0, 0.74, 0.77], -0.26), contact: focus([0.625, 0.88, 0.78], [0, 0.74, 0.77], -0.2), ack: focus([1.175, 0.88, 0.78], [0, 0.74, 0.77], -0.27),
   };
   const portrait = () => innerWidth / innerHeight < 1.15;
   const poseOf = id => {
@@ -139,7 +140,7 @@ async function init() {
   const after = (sec, fn) => timers.push({ at: st.t + sec, fn });
 
   // ---- interface ------------------------------------------------------------------------
-  const tagEl = {}, TAGOFF = { publications: 1, contact: 1, ack: 1, research: 1 }, TAGLEN = { education: 0.5, honors: 0.5, skills: 2.5, research: 1.9, teaching: 3.3, publications: 1.5, contact: 1.5, ack: 1.5 };
+  const tagEl = {}, TAGOFF = { publications: 1, contact: 1, ack: 1 }, TAGLEN = { education: 0.5, honors: 0.5, skills: 1.7, research: 0.9, teaching: 2.2, publications: 2.6, contact: 2.6, ack: 2.6, barstow: 1.5, mason: 1.5, wolchok: 1.5 };
   for (const id in SEC) if (S.anchor[id]) {
     const b = document.createElement('button'); b.className = 'tag' + (TAGOFF[id] ? ' dn' : ''); b.style.setProperty('--c', SEC[id].c); b.style.setProperty('--len', (TAGLEN[id] || 1.2) + 'rem');
     b.innerHTML = `<i></i><span>${SEC[id].t}</span>`; b.setAttribute('aria-label', 'Open ' + SEC[id].t);
@@ -164,7 +165,7 @@ async function init() {
         $('ptitle').textContent = s.h || s.t; $('pbody').innerHTML = s.html; p.scrollTop = 0;
       }
     });
-    if (s && s.notebook) after(1.75, () => { if (st.view === v) $('nb').classList.add('on'); });
+    if (s && s.notebook) after(2.3, () => { if (st.view === v) $('nb').classList.add('on'); });
   }
   function go(id) { if (!SEC[id] || st.view === id || st.view === 'intro') return; st.view = id; st.hover = null; flyTo(poseOf(id), reduce ? 0 : 1.35); refreshUI(); if (PERF) lab.marks.push({ t: performance.now(), view: id }); }
   function back() { if (st.view === 'home' || st.view === 'intro') return; const p = SEC[st.view] && SEC[st.view].parent; st.view = p || 'home'; st.hover = null; flyTo(poseOf(st.view), reduce ? 0 : 1.25); refreshUI(); if (PERF) lab.marks.push({ t: performance.now(), view: st.view }); }
@@ -215,14 +216,14 @@ async function init() {
     for (const id in st.drawer) st.drawer[id] = approach(st.drawer[id], v === id ? 1 : 0, dt, 5.5);
     for (const id in st.pull) st.pull[id] = approach(st.pull[id], v === id ? 1 : 0, dt, 5);
     ['barstow', 'mason', 'wolchok'].forEach((id, i) => { st.lid[i] = approach(st.lid[i], v === id ? 1 : 0, dt, 4.2); });
-    st.pageT = clamp(st.pageT + (v === 'teaching' ? dt : -dt * 1.3), 0, 1.5);
+    st.pageT = clamp(st.pageT + (v === 'teaching' ? (tr && tr.k < 0.55 ? 0 : dt) : -dt * 1.3), 0, 1.5);
     st.stir += dt * 21;
     // bones
     setBone(BONE.PUB, m4.T(0, 0, st.drawer.publications * 0.36)); setBone(BONE.CONTACT, m4.T(0, 0, st.drawer.contact * 0.36)); setBone(BONE.ACK, m4.T(0, 0, st.drawer.ack * 0.36));
     setBone(BONE.EDU, m4.T(0, 0, st.pull.education * 0.065)); setBone(BONE.HON, m4.T(0, 0, st.pull.honors * 0.06));
     for (let i = 0; i < 3; i++) {
       const k = st.lid[i], x = S.plateX[i], y = BENCH_Y + 0.012, z = 0.575;
-      setBone(BONE.LID0 + i, m4.X(m4.T(x, y + Math.sin(PI * k) * 0.05 - k * 0.0072, z - easeIO(k) * 0.118), m4.RX(-Math.sin(PI * k) * 0.55), m4.T(-x, -y, -z)));
+      setBone(BONE.LID0 + i, m4.X(m4.T(x, y + Math.sin(PI * k) * 0.024 - k * 0.0072, z - easeIO(k) * 0.108), m4.RX(-Math.sin(PI * k) * 0.12), m4.T(-x, -y, -z)));
     }
     setBone(BONE.STIR, m4.X(m4.T(S.stir[0], 0, S.stir[2]), m4.RY(st.stir), m4.T(-S.stir[0], 0, -S.stir[2])));
     const d = new Date(), sec = d.getSeconds() + (MANUAL ? 0 : d.getMilliseconds() / 1000), mn = d.getMinutes() + sec / 60, hr = (d.getHours() % 12) + mn / 60;
@@ -313,7 +314,7 @@ async function init() {
     bind(4, T.aoA); bind(6, T.pre);
     gl.bindFramebuffer(gl.FRAMEBUFFER, T.msF); gl.viewport(0, 0, W, H); gl.clear(gl.DEPTH_BUFFER_BIT);
     useScene(pOpaque, vp, view, eye, W, H, 0); draw(mO); draw(mP);
-    gl.depthRange(1, 1); gl.depthMask(false); gl.useProgram(pBg.p); gl.uniform4f(pBg.u.uP, asp, 0, 0, 0); gl.bindVertexArray(null); gl.drawArrays(gl.TRIANGLES, 0, 3); gl.depthRange(0, 1); gl.depthMask(true);
+    gl.depthRange(1, 1); gl.depthMask(false); gl.useProgram(pBg.p); gl.uniform4f(pBg.u.uP, asp, FMT11 ? 1 : 0, 0, 0); gl.bindVertexArray(null); gl.drawArrays(gl.TRIANGLES, 0, 3); gl.depthRange(0, 1); gl.depthMask(true);
     stage('main-transparent');
     useScene(pLiquid, vp, view, eye, W, H, 0); draw(mL);
     gl.disable(gl.CULL_FACE); gl.enable(gl.BLEND); gl.blendFuncSeparate(gl.ONE, gl.SRC_ALPHA, gl.ZERO, gl.ONE); gl.depthMask(false);
@@ -333,7 +334,7 @@ async function init() {
       gl.bindFramebuffer(gl.FRAMEBUFFER, T.maskF); gl.viewport(0, 0, hw, hh); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
       gl.useProgram(pMask.p); gl.uniformMatrix4fv(pMask.u.uVP, false, vp);
       for (const id of list) {
-        const c = hex(SEC[id].c), a = st.hl * (st.hover === id ? 1 : 0.64 + 0.2 * Math.sin(st.t * 2.2 + id.length));
+        const c = hex(SEC[id].c), a = st.hl * (st.hover === id ? 1 : 0.76 + 0.22 * Math.sin(st.t * 2.2 + id.length));
         gl.uniform4f(pMask.u.uMaskCol, Math.pow(c[0], 2.2) * a, Math.pow(c[1], 2.2) * a, Math.pow(c[2], 2.2) * a, a);
         for (const part of S.objs[id].parts || [id]) { const o = S.objs[part];
           for (const [m, r] of [[mO, o.o], [mG, o.g], [mL, o.l]]) if (r[1]) { gl.bindVertexArray(m.vao); gl.drawElements(gl.TRIANGLES, r[1], gl.UNSIGNED_INT, r[0] * 4); } }
@@ -353,7 +354,7 @@ async function init() {
     gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, W, H); gl.useProgram(pComp.p);
     bind(0, T.scene); bind(1, B[0].t); bind(2, list.length ? T.mask : dummy); bind(3, list.length ? T.maskB : dummy);
     gl.uniform1i(pComp.u.uScene, 0); gl.uniform1i(pComp.u.uBloom, 1); gl.uniform1i(pComp.u.uMask, 2); gl.uniform1i(pComp.u.uMaskB, 3);
-    gl.uniform4f(pComp.u.uP, 1.0, 0.055, list.length ? 1.25 : 0, MANUAL ? 0 : (frameNo % 97) * 1.7); gl.uniform4f(pComp.u.uQ, st.fade, 1.05, 0, 0);
+    gl.uniform4f(pComp.u.uP, 1.0, 0.055, list.length ? 1.25 : 0, MANUAL ? 0 : (frameNo % 97) * 1.7); gl.uniform4f(pComp.u.uQ, st.fade, 0.8, 0, 0);
     gl.bindVertexArray(null); gl.drawArrays(gl.TRIANGLES, 0, 3);
     if (list.length === 0) { bind(2, dummy); bind(3, dummy); }
     stage(null);

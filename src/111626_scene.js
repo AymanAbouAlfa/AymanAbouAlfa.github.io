@@ -53,15 +53,15 @@ function buildScene(atlas) {
     for (let i = -2; i < 12; i++) { g.beginPath(); g.moveTo(i * 28, h + 4); g.lineTo(i * 28 + 30, -4); g.stroke(); }
   });
   const gradInk = atlas.draw(128, 320, (g, w, h) => {
-    g.fillStyle = '#fff'; g.strokeStyle = '#fff';
-    for (let i = 0; i <= 8; i++) { const y = h - 20 - i * 34; g.fillRect(8, y, i % 2 ? 26 : 46, 4); if (i % 2 === 0 && i) txt(g, String(i * 125), 60, y + 9, `600 22px ${SANS}`, '#fff'); }
-    txt(g, 'ml', 62, 28, `600 20px ${SANS}`, '#fff');
+    g.fillStyle = '#fff';
+    for (let i = 0; i <= 8; i++) { const y = h - 20 - i * 34; g.fillRect(8, y, i % 2 ? 30 : 58, 4); }
   });
   const colony = (g, x, y, r, c, rim) => {
     const gr = g.createRadialGradient(x - r * 0.3, y - r * 0.3, r * 0.1, x, y, r); gr.addColorStop(0, '#fffdf2'); gr.addColorStop(0.45, c); gr.addColorStop(1, rim);
     g.fillStyle = gr; g.beginPath(); g.arc(x, y, r, 0, TAU); g.fill();
   };
-  const plateTex = kind => atlas.draw(512, 512, (g, w) => {
+  const plateTex = (kind, sz = 512) => atlas.draw(sz, sz, g => {
+    g.scale(sz / 512, sz / 512); const w = 512;
     const c = w / 2, base = ['#d6bd6f', '#6a4c9c', '#e6dcbb', '#d8c076', '#d2b866'][kind], edge = ['#b99a48', '#4b3378', '#cdbf93', '#bb9f4e', '#b3963f'][kind];
     const gr = g.createRadialGradient(c, c, 20, c, c, c); gr.addColorStop(0, base); gr.addColorStop(0.8, base); gr.addColorStop(1, edge);
     g.fillStyle = gr; g.fillRect(0, 0, w, w);
@@ -103,7 +103,7 @@ function buildScene(atlas) {
     const st = h / 34; g.strokeStyle = 'rgba(96,140,190,0.28)'; g.lineWidth = Math.max(1, w / 620);
     for (let y = st * 2; y < h - st; y += st) { g.beginPath(); g.moveTo(w * 0.05, y); g.lineTo(w * 0.95, y); g.stroke(); }
     for (let x = w * 0.05; x <= w * 0.951; x += st) { g.beginPath(); g.moveTo(x, st * 2); g.lineTo(x, h - st * 1.2); g.stroke(); }
-    const ink = '#1c2a55', f = px => `${px * w / 620}px ${NOTE}`, L = (s, row, x = 0.08, px = 21, c = ink) => txt(g, s, w * x, st * (row + 0.82), f(px), c);
+    const ink = '#1c2a55', f = px => `${px * w / 620}px ${NOTE}`, L = (s, row, x = 0.08, px = 21, c = ink) => txt(g, s, w * x, st * (row + 0.82), `${fit(g, s, px * w / 620, NOTE, w * (0.92 - x))}px ${NOTE}`, c);
     txt(g, type.n, w * 0.93, st * 1.4, f(15), '#667', 'right');
     if (type.k === 'A') {
       L('11/16/26', 2, 0.08, 19, '#555'); L('Competition assay, day 3', 3.3, 0.08, 27);
@@ -131,10 +131,16 @@ function buildScene(atlas) {
     } else if (type.k === 'TL') {
       txt(g, 'Teaching Experience', w * 0.08, st * 3.6, f(40), ink);
       g.strokeStyle = '#a8242a'; g.lineWidth = 3 * w / 620; g.beginPath(); g.moveTo(w * 0.08, st * 4.25); g.bezierCurveTo(w * 0.3, st * 4.5, w * 0.55, st * 4.0, w * 0.8, st * 4.3); g.stroke();
+      // margin doodles for the lower half of the page: a binary tree and a linked list
+      g.strokeStyle = ink; g.fillStyle = '#f4efdf'; g.lineWidth = 2.6 * w / 620; const nd = [[0.5, 23.7], [0.32, 26.1], [0.68, 26.1], [0.22, 28.5], [0.42, 28.5], [0.6, 28.5], [0.78, 28.5]];
+      [[0, 1], [0, 2], [1, 3], [1, 4], [2, 5], [2, 6]].forEach(e => { g.beginPath(); g.moveTo(w * nd[e[0]][0], st * nd[e[0]][1]); g.lineTo(w * nd[e[1]][0], st * nd[e[1]][1]); g.stroke(); });
+      nd.forEach((n, i) => { g.beginPath(); g.arc(w * n[0], st * n[1], st * 0.7, 0, TAU); g.fill(); g.stroke(); txt(g, String([8, 3, 12, 1, 5, 10, 14][i]), w * n[0], st * (n[1] + 0.3), f(20), ink, 'center'); });
+      for (let i = 0; i < 4; i++) { g.strokeRect(w * (0.16 + i * 0.18), st * 30.6, w * 0.1, st * 1.3); if (i < 3) { g.beginPath(); g.moveTo(w * (0.26 + i * 0.18), st * 31.25); g.lineTo(w * (0.34 + i * 0.18), st * 31.25); g.stroke(); } }
     }
   });
   // large textures are allocated first so the packer can still fit them
   const pg = { A: pageTex({ k: 'A', n: '46' }), B: pageTex({ k: 'B', n: '47' }), C: pageTex({ k: 'C', n: '48' }), D: pageTex({ k: 'D', n: '49' }), E: pageTex({ k: 'B', n: '51' }), F: pageTex({ k: 'D', n: '50' }), TL: pageTex({ k: 'TL', n: '52' }, 1024, 1348), TR: pageTex({ k: 'TR', n: '53' }, 620, 816) };
+  const heroPlates = [plateTex(1, 896), plateTex(0, 896), plateTex(2, 896)];
   const cardTex = s => atlas.draw(600, 220, (g, w, h) => {
     g.fillStyle = '#f6f3ea'; g.fillRect(0, 0, w, h); g.strokeStyle = '#b9b3a2'; g.lineWidth = 3; g.strokeRect(6, 6, w - 12, h - 12);
     txt(g, s, w / 2, h * 0.64, `700 ${fit(g, s, h * 0.42, SANS, w * 0.84)}px ${SANS}`, '#22252b', 'center');
@@ -174,7 +180,7 @@ function buildScene(atlas) {
     if (bn) begin(ids[bn]);
     tube(GO, [[cx - 0.075, 0.745, 0.739], [cx - 0.075, 0.745, 0.764], [cx + 0.075, 0.745, 0.764], [cx + 0.075, 0.745, 0.739]], 0.0055, mSteel, 10);
     box(GO, cx - 0.083, 0.786, 0.738, cx + 0.083, 0.848, 0.7412, mChrome, 0.001);
-    if (bn) { vq(GO, cx, 0.817, 0.7417, 0.154, 0.05, mTex, cardTex(cards[bn])); end(); pick[ids[bn]] = [[x0, 0.7, 0.71], [x1, 0.87, 0.78]]; anchor[ids[bn]] = [cx + 0.155, 0.78, 0.745]; }
+    if (bn) { vq(GO, cx, 0.817, 0.7417, 0.154, 0.05, mTex, cardTex(cards[bn])); end(); pick[ids[bn]] = [[x0, 0.7, 0.71], [x1, 0.87, 0.78]]; anchor[ids[bn]] = [cx + 0.097, 0.817, 0.745]; }
     else vq(GO, cx, 0.817, 0.7417, 0.154, 0.05, Mat('#f1eee4', 0.8));
     if (bn) {                                                               // tray + contents
       const a = x0 + 0.03, b = x1 - 0.03, y0 = 0.72, y1 = 0.845;
@@ -204,11 +210,10 @@ function buildScene(atlas) {
         box(GO, cx + 0.13, fy, 0.38, cx + 0.2, fy + 0.009, 0.52, mBlk, 0.004);
       } else {
         const cup = [[0, 0], [0.034, 0], [0.047, 0.1], [0.049, 0.104], [0.044, 0.104], [0, 0.104]];
-        lat(GO, cup, T(cx + 0.11, fy, 0.5), Mat('#f4f1e8', 0.6), 28);
-        GO.add(arcPrim(0.0445, 0.039, 0.055, 0.044, PI / 2, 1.2, 14), T(cx + 0.11, fy, 0.5), mTex, atlas.draw(380, 170, (g, w, h) => { g.fillStyle = '#c93a2b'; g.fillRect(0, 0, w, h); txt(g, 'RAMEN', w / 2, h * 0.7, `800 90px ${SANS}`, '#fff3d6', 'center'); }));
+        lat(GO, cup, T(cx + 0.06, fy, 0.47), Mat('#f4f1e8', 0.6), 28);
+        GO.add(arcPrim(0.0445, 0.039, 0.055, 0.044, PI / 2, 1.2, 14), T(cx + 0.06, fy, 0.47), mTex, atlas.draw(380, 170, (g, w, h) => { g.fillStyle = '#c93a2b'; g.fillRect(0, 0, w, h); txt(g, 'RAMEN', w / 2, h * 0.68, `800 70px ${SANS}`, '#fff3d6', 'center'); }));
         const card = atlas.draw(420, 300, (g, w, h) => { g.fillStyle = '#fbf6e9'; g.fillRect(0, 0, w, h); txt(g, 'thank you!', w / 2, h * 0.52, `92px ${HAND}`, '#a8242a', 'center'); txt(g, 'jesse-zhou.com', w / 2, h * 0.78, `40px ${HAND}`, '#31405f', 'center'); });
         box(GO, cx - 0.15, fy, 0.44, cx - 0.01, fy + 0.002, 0.54, mWht); hq(GO, cx - 0.08, fy + 0.0025, 0.49, 0.138, 0.098, 0.05, mPaper, card);
-        for (const dz of [0, 0.012]) lat(GO, [[0, 0], [0.003, 0], [0.0022, 0.22], [0, 0.22]], X(T(cx - 0.16, fy + 0.004, 0.37 + dz), m4.RZ(-PI / 2), m4.RX(0.04)), Mat('#b98a4e', 0.6), 8);
       }
     }
     bone(0);
@@ -237,7 +242,7 @@ function buildScene(atlas) {
   for (const y of [SH0_Y, SH1_Y]) {
     box(GO, -1.44, y - 0.028, 0, 1.44, y, 0.31, mShelf, 0.004);
     box(GO, -1.38, y - 0.044, 0.222, 1.38, y - 0.028, 0.268, Mat('#b9bcc0', 0.35, { m: 1 }), 0.002);
-    hq(GO, 0, y - 0.0445, 0.245, 2.74, 0.03, 0, Mat('#fff1d6', 0.5, { k: K.STRIP, e: 3.6 }), null, X(T(0, 2 * (y - 0.0445), 0), m4.S(1, -1, 1)));
+    hq(GO, 0, y - 0.0445, 0.245, 2.74, 0.03, 0, Mat('#fff1d6', 0.5, { k: K.STRIP, e: 2.1 }), null, X(T(0, 2 * (y - 0.0445), 0), m4.S(1, -1, 1)));
   }
   const strips = [[[-1.37, SH0_Y - 0.047, 0.245], [1.37, SH0_Y - 0.047, 0.245]], [[-1.37, SH1_Y - 0.047, 0.245], [1.37, SH1_Y - 0.047, 0.245]]];
   hq(GO, -1.02, SH0_Y - 0.014, 0.3105, 0.21, 0.024, 0, mTex, tapeLbl('AYMAN A.  BENCH 4', null, '#8fd0f2', 512, 60), X(T(0, SH0_Y - 0.014, 0.3105), m4.RX(PI / 2), T(0, -(SH0_Y - 0.014), -0.3105)));
@@ -275,10 +280,10 @@ function buildScene(atlas) {
       if (o.vortex) pr.push([ri - 0.004, hf - 0.001], [ri * 0.55, hf - 0.006], [ri * 0.22, hf - 0.022], [0.002, hf - 0.04], [0, hf - 0.04]); else pr.push([ri - 0.004, hf], [0, hf]);
       lat(GL, pr, M, lq, seg);
     }
-    if (o.foil) { const y0 = H - 0.046, pr = lathePrim([[rn + 0.0125, y0], [rn + 0.0085, H - 0.014], [rn + 0.0065, H + 0.002, 1], [rn * 0.55, H + 0.0055], [0, H + 0.0055]], 72), nf = 18, kf = 0.05;
-      for (let i = 0; i < pr.p.length; i += 3) { const x = pr.p[i], y = pr.p[i + 1], z = pr.p[i + 2], th = Math.atan2(z, x), tt = clamp((H - 0.004 - y) / 0.042), d = kf * tt, c = Math.cos(th), s = Math.sin(th), w = 1 + d * Math.sin(nf * th), g = d * nf * Math.cos(nf * th) * 0.55;
+    if (o.foil) { const y0 = H - 0.036, pr = lathePrim([[rn + 0.0052, y0], [rn + 0.0058, H - 0.014], [rn + 0.0064, H + 0.0015], [rn * 0.7, H + 0.005], [0, H + 0.0055]], 72), nf = 13, kf = 0.085;
+      for (let i = 0; i < pr.p.length; i += 3) { const x = pr.p[i], y = pr.p[i + 1], z = pr.p[i + 2], th = Math.atan2(z, x), tt = clamp((H - 0.002 - y) / 0.03), d = kf * tt * (1 + 0.35 * Math.sin(5 * th + 1.3)), c = Math.cos(th), s = Math.sin(th), w = 1 + d * Math.sin(nf * th), g = d * nf * Math.cos(nf * th) * 0.55;
         pr.p[i] = x * w; pr.p[i + 2] = z * w; let nx = pr.n[i] + s * g, nz = pr.n[i + 2] - c * g; const l = Math.hypot(nx, pr.n[i + 1], nz); pr.n[i] = nx / l; pr.n[i + 1] /= l; pr.n[i + 2] = nz / l; }
-      GO.add(pr, M, Mat('#e6e8eb', 0.34, { m: 0.75 })); lat(GO, [[rn + 0.002, y0 + 0.003], [rn + 0.0125, y0]], M, Mat('#b9bcc0', 0.5, { m: 0.5 }), 36); }
+      GO.add(pr, M, Mat('#eceef0', 0.3, { m: 0.85, k: K.FOIL })); }
     if (o.lab) { const yc = hc * 0.42, hh = o.lh || 0.05; GO.add(arcPrim(rAt(yc + hh / 2) + 0.0008, rAt(yc - hh / 2) + 0.0008, yc, hh, PI / 2 + (o.la || 0), (o.lw || 0.1) / rAt(yc), 18), M, mLab, o.lab); }
     GG.add(arcPrim(rAt(hc * 0.6) + 0.0005, rAt(hc * 0.24) + 0.0005, hc * 0.42, hc * 0.36, PI / 2 + 0.95 + (o.la || 0), 0.36, 6), M, gInk, gradInk);
   };
@@ -324,13 +329,13 @@ function buildScene(atlas) {
   bottle(-0.965, s0, zs + 0.01, 0.0505, 0.225, YPM, 0.42, tapeLbl('YPM', '11/12/26   AA', '#f3ead2'), { tape: 1, la: -0.12 });
   bottle(-0.84, s0, zs - 0.01, 0.043, 0.176, EP, 0.5, tapeLbl('EP', '10/30/26   AA', '#f3ead2'), { la: 0.2, lw: 0.07, lh: 0.042 });
   bone(BONE.EDU); begin('education');
-  bottle(-0.52, s0, zs + 0.02, 0.0505, 0.225, LB, 0.55, tapeLbl('EDUCATION', 'Cornell A&S   exp. 05/27', '#f6d55c'), { seg: 56, lw: 0.074, lh: 0.046, tape: 1, la: -0.12 });
+  bottle(-0.52, s0, zs + 0.02, 0.0505, 0.225, LB, 0.55, tapeLbl('EDUCATION', 'Cornell A&S   exp. 05/27', '#f6d55c'), { seg: 56, lw: 0.062, lh: 0.04, tape: 1, la: -0.12 });
   end(); bone(0); pick.education = [[-0.58, s0, zs - 0.04], [-0.46, s0 + 0.235, zs + 0.08]]; anchor.education = [-0.52, s0 + 0.246, zs + 0.02];
   { const M = T(-0.27, s0, zs - 0.01), t = 0.0028; lat(GG, [[0, 0], [0.036, 0], [0.04, 0.006], [0.04, 0.012], [0.0165, 0.016], [0.0165, 0.29], [0.019, 0.295], [0.019 - t, 0.295], [0.0165 - t, 0.29], [0.0165 - t, 0.018], [0, 0.018]], M, gClear, 28);
     lat(GL, [[0, 0.0185], [0.0132, 0.0185], [0.0132, 0.15, 1], [0, 0.15]], M, WATER, 20); GG.add(arcPrim(0.0168, 0.0168, 0.16, 0.24, PI / 2 + 0.2, 0.9, 6), M, gInk, gradInk); }
   beaker(-0.18, s0, zs + 0.03, 0.034, 0.085, null, 0);
   bone(BONE.HON); begin('honors');
-  flask(-0.02, s0, zs + 0.02, 0.066, 0.215, 0.019, YPM, 0.3, { foil: 1, seg: 56, lab: tapeLbl('HONORS & AWARDS', null, '#f79d65', 512, 190), lw: 0.088, lh: 0.036 });
+  flask(-0.02, s0, zs + 0.02, 0.066, 0.215, 0.019, YPM, 0.3, { foil: 1, seg: 56, lab: tapeLbl('HONORS', '& AWARDS', '#f79d65', 420, 230), lw: 0.07, lh: 0.04 });
   end(); bone(0); pick.honors = [[-0.09, s0, zs - 0.05], [0.05, s0 + 0.225, zs + 0.09]]; anchor.honors = [-0.02, s0 + 0.24, zs + 0.02];
   for (let i = 0; i < 3; i++) { const x = 0.125 + i * 0.075, M = T(x, s0, zs - 0.02 + (i % 2) * 0.02), am = liq('#7a3d10', 0.12, 3.2);
     lat(GL, [[0, 0], [0.027, 0], [0.03, 0.004], [0.03, 0.062], [0.024, 0.078], [0.012, 0.084], [0.012, 0.094], [0, 0.094]], M, am, 24);
@@ -373,7 +378,7 @@ function buildScene(atlas) {
 
   // ---- bench top ------------------------------------------------------------------------
   const by = BENCH_Y;
-  box(GO, -0.5, by, 0.31, 0.46, by + 0.0016, 0.735, Mat('#c2c4bf', 0.9, { k: K.PAD }), 0.0007);
+  box(GO, -0.5, by, 0.31, 0.46, by + 0.0016, 0.735, Mat('#b3b5b0', 0.9, { k: K.PAD }), 0.0007);
   // vortex mixer
   { const M = T(-1.28, by, 0.2); lat(GO, [[0, 0], [0.066, 0], [0.07, 0.008], [0.062, 0.085], [0.05, 0.1], [0.03, 0.105], [0.033, 0.12], [0.027, 0.126], [0.012, 0.114], [0, 0.112]], M, Mat('#263347', 0.45), 36);
     lat(GO, [[0, 0], [0.012, 0], [0.012, 0.012], [0.009, 0.015], [0, 0.015]], X(M, T(0, 0.04, 0.064), m4.RX(PI / 2 - 0.09)), mBlk, 16); box(GO, -0.003, 0.068, 0.0605, 0.003, 0.074, 0.0625, Mat('#39d98a', 0.4, { e: 3 }), 0, M); }
@@ -399,20 +404,20 @@ function buildScene(atlas) {
   const texSpread = plateTex(3), texSpot = plateTex(4);
   for (let i = 0; i < 5; i++) petri(-0.1 + (R() - 0.5) * 0.006, by + i * 0.0172, 0.185 + (R() - 0.5) * 0.006, i % 2 ? texSpot : texSpread, i === 4 ? lidInk('G. oxy  KO lib.  11/14  AA') : null, 0, true, R() * 6);
   // the three clickable plates
-  const plates = [['barstow', -0.2, plateTex(1), 'BARSTOW LAB', BONE.LID0], ['mason', -0.07, plateTex(0), 'MASON LAB', BONE.LID1], ['wolchok', 0.06, plateTex(2), 'WOLCHOK + MERGHOUB', BONE.LID2]];
-  for (const [id, x, tx, s, bn] of plates) { begin(id); petri(x, by + 0.0016, 0.575, tx, lidInk(s), bn, false, 0); end(); pick[id] = [[x - 0.05, by, 0.525], [x + 0.05, by + 0.03, 0.625]]; anchor[id] = [x, by + 0.02, 0.575]; }
-  objs.research = { parts: ['barstow', 'mason', 'wolchok'] }; pick.research = [[-0.25, by, 0.525], [0.11, by + 0.03, 0.625]]; anchor.research = [-0.07, by + 0.012, 0.632];
+  const plates = [['barstow', -0.37, heroPlates[0], 'BARSTOW LAB', BONE.LID0], ['mason', -0.07, heroPlates[1], 'MASON LAB', BONE.LID1], ['wolchok', 0.23, heroPlates[2], 'WOLCHOK + MERGHOUB', BONE.LID2]];
+  for (const [id, x, tx, s, bn] of plates) { begin(id); petri(x, by + 0.0016, 0.575, tx, lidInk(s), bn, false, 0); end(); pick[id] = [[x - 0.05, by, 0.525], [x + 0.05, by + 0.03, 0.625]]; anchor[id] = [x, by + 0.02, 0.527]; }
+  objs.research = { parts: ['barstow', 'mason', 'wolchok'] }; pick.research = [[-0.42, by, 0.525], [0.28, by + 0.03, 0.625]]; anchor.research = [-0.07, by + 0.02, 0.528];
   // inoculating loop + marker on the pad
-  { const M = X(T(-0.43, by + 0.006, 0.66), m4.RY(1.3), m4.RZ(-PI / 2)); lat(GO, [[0, 0], [0.0045, 0], [0.0045, 0.11], [0.002, 0.118], [0, 0.118]], M, Mat('#2a2c30', 0.5), 12); lat(GO, [[0, 0.118], [0.0006, 0.118], [0.0006, 0.2], [0, 0.2]], M, mChrome, 6);
+  { const M = X(T(-0.478, by + 0.006, 0.7), m4.RY(1.52), m4.RZ(-PI / 2)); lat(GO, [[0, 0], [0.0045, 0], [0.0045, 0.11], [0.002, 0.118], [0, 0.118]], M, Mat('#2a2c30', 0.5), 12); lat(GO, [[0, 0.118], [0.0006, 0.118], [0.0006, 0.2], [0, 0.2]], M, mChrome, 6);
     const lp = []; for (let i = 0; i <= 12; i++) { const a = i / 12 * TAU; lp.push([0.0025 * Math.sin(a), 0.2025 - 0.0025 * Math.cos(a), 0]); } tube(GO, lp, 0.0005, mChrome, 5, M); }
   const pen = (x, z, ry, body, cap, r = 0.0058, L = 0.125, y = by) => { const M = X(T(x, y + r, z), m4.RY(ry), m4.RZ(-PI / 2));
     lat(GO, [[0, 0], [r * 0.5, 0], [r, 0.012], [r, L * 0.68], [r * 0.9, L * 0.68], [0, L * 0.68]], M, Mat(body, 0.4), 14); lat(GO, [[r * 1.08, L * 0.66], [r * 1.08, L], [r * 0.7, L + 0.003], [0, L + 0.003]], M, Mat(cap, 0.4), 14); box(GO, -0.0012, L * 0.74, r * 1.05, 0.0012, L * 0.98, r * 1.3, Mat(cap, 0.4), 0, M); };
-  pen(-0.37, 0.69, 0.1, '#202226', '#202226', 0.0058, 0.125, by + 0.0016); pen(0.33, 0.54, -0.25, '#c9302c', '#c9302c', 0.005, 0.13, by + 0.0016);
+  pen(-0.37, 0.69, 0.1, '#202226', '#202226', 0.0058, 0.125, by + 0.0016); pen(-0.79, 0.69, 0.2, '#c9302c', '#c9302c', 0.005, 0.13);
   // microtube rack, 96-well plate
-  { const M = X(T(0.375, by + 0.0016, 0.64), m4.RY(0.08)); box(GO, -0.065, 0, -0.03, 0.065, 0.028, 0.03, Mat('#18a79b', 0.45), 0.004, M);
+  { const M = X(T(0.53, by, 0.655), m4.RY(0.08)); box(GO, -0.065, 0, -0.03, 0.065, 0.028, 0.03, Mat('#18a79b', 0.45), 0.004, M);
     const cc = ['#f4f4ef', '#f6d55c', '#f291b2', '#6ec6f0', '#f4f4ef', '#7bd389'];
     for (let i = 0; i < 6; i++) for (let r = 0; r < 2; r++) if ((i + r * 2) % 5) lat(GO, [[0.0048, 0.028], [0.0048, 0.036], [0.0062, 0.036], [0.0062, 0.039], [0, 0.039]], X(M, T(-0.05 + i * 0.02, 0, -0.012 + r * 0.024)), Mat(cc[(i * 2 + r) % 6], 0.5), 10); }
-  { const M = X(T(-0.4, by + 0.0016, 0.42), m4.RY(0.07)), wp = atlas.draw(384, 256, (g, w, h) => { g.fillStyle = '#e7ebec'; g.fillRect(0, 0, w, h); for (let i = 0; i < 12; i++) for (let j = 0; j < 8; j++) { const t = clamp(1 - i / 9 - j * 0.03 + (R() - 0.5) * 0.12); g.fillStyle = `rgb(${236 - t * 18},${228 - t * 62},${214 - t * 170})`; g.beginPath(); g.arc(26 + i * 30.2, 24 + j * 29.8, 11.5, 0, TAU); g.fill(); g.strokeStyle = 'rgba(90,100,110,0.5)'; g.lineWidth = 1.5; g.stroke(); } });
+  { const M = X(T(-0.428, by + 0.0016, 0.366), m4.RY(0.02)), wp = atlas.draw(384, 256, (g, w, h) => { g.fillStyle = '#e7ebec'; g.fillRect(0, 0, w, h); for (let i = 0; i < 12; i++) for (let j = 0; j < 8; j++) { const t = clamp(1 - i / 9 - j * 0.03 + (R() - 0.5) * 0.12); g.fillStyle = `rgb(${236 - t * 18},${228 - t * 62},${214 - t * 170})`; g.beginPath(); g.arc(26 + i * 30.2, 24 + j * 29.8, 11.5, 0, TAU); g.fill(); g.strokeStyle = 'rgba(90,100,110,0.5)'; g.lineWidth = 1.5; g.stroke(); } });
     box(GG, -0.064, 0, -0.043, 0.064, 0.0145, 0.043, gPlastic, 0.002, M); hq(GO, 0, 0.0105, 0, 0.122, 0.08, 0, Mat('#ffffff', 0.35, { k: K.TEX }), wp, M); }
   // culture tubes (skills)
   { const cx = 0.19, cz = 0.22, M = T(cx, by, cz), rk = Mat('#f1f0ea', 0.5); begin('skills');
@@ -451,12 +456,12 @@ function buildScene(atlas) {
   hq(GO, -NB.W / 2 - 0.0015, NB.yL + 0.0003, 0, NB.W - 0.003, NB.D, 0, mPage, pg.A, NM); hq(GO, NB.W / 2 + 0.0015, NB.yR + 0.0003, 0, NB.W - 0.003, NB.D, 0, mPage, pg.TR, NM);
   box(GO, -0.004, 0.0035, NB.D / 2 - 0.002, 0.004, 0.0045, NB.D / 2 + 0.034, Mat('#b3261e', 0.7), 0, NM);
   end(); pick.teaching = [[NB.x - 0.23, by, NB.z - 0.16], [NB.x + 0.23, by + 0.04, NB.z + 0.16]]; anchor.teaching = [NB.x - 0.215, by + 0.02, NB.z - 0.11];
-  pen(NB.x + 0.26, NB.z + 0.1, 1.2, '#1f4fa8', '#1f4fa8', 0.0046, 0.14); pen(0.6, 0.66, -0.25, '#202226', '#8d9296'); pen(NB.x - 0.13, NB.z + 0.19, 0.12, '#f2d21c', '#f2d21c', 0.0066, 0.11);
+  pen(NB.x + 0.26, NB.z + 0.1, 1.2, '#1f4fa8', '#1f4fa8', 0.0046, 0.14); pen(0.67, 0.685, 0.06, '#202226', '#8d9296'); pen(NB.x - 0.13, NB.z + 0.19, 0.12, '#f2d21c', '#f2d21c', 0.0066, 0.11);
 
   // ---- floor-standing items ------------------------------------------------------------------
-  { const M = T(-1.71, 0, 0.2); lat(GO, [[0, 0], [0.105, 0], [0.115, 0.012], [0.115, 1.22], [0.105, 1.3], [0.07, 1.37], [0.036, 1.4], [0.036, 1.43], [0.05, 1.435], [0.05, 1.5], [0.03, 1.54], [0, 1.54]], M, Mat('#58705f', 0.4, { m: 0.35 }), 40);
+  { const M = T(-1.71, 0, 0.2); lat(GO, [[0, 0], [0.105, 0], [0.115, 0.012], [0.115, 1.22], [0.105, 1.3], [0.07, 1.37], [0.036, 1.4], [0.036, 1.43], [0.05, 1.435], [0.05, 1.5], [0.03, 1.54], [0, 1.54]], M, Mat('#667a6f', 0.5), 40);
     box(GO, -0.14, 0.95, -0.2, 0.14, 0.98, -0.17, mDarkMetal, 0, M); const ch = [[-0.13, 0.965, -0.18]]; for (let i = 0; i <= 20; i++) { const a = PI - i / 20 * PI; ch.push([0.122 * Math.cos(a), 0.965, 0.122 * Math.sin(a)]); } ch.push([0.13, 0.965, -0.18]); tube(GO, ch, 0.006, mSteel, 6, M);
-    GO.add(arcPrim(0.1156, 0.1156, 0.8, 0.2, 0.98, 1.3, 16), M, mTex, printLbl(['NITROGEN', 'compressed gas', 'N2'], '#f4f1e8', '#1f2d27', 380, 250, '#2f9a61')); }
+    GO.add(arcPrim(0.1156, 0.1156, 1.13, 0.17, 0.98, 1.2, 16), M, mTex, printLbl(['NITROGEN', 'compressed gas', 'N2'], '#f4f1e8', '#1f2d27', 380, 250, '#2f9a61')); }
   { const M = T(1.72, 0, 0.3); box(GO, -0.19, 0, -0.16, 0.19, 0.56, 0.16, Mat('#c8261f', 0.5), 0.012, M); box(GO, -0.2, 0.56, -0.17, 0.2, 0.6, 0.17, Mat('#ecebe6', 0.5), 0.01, M); vq(GO, 0, 0.3, 0.1605, 0.2, 0.2, mTex, biohaz('#c8261f', '#161616'), M); }
   // wall clock
   const CLOCK = [-1.71, 1.9, 0.0];

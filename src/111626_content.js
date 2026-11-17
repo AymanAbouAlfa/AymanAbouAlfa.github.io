@@ -80,7 +80,7 @@ const SEC = {
         'Led physics recitations on introductory mechanics and electromagnetism for biology students']),
   },
   publications: {
-    t: 'Publications', c: '#f0726a', side: 'r',
+    t: 'Publications', c: '#f0726a', side: 'l',
     html: `<p class="cite">Lee JW, Jin X, Bogdan S, <b>Abou-Alfa A</b>, Chang J, Rafizadeh M, Kang EC, Garcia C, Zhou XK, Saxena A. 2026.
       <b>Comprehensive clinical characteristics and outcomes of stage IV EGFR-mutant NSCLC based on PD-L1 expression.</b>
       <i>Cancer Treatment and Research Communications.</i></p><p class="links">${A('doi', 'Read the article (DOI)')}${A('pubmed', 'PubMed')}</p>`,
@@ -94,6 +94,7 @@ const SEC = {
     t: 'Acknowledgments', c: '#5fd0c0', side: 'l',
     html: `<h3>Inspiration</h3><p>The idea of a small 3D scene that doubles as the site’s menu comes from ${A('jesse', 'Jesse Zhou’s ramen-shop portfolio')}. Nothing from it is reused here; everything was written from scratch.</p>
       <h3>How Claude was used</h3><p>This site was built in ${A('claude', 'Claude Code')} with <b>Claude Fable 5.2</b> (model ID <code>claude-fable-5-2</code>), from my brief and résumé. Claude wrote the WebGL2 renderer (no 3D library), modelled every object in code, and wrote the shaders and interface.</p>
+      <p>Renders of each build were reviewed by a separate Claude subagent (Claude Sonnet 5.5) that was shown only the images, and frame times were measured with GPU timer queries in Firefox.</p>
       <p>Concept, scene direction and content: Ayman Abou-Alfa. ${A('repo', 'Source on GitHub')}</p>`,
   },
 };

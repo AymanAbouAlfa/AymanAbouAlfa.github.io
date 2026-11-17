@@ -46,7 +46,8 @@ def shot(name):
 
 
 def load():
-    d.get((ROOT / "index.html").as_uri() + "?manual")
+    import os
+    d.get((ROOT / "index.html").as_uri() + "?manual" + os.environ.get("EXTRA_PARAMS", ""))
     for _ in range(300):
         r = js("return window.__lab ? {ready: window.__lab.ready, errors: window.__lab.errors} : null")
         if r and (r["ready"] or r["errors"]):
