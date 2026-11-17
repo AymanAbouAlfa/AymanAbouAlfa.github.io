@@ -100,9 +100,12 @@ try:
         elif plan == "intro":
             shot("30_intro_loader")
             js("window.__lab.start()")
-            for i, ms in enumerate([0, 600, 1200, 1800, 2400, 3000, 3800, 4600]):
-                step(ms - ([0, 0, 600, 1200, 1800, 2400, 3000, 3800][i]) if i else 16.7)
+            prev = 0
+            for ms in [100, 700, 1300, 1900, 2500, 3100, 3800, 4600]:
+                step(ms - prev)
+                prev = ms
                 shot(f"31_intro_{ms:04d}ms")
+            home()
         elif plan == "transitions":
             enter()
             for v, times in [("education", [300, 700, 1100, 1500]), ("teaching", [400, 800, 1200, 1600, 2000, 2600]), ("publications", [300, 700, 1100, 1700]), ("research", [500, 1000])]:
@@ -121,5 +124,15 @@ try:
                         shot(f"41_barstow_{t:04d}ms")
                 step(1500)
                 home()
+    # contact sheets (2x2 frames, each 1280x720) for the animation sequences
+    for prefix in ("31_intro", "40_education", "40_teaching", "40_publications", "4x_research"):
+        pats = ["40_research", "41_barstow"] if prefix == "4x_research" else [prefix]
+        fs = sorted(f for q in pats for f in OUT.glob(q + "*ms.png"))
+        for k in range(0, len(fs), 4):
+            sheet = Image.new("RGB", (2560, 1440), (0, 0, 0))
+            for i, f in enumerate(fs[k:k + 4]):
+                sheet.paste(Image.open(f).convert("RGB").resize((1280, 720), Image.LANCZOS), ((i % 2) * 1280, (i // 2) * 720))
+            sheet.save(OUT / f"sheet_{prefix}_{k // 4 + 1}.png")
+            print("sheet", prefix, k // 4 + 1, [f.name for f in fs[k:k + 4]])
 finally:
     d.quit()

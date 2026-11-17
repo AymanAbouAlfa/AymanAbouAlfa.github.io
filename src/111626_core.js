@@ -359,7 +359,7 @@ function mkProg(gl, vs, fs, name) {
   gl.linkProgram(p);
   if (!gl.getProgramParameter(p, gl.LINK_STATUS)) glErr.push(name + ' link: ' + gl.getProgramInfoLog(p));
   const u = {}, nu = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS) || 0;
-  for (let i = 0; i < nu; i++) { const inf = gl.getActiveUniform(p, i); if (inf) { const nm = inf.name.replace(/\[0\]$/, ''); u[nm] = gl.getUniformLocation(p, nm); } }
+  for (let i = 0; i < nu; i++) { const inf = gl.getActiveUniform(p, i); if (inf) { const nm = inf.name.endsWith('[0]') ? inf.name.slice(0, -3) : inf.name; u[nm] = gl.getUniformLocation(p, nm); } }
   const bi = gl.getUniformBlockIndex(p, 'Frame');
   if (bi !== gl.INVALID_INDEX && bi !== -1) gl.uniformBlockBinding(p, bi, 0);
   return { p, u };

@@ -7,13 +7,13 @@ const L = {
   physics: 'https://physics.cornell.edu/',
   rcprs: 'https://scl.cornell.edu/growth-opportunities/rawlings-cornell-presidential-research-scholars',
   scholar: 'https://as.cornell.edu/major_minor_gradfield/robert-s-harrison-college-scholar-program',
-  oib: 'https://international.collegeboard.org/students/issp/oib',
+  oib: 'https://international.collegeboard.org/students/issp/bfi',
   barstow: 'https://barstow.bee.cornell.edu/',
   mason: 'https://www.masonlab.net/',
   ludwig: 'https://www.ludwigcancerresearch.org/location/new-yorkweill-cornell/',
   meyer: 'https://meyercancer.weill.cornell.edu/',
   bowers: 'https://bowers.cornell.edu/',
-  morrison: 'https://scl.cornell.edu/residential-life/housing/campus-housing/first-year-undergraduates/residence-halls/toni-morrison-hall',
+  morrison: 'https://scl.cornell.edu/residential-life/housing/campus-housing/upper-level-undergraduates/residence-halls/toni-morrison-hall',
   pla: 'https://physics.cornell.edu/learning-assistant-program',
   doi: 'https://doi.org/10.1016/j.ctarc.2026.101109',
   pubmed: 'https://pubmed.ncbi.nlm.nih.gov/41576524/',
@@ -41,7 +41,7 @@ const SEC = {
       <li><b>Option International du Baccalauréat</b><span>Admis Mention Très Bien avec les Félicitations du Jury · ${A('oib', 'About the OIB')}</span></li>
       <li><b>Board of Trustees Award</b><span>Class of 2023</span></li></ul>`,
   },
-  research: { t: 'Research', c: '#7bd389', group: ['barstow', 'mason', 'wolchok'], hint: 'Three plates, three labs. Click a plate.' },
+  research: { t: 'Research', c: '#7bd389', group: ['barstow', 'mason', 'wolchok'], hint: 'Three labs, three plates. Click one.' },
   barstow: {
     t: 'Barstow Lab', h: 'Research · Biological Engineering', c: '#7bd389', side: 'r', parent: 'research',
     html: role('Biological Engineering Research Assistant', 'May 2025 – Present', 'Professor Buz Barstow, Cornell, New York, NY', [
@@ -69,7 +69,7 @@ const SEC = {
       <div class="vial" style="--v:#e2752b"><h3>Languages</h3><p>English (native) · French (native) · Mandarin (intermediate)</p></div>`,
   },
   teaching: {
-    t: 'Teaching', c: '#f291b2', notebook: true,
+    t: 'Teaching', c: '#f08fd0', notebook: true,
     left: role('Computer Science Teaching Assistant', 'August 2025 – Present', `${A('bowers', 'Bowers College of Computing and Information Science')}, Cornell University, Ithaca, NY`, [
       'Lead computer science recitations on data structures and object-oriented programming',
       'Host weekly office hours, grade assignments, and moderate discussion board']),
@@ -80,20 +80,20 @@ const SEC = {
         'Led physics recitations on introductory mechanics and electromagnetism for biology students']),
   },
   publications: {
-    t: 'Publications', c: '#f1ead8', side: 'r',
+    t: 'Publications', c: '#f0726a', side: 'r',
     html: `<p class="cite">Lee JW, Jin X, Bogdan S, <b>Abou-Alfa A</b>, Chang J, Rafizadeh M, Kang EC, Garcia C, Zhou XK, Saxena A. 2026.
       <b>Comprehensive clinical characteristics and outcomes of stage IV EGFR-mutant NSCLC based on PD-L1 expression.</b>
       <i>Cancer Treatment and Research Communications.</i></p><p class="links">${A('doi', 'Read the article (DOI)')}${A('pubmed', 'PubMed')}</p>`,
   },
   contact: {
-    t: 'Contact', c: '#b9a7f0', side: 'l',
+    t: 'Contact', c: '#a594f7', side: 'l',
     html: `<h2>Ayman Abou-Alfa</h2><p class="where">Physics &amp; Biophysics · Cornell University</p>
       <dl><dt>Email</dt><dd><a href="mailto:aga56@cornell.edu">aga56@cornell.edu</a></dd><dt>Based in</dt><dd>New York, NY · Ithaca, NY</dd><dt>Code</dt><dd>${A('github', 'github.com/AymanAbouAlfa')}</dd></dl>`,
   },
   ack: {
     t: 'Acknowledgments', c: '#5fd0c0', side: 'l',
-    html: `<h3>Inspiration</h3><p>The idea of a small 3D scene that doubles as the site’s menu comes from ${A('jesse', 'Jesse Zhou’s ramen-shop portfolio')}. Nothing from it is reused here: the bench, the glassware and the shaders were written from scratch.</p>
-      <h3>How Claude was used</h3><p>This site was built in ${A('claude', 'Claude Code')} with <b>Claude Fable 5.2</b> (model ID <code>claude-fable-5-2</code>), working from my brief and résumé. Claude wrote the WebGL2 renderer without any 3D library, modelled every object procedurally in code, and wrote the shaders, the interface and this page.</p>
+    html: `<h3>Inspiration</h3><p>The idea of a small 3D scene that doubles as the site’s menu comes from ${A('jesse', 'Jesse Zhou’s ramen-shop portfolio')}. Nothing from it is reused here; everything was written from scratch.</p>
+      <h3>How Claude was used</h3><p>This site was built in ${A('claude', 'Claude Code')} with <b>Claude Fable 5.2</b> (model ID <code>claude-fable-5-2</code>), from my brief and résumé. Claude wrote the WebGL2 renderer (no 3D library), modelled every object in code, and wrote the shaders and interface.</p>
       <p>Concept, scene direction and content: Ayman Abou-Alfa. ${A('repo', 'Source on GitHub')}</p>`,
   },
 };
